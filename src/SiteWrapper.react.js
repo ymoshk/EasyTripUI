@@ -94,7 +94,7 @@ const navBarItems: Array<navItem> = [
             {value: "400 error", to: "/400", LinkComponent: withRouter(NavLink)},
             {value: "401 error", to: "/401", LinkComponent: withRouter(NavLink)},
             {value: "403 error", to: "/403", LinkComponent: withRouter(NavLink)},
-            {value: "404 error", to: "/404", LinkComponent: withRouter(NavLink)},
+            {value: "404;lk;lk;lk error", to: "/404", LinkComponent: withRouter(NavLink)},
             {value: "500 error", to: "/500", LinkComponent: withRouter(NavLink)},
             {value: "503 error", to: "/503", LinkComponent: withRouter(NavLink)},
             {value: "Email", to: "/email", LinkComponent: withRouter(NavLink)},
