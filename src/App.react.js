@@ -9,6 +9,9 @@ import QuestionCard from "./components/questions/QuestionCard";
 import HomePage from "./HomePage.react";
 
 import "tabler-react/dist/Tabler.css";
+import SingleTag from "./components/tags/SingleTag";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import SaharTest from "./Sahar Tests/SaharTest";
 
 
 function App(props) {
@@ -19,6 +22,7 @@ function App(props) {
                     <Route exact path="/" component={HomePage}/>
                     <Route exact path="/404" component={Error404}/>
                     <Route exact path="/test" component={QuestionCard}/>
+                    <Route exact path="/SaharTest" component={SaharTest}/>
                     <Route component={Error404}/>
                 </Switch>
             </Router>

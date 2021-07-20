@@ -29,9 +29,6 @@ import PassengersCount from "./pages/PassengersCount";
 function Home() {
   return (
     <SiteWrapper>
-    <PassengersCount>
-
-    </PassengersCount>
     </SiteWrapper>
   );
 }
