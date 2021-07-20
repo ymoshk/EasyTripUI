@@ -24,7 +24,8 @@ import {
 import C3Chart from "react-c3js";
 
 import SiteWrapper from "./SiteWrapper.react";
-import PassengersCount from "./pages/PassengersCount";
+// import PassengersCount from "./components/questions/PassengersCount";
+import QuestionCard from "./components/questions/QuestionCard";
 
 function Home() {
   return (
