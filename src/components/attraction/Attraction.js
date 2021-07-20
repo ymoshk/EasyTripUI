@@ -17,7 +17,7 @@ const Attraction = (props) => {
     return <Card>
         <Card.Body>
             <Row>
-                <Col md={{span: 1, offset: 0}} xs={{span: 1, offset: 0}}>
+                <Col md={{span: 1, offset: 0}} xs={{span: 3, offset: 0}}>
                     <Row>
                         <b>{props.startTime}</b>
                     </Row>
@@ -25,19 +25,19 @@ const Attraction = (props) => {
                         <b>{props.endTime}</b>
                     </Row>
                 </Col>
-                <Col md={{span: 11, offset: 0}} xs={{span: 10, offset: 1}}>
+                <Col md={{span: 11, offset: 0}} xs={{span: 9, offset: 0}}>
                     <Card.Title>{props.name}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{props.type}</Card.Subtitle>
                     <Card.Text>
-                        <div style={{paddingLeft: 10}}>
+                        <div>
                             <Row>
                                 <Col md={{span: 3, offset: 0}} xs={{span: 5, offset: 0}}>
                                     <Row><b>Rating</b> </Row>
-                                    <Row>{props.rating}/5</Row>
+                                    <Row><i>{props.rating}/5</i></Row>
                                     <Row><b>User total rating </b></Row>
-                                    <Row>{props.userTotalRating}</Row>
+                                    <Row><i>{props.userTotalRating}</i></Row>
                                     <Row><b>Price Range </b></Row>
-                                    <Row><span style={{color: 'green'}}>{priceLevel}</span></Row>
+                                    <Row><i style={{color: 'green'}}>{priceLevel}</i></Row>
 
                                 </Col>
                                 <Col md={{span: 9, offset: 0}} xs={{span: 7, offset: 0}}>
