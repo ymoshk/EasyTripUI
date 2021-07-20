@@ -24,11 +24,14 @@ import {
 import C3Chart from "react-c3js";
 
 import SiteWrapper from "./SiteWrapper.react";
+import PassengersCount from "./pages/PassengersCount";
 
 function Home() {
   return (
     <SiteWrapper>
+    <PassengersCount>
 
+    </PassengersCount>
     </SiteWrapper>
   );
 }
