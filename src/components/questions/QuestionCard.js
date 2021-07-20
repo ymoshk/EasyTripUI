@@ -1,6 +1,7 @@
 import React from 'react';
-import {Button, Card} from "tabler-react";
+import {Card} from "tabler-react";
 import CountrySelection from "./CountrySelection"
+import Footer from "./Footer";
 
 function QuestionCard(props) {
 
@@ -21,7 +22,9 @@ function QuestionCard(props) {
             <Card.Body>
                 {current.content}
             </Card.Body>
-            <Card.Footer>This is standard card footer</Card.Footer>
+            <Card.Footer>
+                <Footer/>
+            </Card.Footer>
         </Card>
     );
 }
