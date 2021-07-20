@@ -1,9 +1,18 @@
 import React from 'react';
 
 import {Card, Image, Col, Row} from 'react-bootstrap';
+import CollapsibleDiv from "../CollapsibleDiv";
+import OpenHours from "./OpenHours";
 
 const Attraction = (props) => {
     let priceLevel = '$'.repeat(props.priceRange + 1);
+
+    let imageComponent;
+    if (props.image.height > props.image.width) {
+        imageComponent = <Image src={props.image.url} rounded width={100}/>;
+    } else {
+        imageComponent = <Image src={props.image.url} rounded height={100}/>;
+    }
 
     return <Card>
         <Card.Body>
@@ -22,23 +31,36 @@ const Attraction = (props) => {
                     <Card.Text>
                         <div style={{paddingLeft: 10}}>
                             <Row>
-                                <Col md={{span: 4, offset: 0}} xs={{span: 6, offset: 0}}>
-                                    <Row><p><b>Rating</b> {props.rating}/5</p></Row>
-                                    <Row><p><b>User total rating </b>{props.userTotalRating}</p></Row>
-                                    <Row><p><b>Price Range </b><span style={{color: 'green'}}>{priceLevel}</span></p>
-                                    </Row>
+                                <Col md={{span: 3, offset: 0}} xs={{span: 5, offset: 0}}>
+                                    <Row><b>Rating</b> </Row>
+                                    <Row>{props.rating}/5</Row>
+                                    <Row><b>User total rating </b></Row>
+                                    <Row>{props.userTotalRating}</Row>
+                                    <Row><b>Price Range </b></Row>
+                                    <Row><span style={{color: 'green'}}>{priceLevel}</span></Row>
+
                                 </Col>
-                                <Col md={{span: 8, offset: 0}} xs={{span: 6, offset: 0}}>
-                                    <Image src={props.image} rounded width={100}/>
+                                <Col md={{span: 9, offset: 0}} xs={{span: 7, offset: 0}}>
+                                    {imageComponent}
                                 </Col>
                             </Row>
                         </div>
                     </Card.Text>
-                    {props.closedTemporarily && <p><b style={{color: 'red'}}>Temporarily closed</b></p>}
-                    {!props.closedTemporarily && <p><b style={{color: 'green'}}>Operational</b></p>}
                 </Col>
             </Row>
         </Card.Body>
+        <Card.Footer>
+            <small className="text-muted">
+                {props.closedTemporarily && <b style={{color: 'red'}}>Temporarily closed</b>}
+                {!props.closedTemporarily && <b style={{color: 'green'}}>Operational</b>}
+            </small>
+
+            {!props.closedTemporarily && <span style={{paddingLeft: 10}}>
+                <CollapsibleDiv buttonName='Opening Hours'>
+                    <OpenHours hours={props.hours}/>
+                </CollapsibleDiv>
+            </span>}
+        </Card.Footer>
     </Card>
 }
 
