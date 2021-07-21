@@ -34,10 +34,10 @@ function PassengersCount(props){
     return(
         <div>
             <Row>
-                <Col md={{span: 3, offset: 0}} xs={{span: 3, offset: 0}}>
+                <Col md={{span: 3, offset: 0}} xs={{span: 3, offset: 0}} style={{width:258}}>
                     <InputGroup size="lg">
-                        <Button size="lg" onClick={descentAdult} variant="outline-secondary">-</Button>
                         <InputGroup.Text id="inputGroup-sizing-lg">Adults</InputGroup.Text>
+                        <Button size="lg" onClick={descentAdult} variant="outline-secondary">-</Button>
                         <FormControl placeholder={adultCount} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
                         <Button size="lg" onClick={addAdult} variant="outline-secondary">+</Button>
                     </InputGroup>
@@ -45,11 +45,11 @@ function PassengersCount(props){
             </Row>
             <br/>
             <Row>
-                <Col md={{span: 3, offset: 0}} xs={{span: 3, offset: 0}}>
+                <Col md={{span: 3, offset: 0}} xs={{span: 3, offset: 0}} style={{width:276}}>
                     <InputGroup size="lg">
-                        <Button size="lg" onClick={descentChildren} variant="outline-secondary">-</Button>
                         <InputGroup.Text id="inputGroup-sizing-lg">Children</InputGroup.Text>
-                        <FormControl htmlSize={10} placeholder={childrenCount} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
+                        <Button size="lg" onClick={descentChildren} variant="outline-secondary">-</Button>
+                        <FormControl placeholder={childrenCount} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
                         <Button size="lg" onClick={addChildren} variant="outline-secondary">+</Button>
                     </InputGroup>
                 </Col>
