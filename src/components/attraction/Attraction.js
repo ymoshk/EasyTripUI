@@ -34,7 +34,7 @@ const Attraction = (props) => {
                                 <Col md={{span: 3, offset: 0}} xs={{span: 5, offset: 0}}>
                                     <Row><b>Rating</b> </Row>
                                     <Row><i>{props.rating}/5</i></Row>
-                                    <Row><b>User total rating </b></Row>
+                                    <Row><b>Raters No. </b></Row>
                                     <Row><i>{props.userTotalRating}</i></Row>
                                     <Row><b>Price Range </b></Row>
                                     <Row><i style={{color: 'green'}}>{priceLevel}</i></Row>
