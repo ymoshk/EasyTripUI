@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import {Form, Button, Row, Col, InputGroup, FormControl, Card, ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Form, Button, InputGroup, FormControl, ListGroup} from 'react-bootstrap';
 
-const CITIES_LIST = ['Tel Aviv', 'Jerusalem', 'Berlin', 'Madrid', 'Paris', 'Prage', 'Portugal', 'Rome'];
 
-const AutocompleteTextBox = () => {
+const AutocompleteTextBox = (props) => {
     const [searchBar, setSearchBar] = useState({suggestions: [], text: ""});
     const [isValidSearch, setIsValidSearch] = useState(true);
 
@@ -15,7 +14,7 @@ const AutocompleteTextBox = () => {
 
         if (value.length > 0) {
             const regex = new RegExp(`^${value}`, 'i');
-            suggestions = CITIES_LIST.sort().filter(value => regex.test(value));
+            suggestions = props.suggestionsList.sort().filter(value => regex.test(value));
         }
         setSearchBar({suggestions: suggestions, text: value});
     }
@@ -38,30 +37,32 @@ const AutocompleteTextBox = () => {
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
+        console.log(searchBar.text);
 
-        if(!CITIES_LIST.includes(searchBar.text)){
+        if (!props.suggestionsList.includes(searchBar.text)) {
             setIsValidSearch(false);
+            return;
         }
+
+        setSearchBar({suggestions: [], text: ""});
     }
 
     return <React.Fragment>
         <InputGroup className="mb-3">
             <FormControl
-                placeholder="Where would you like to go?"
-                aria-label="Recipient's username"
+                placeholder={props.placeHolder}
+                aria-label={props.ariaLabel}
                 aria-describedby="basic-addon2"
                 value={searchBar.text} onChange={onChangeHandler}
             />
             <Button variant="outline-primary" id="button-addon2" onClick={onSubmitHandler}>
-                Start Your Trip
+                {props.buttonLabel}
             </Button>
         </InputGroup>
         {!isValidSearch &&
-        <Form.Label htmlFor="basic-url" style={{color: 'red'}}>Could not find <b>{searchBar.text}</b> please enter a city,
-            region, or country </Form.Label>}
+        <Form.Label htmlFor="basic-url" style={{color: 'red'}}>{props.errorMessage} </Form.Label>}
 
         {renderSuggestions()}
-
     </React.Fragment>
 }
 
