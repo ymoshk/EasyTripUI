@@ -4,11 +4,11 @@ import {
     Error404
 } from "./pages";
 
-import QuestionCard from "./components/questions/QuestionCard";
 
 import HomePage from "./HomePage.react";
 
 import "tabler-react/dist/Tabler.css";
+import StepsCard from "./components/questions/StepsCard";
 
 
 function App(props) {
@@ -18,7 +18,7 @@ function App(props) {
                 <Switch>
                     <Route exact path="/" component={HomePage}/>
                     <Route exact path="/404" component={Error404}/>
-                    <Route exact path="/test" component={QuestionCard}/>
+                    <Route exact path="/test" component={StepsCard}/>
                     <Route component={Error404}/>
                 </Switch>
             </Router>
