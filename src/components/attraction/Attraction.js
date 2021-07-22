@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Card, Image, Col, Row} from 'react-bootstrap';
-import CollapsibleDiv from "../CollapsibleDiv";
+import CollapsibleDiv from "../utils/CollapsibleDiv";
 import OpenHours from "./OpenHours";
 
 const Attraction = (props) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import AutocompleteTextBox from "./AutocompleteTextBox";
+import AutocompleteTextBox from "./utils/AutocompleteTextBox";
 
 const CITIES_LIST = ['Tel Aviv', 'Jerusalem', 'Berlin', 'Madrid', 'Paris', 'Prage', 'Portugal', 'Rome'];
 

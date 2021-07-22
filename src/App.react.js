@@ -7,14 +7,12 @@ import {
 
 import HomePage from "./HomePage.react";
 
-import "tabler-react/dist/Tabler.css";
 import AttractionList from "./components/attraction/AttractionList";
-import SingleTag from "./components/tags/SingleTag";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import SaharTest from "./Sahar Tests/SaharTest";
 import SearchDestination from "./components/SearchDestination";
 import StepsCard from "./components/questions/StepsCard";
 import BarTest from "./BarTests/BarTest";
+import "tabler-react/dist/Tabler.css";
 
 
 function App(props) {
@@ -25,7 +23,6 @@ function App(props) {
                     <Route exact path="/" component={HomePage}/>
                     <Route exact path="/404" component={Error404}/>
                     <Route exact path="/test" component={StepsCard}/>
-                    {/*<Route exact path="/test" component={QuestionCard}/>*/}
                     <Route exact path="/attraction" component={AttractionList}/>
                     <Route exact path="/search" component={SearchDestination}/>
                     <Route exact path="/SaharTest" component={SaharTest}/>
