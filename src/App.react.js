@@ -12,7 +12,6 @@ import SaharTest from "./Sahar Tests/SaharTest";
 import SearchDestination from "./components/SearchDestination";
 import StepsCard from "./components/questions/StepsCard";
 import PassengersCount from "./components/questions/PassengersCount";
-import "tabler-react/dist/Tabler.css";
 
 import "tabler-react/dist/Tabler.css";
 

@@ -8,7 +8,8 @@ const SearchDestination = () => {
     placeHolder={"Where would you like to go?"}
     ariaLabel={"Destination"}
     buttonLabel={"Start Your Trip"}
-    errorMessage={"Could not find the destination, please enter city, region or country"}/>;
+    errorMessage={"Could not find the destination, please enter city, region or country"}
+    size={"lg"}/>;
 }
 
 export default SearchDestination;

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Form, Button, InputGroup, FormControl, ListGroup} from 'react-bootstrap';
+import {Form, Button, InputGroup, FormControl, ListGroup, Col, Row} from 'react-bootstrap';
 
 
 const AutocompleteTextBox = (props) => {
@@ -48,21 +48,30 @@ const AutocompleteTextBox = (props) => {
     }
 
     return <React.Fragment>
-        <InputGroup className="mb-3">
-            <FormControl
-                placeholder={props.placeHolder}
-                aria-label={props.ariaLabel}
-                aria-describedby="basic-addon2"
-                value={searchBar.text} onChange={onChangeHandler}
-            />
-            <Button variant="outline-primary" id="button-addon2" onClick={onSubmitHandler}>
-                {props.buttonLabel}
-            </Button>
-        </InputGroup>
-        {!isValidSearch &&
-        <Form.Label htmlFor="basic-url" style={{color: 'red'}}>{props.errorMessage} </Form.Label>}
-
-        {renderSuggestions()}
+        <Row>
+            <Col md={8} xs={12}>
+                <InputGroup className="mb-3" size={props.size}>
+                    <FormControl
+                        placeholder={props.placeHolder}
+                        aria-label={props.ariaLabel}
+                        aria-describedby="basic-addon2"
+                        value={searchBar.text} onChange={onChangeHandler}
+                    />
+                </InputGroup>
+            </Col>
+            <Col md={4} xs={12}>
+                <Button variant="primary" id="button-addon2" size={props.size} onClick={onSubmitHandler}>
+                    {props.buttonLabel}
+                </Button>
+            </Col>
+        </Row>
+        <Row>
+            <Col md={8} xs={12}>
+                {!isValidSearch &&
+                <Form.Label htmlFor="basic-url" style={{color: 'red'}}>{props.errorMessage} </Form.Label>}
+                {renderSuggestions()}
+            </Col>
+        </Row>
     </React.Fragment>
 }
 
