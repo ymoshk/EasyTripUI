@@ -63,11 +63,9 @@ const StepsCard = () => {
     const [finishButton, setFinishButton] = useState(getStage() === stagesList.length - 1);
 
 
-
     const setStage = (stage) => {
         localStorage.setItem(SESSION_STEP_CARD_MEM, stage);
     }
-
 
 
     const stagesCount = stagesList.length - 1;
@@ -103,6 +101,7 @@ const StepsCard = () => {
 
     const finish = () => {
         if (getStage() === stagesCount && checkValidation(getStage())) {
+            localStorage.setItem(SESSION_STEP_CARD_MEM, 0)
             alert("finish");
         }
     }
