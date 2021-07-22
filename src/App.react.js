@@ -11,9 +11,10 @@ import AttractionList from "./components/attraction/AttractionList";
 import SaharTest from "./Sahar Tests/SaharTest";
 import SearchDestination from "./components/SearchDestination";
 import StepsCard from "./components/questions/StepsCard";
-import BarTest from "./BarTests/BarTest";
+import PassengersCount from "./components/questions/PassengersCount";
 import "tabler-react/dist/Tabler.css";
 
+import "tabler-react/dist/Tabler.css";
 
 function App(props) {
     return (
@@ -26,7 +27,8 @@ function App(props) {
                     <Route exact path="/attraction" component={AttractionList}/>
                     <Route exact path="/search" component={SearchDestination}/>
                     <Route exact path="/SaharTest" component={SaharTest}/>
-                    <Route exact path="/BarTest" component={BarTest}/>
+                    <Route exact path="/PassengerCount" component={PassengersCount}/>
+
                     <Route component={Error404}/>
                 </Switch>
             </Router>

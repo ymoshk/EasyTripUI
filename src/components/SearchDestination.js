@@ -3,7 +3,6 @@ import AutocompleteTextBox from "./utils/AutocompleteTextBox";
 
 const CITIES_LIST = ['Tel Aviv', 'Jerusalem', 'Berlin', 'Madrid', 'Paris', 'Prage', 'Portugal', 'Rome'];
 
-
 const SearchDestination = () => {
     return <AutocompleteTextBox suggestionsList={CITIES_LIST}
     placeHolder={"Where would you like to go?"}

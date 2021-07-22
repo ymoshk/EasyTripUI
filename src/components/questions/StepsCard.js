@@ -3,7 +3,7 @@ import {Card} from "tabler-react";
 import {Alert, Button, Col, ProgressBar, Row} from "react-bootstrap";
 import styles from "./Fotter.module.css";
 import DummyContent from "./dummyContent";
-import configData from "./config.json";
+//import configData from "./config.json";
 
 const SESSION_STEP_CARD_MEM = "steps_card_memory";
 
@@ -19,7 +19,7 @@ const StepsCard = () => {
 
     const [stagesList, setStageList] = useState([
         {
-            header: configData.SERVER_URL,
+            header: "",
             content:
                 <DummyContent
                     text={0}
