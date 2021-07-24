@@ -16,7 +16,11 @@ const StepsCounter = (props) => {
     }
 
     const onChangeHandler = (event) => {
-        const value = Number(event.target.value);
+        const value = parseInt(event.target.value, 10);
+
+        if(isNaN(value)){
+            return;
+        }
 
         if(value > props.maxVal || value < props.minVal){
             return;
