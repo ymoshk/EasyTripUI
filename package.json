@@ -9,6 +9,7 @@
     "d3-scale": "^3.0.0",
     "dotenv": "^10.0.0",
     "formik": "^1.0.2",
+    "google-map-react": "^2.1.10",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-bootstrap": "^1.6.1",

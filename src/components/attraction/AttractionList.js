@@ -1,11 +1,13 @@
 import React from 'react';
 import EiffelTour from "../../images/EiffelTour.jpg";
-import Beach from "../../images/beach.jpg";
+import louvre from "../../images/louvre.jpg";
+import nortedame from "../../images/nortedame.jpg";
 
 import Attraction from "./Attraction";
 
 const DUMMY_ATTRACTIONS = [{
     name: "Eiffel Tower",
+    id: 1,
     type: "Must See",
     rating: 4.5,
     userTotalRating: 358,
@@ -22,14 +24,17 @@ const DUMMY_ATTRACTIONS = [{
         thursday: '9am-6pm',
         friday: '9am-6pm',
         saturday: 'Closed'
-    }
+    },
+    lat: 48.8584,
+    lng: 2.2945
 },
     {
-        name: "Empire State Building",
+        name: "Louvre",
+        id: 2,
         type: "Art",
         rating: 3.5,
         userTotalRating: 123,
-        image: {url: Beach, height: 283, width: 425},
+        image: {url: louvre, height: 780, width: 1280},
         closedTemporarily: true,
         priceRange: 1,
         startTime: '12:00',
@@ -42,14 +47,17 @@ const DUMMY_ATTRACTIONS = [{
             thursday: '9am-6pm',
             friday: '9am-6pm',
             saturday: 'Closed'
-        }
+        },
+        lat: 48.8606,
+        lng: 2.3376
     },
     {
-        name: "Louvree",
+        name: "notre dame",
+        id: 3,
         type: "Art",
         rating: 3.5,
         userTotalRating: 123,
-        image: {url: Beach, height: 283, width: 425},
+        image: {url: nortedame, height: 868, width: 636},
         closedTemporarily: false,
         priceRange: 1,
         startTime: '12:00',
@@ -62,7 +70,9 @@ const DUMMY_ATTRACTIONS = [{
             thursday: '9am-6pm',
             friday: '9am-6pm',
             saturday: 'Closed'
-        }
+        },
+        lat: 48.8530,
+        lng: 2.3499
     }];
 
 

@@ -6,6 +6,7 @@ import "./AutocompleteTextBox.css";
 const AutocompleteTextBox = (props) => {
     const [searchBar, setSearchBar] = useState({suggestions: [], text: ""});
     const [isValidSearch, setIsValidSearch] = useState(true);
+    const [show, setShow] = useState(false);
 
     const onChangeHandler = (event) => {
         const value = event.target.value;
@@ -50,7 +51,7 @@ const AutocompleteTextBox = (props) => {
 
     return <React.Fragment>
         <Row>
-            <Col md={8} xs={12}>
+            <Col md={10} xs={12}>
                 <InputGroup className="mb-3" size={props.size}>
                     <FormControl
                         placeholder={props.placeHolder}
@@ -60,7 +61,7 @@ const AutocompleteTextBox = (props) => {
                     />
                 </InputGroup>
             </Col>
-            <Col md={4} xs={12}>
+            <Col md={2} xs={12}>
                 <Button variant="primary" id="button-addon2" size={props.size} onClick={onSubmitHandler}>
                     {props.buttonLabel}
                 </Button>
