@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {
     withGoogleMap,
     withScriptjs,
@@ -89,7 +89,7 @@ const findAverage = (coordinates) => {
     return total / coordinates.length;
 }
 
-const MapContent = (props) => {
+const MapContent = () => {
     const lat = findAverage(DUMMY_ATTRACTIONS.map(attraction => attraction.lat));
     const lng = findAverage(DUMMY_ATTRACTIONS.map(attraction => attraction.lng));
     const coordinates = {lat: lat, lng: lng};
@@ -119,7 +119,7 @@ const MapWrapped = withScriptjs(withGoogleMap(MapContent));
 
 const MapWrapper = () => {
     return (
-        <div style={{width: "40vw", height: "100vh"}}>
+        <div style={{width: "100vw", height: "100vh"}}>
             <MapWrapped
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${
                     process.env.REACT_APP_GOOGLE_KEY

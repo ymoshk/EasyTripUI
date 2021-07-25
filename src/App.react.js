@@ -15,7 +15,6 @@ import PassengersCount from "./components/questions/PassengersCount";
 import MapWrapper from "./components/utils/MapWrapper";
 
 import "tabler-react/dist/Tabler.css";
-import Timeline from "./components/Timeline";
 
 function App(props) {
     return (
@@ -25,7 +24,8 @@ function App(props) {
                     <Route exact path="/" component={HomePage}/>
                     <Route exact path="/404" component={Error404}/>
                     <Route exact path="/test" component={StepsCard}/>
-                    <Route exact path="/timeline" component={Timeline}/>
+                    <Route exact path="/attractions" component={AttractionList}/>
+                    <Route exact path="/http" component={SearchDestination}/>
                     <Route exact path="/search" component={SearchDestination}/>
                     <Route exact path="/SaharTest" component={SaharTest}/>
                     <Route exact path="/PassengerCount" component={PassengersCount}/>

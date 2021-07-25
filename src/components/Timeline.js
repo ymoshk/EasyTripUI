@@ -6,10 +6,10 @@ import MapWrapper from "./utils/MapWrapper";
 
 const Timeline = () => {
     return <Row>
-        <Col md={6} xs={12}>
+        <Col md={8} xs={12}>
             <AttractionList />
         </Col>
-        <Col md={6} xs={12}>
+        <Col md={4} xs={12}>
             <MapWrapper />
         </Col>
     </Row>
