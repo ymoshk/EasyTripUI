@@ -19,7 +19,7 @@ const TagsList = (props) => {
         <ButtonGroup>
             {tagsList.map((tag) =>
                 <div style={{marginRight: 10}}>
-                    <SingleTag onChecked={SingleTagChecked} id={i++} title={tag}/>
+                    <SingleTag onChecked={SingleTagChecked} id={i++} src={tag}/>
                 </div>)}
         </ButtonGroup>
     );
