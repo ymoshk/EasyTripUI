@@ -191,7 +191,7 @@ class SiteWrapper extends React.Component<Props, State> {
             <Site.Wrapper
                 headerProps={{
                     href: "/",
-                    alt: "Tabler React",
+                    alt: "Easy Trip",
                     imageURL: "./demo/brand/tabler.svg",
                     notificationsTray: {
                         notificationsObjects,
