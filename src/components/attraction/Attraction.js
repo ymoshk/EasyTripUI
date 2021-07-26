@@ -38,6 +38,8 @@ const Attraction = (props) => {
                                     <Row><span style={{color: 'grey'}}><h5>{props.userTotalRating}</h5></span></Row>
                                     <Row><h4>Price Range </h4></Row>
                                     <Row><h5 style={{color: 'green'}}>{priceLevel}</h5></Row>
+                                    <Row><h4>Address</h4></Row>
+                                    <Row><h6>{props.address}</h6></Row>
                                 </Col>
                                 <Col md={{span: 9, offset: 0}} xs={{span: 6, offset: 0}}>
                                     {imageComponent}

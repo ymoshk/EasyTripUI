@@ -13,8 +13,8 @@ import SearchDestination from "./components/SearchDestination";
 import StepsCard from "./components/questions/StepsCard";
 import PassengersCount from "./components/questions/PassengersCount";
 import MapWrapper from "./components/utils/MapWrapper";
-import AttractionSmallList from "./components/attraction/AttractionSmallList";
 import StarRating from "./components/utils/StarRating";
+import AttractionSmallList from "./components/attraction/AttractionSmallList";
 
 import "tabler-react/dist/Tabler.css";
 
@@ -33,8 +33,6 @@ function App(props) {
                     <Route exact path="/PassengerCount" component={PassengersCount}/>
                     <Route exact path="/map" component={MapWrapper}/>
                     <Route exact path="/rating" component={StarRating}/>
-
-
                     <Route component={Error404}/>
                 </Switch>
             </Router>

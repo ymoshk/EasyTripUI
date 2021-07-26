@@ -26,11 +26,12 @@ const DUMMY_ATTRACTIONS = [{
         saturday: 'Closed'
     },
     lat: 48.8584,
-    lng: 2.2945
+    lng: 2.2945,
+    address: "Champ de Mars, 5 Av. Anatole France, 75007 Paris, France"
 },
     {
         name: "Louvre",
-        id: 2,
+        id: 4.5,
         type: "Art",
         rating: 2.2,
         userTotalRating: 123,
@@ -49,7 +50,8 @@ const DUMMY_ATTRACTIONS = [{
             saturday: 'Closed'
         },
         lat: 48.8606,
-        lng: 2.3376
+        lng: 2.3376,
+        address: "Rue de Rivoli, 75001 Paris, France"
     },
     {
         name: "notre dame",
@@ -72,7 +74,8 @@ const DUMMY_ATTRACTIONS = [{
             saturday: 'Closed'
         },
         lat: 48.8530,
-        lng: 2.3499
+        lng: 2.3499,
+        address: "6 Parvis Notre-Dame - Pl. Jean-Paul II, 75004 Paris, France"
     }];
 
 
@@ -86,7 +89,8 @@ const AttractionList = () => {
                                                              priceRange={attraction.priceRange}
                                                              startTime={attraction.startTime}
                                                              endTime={attraction.endTime}
-                                                             hours={attraction.hours}/>);
+                                                             hours={attraction.hours}
+                                                             address={attraction.address}/>);
 }
 
 export default AttractionList;
