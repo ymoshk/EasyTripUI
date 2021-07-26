@@ -3,6 +3,7 @@ import React from 'react';
 import {Card, Image, Col, Row} from 'react-bootstrap';
 import CollapsibleDiv from "../utils/CollapsibleDiv";
 import OpenHours from "./OpenHours";
+import StarRating from "../utils/StarRating";
 
 const Attraction = (props) => {
     let priceLevel = '$'.repeat(props.priceRange + 1);
@@ -31,16 +32,14 @@ const Attraction = (props) => {
                     <Card.Text>
                         <div>
                             <Row>
-                                <Col md={{span: 3, offset: 0}} xs={{span: 5, offset: 0}}>
-                                    <Row><h4>Rating</h4> </Row>
-                                    <Row><h5>{props.rating}/5</h5></Row>
+                                <Col md={{span: 3, offset: 0}} xs={{span: 6, offset: 0}}>
+                                    <Row><StarRating value={props.rating}/></Row>
                                     <Row><h4>Raters No. </h4></Row>
-                                    <Row><h5>{props.userTotalRating}</h5></Row>
+                                    <Row><span style={{color: 'grey'}}><h5>{props.userTotalRating}</h5></span></Row>
                                     <Row><h4>Price Range </h4></Row>
                                     <Row><h5 style={{color: 'green'}}>{priceLevel}</h5></Row>
-
                                 </Col>
-                                <Col md={{span: 9, offset: 0}} xs={{span: 7, offset: 0}}>
+                                <Col md={{span: 9, offset: 0}} xs={{span: 6, offset: 0}}>
                                     {imageComponent}
                                 </Col>
                             </Row>

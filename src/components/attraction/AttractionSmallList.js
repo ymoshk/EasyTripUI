@@ -2,14 +2,13 @@ import React from 'react';
 import EiffelTour from "../../images/EiffelTour.jpg";
 import louvre from "../../images/louvre.jpg";
 import nortedame from "../../images/nortedame.jpg";
-
-import Attraction from "./Attraction";
+import AttractionSmall from "./AttractionSmall";
 
 const DUMMY_ATTRACTIONS = [{
     name: "Eiffel Tower",
     id: 1,
     type: "Must See",
-    rating: 4.7,
+    rating: 4.5,
     userTotalRating: 358,
     image: {url: EiffelTour, height: 1025, width: 616},
     closedTemporarily: false,
@@ -32,7 +31,7 @@ const DUMMY_ATTRACTIONS = [{
         name: "Louvre",
         id: 2,
         type: "Art",
-        rating: 2.2,
+        rating: 3.5,
         userTotalRating: 123,
         image: {url: louvre, height: 780, width: 1280},
         closedTemporarily: true,
@@ -76,17 +75,15 @@ const DUMMY_ATTRACTIONS = [{
     }];
 
 
-const AttractionList = () => {
-    return DUMMY_ATTRACTIONS.map((attraction) => <Attraction name={attraction.name}
+const AttractionSmallList = () => {
+    return DUMMY_ATTRACTIONS.map((attraction) => <AttractionSmall name={attraction.name}
                                                              type={attraction.type}
                                                              image={attraction.image}
                                                              rating={attraction.rating}
                                                              userTotalRating={attraction.userTotalRating}
                                                              closedTemporarily={attraction.closedTemporarily}
                                                              priceRange={attraction.priceRange}
-                                                             startTime={attraction.startTime}
-                                                             endTime={attraction.endTime}
-                                                             hours={attraction.hours}/>);
+                                                             showImage={false}/>);
 }
 
-export default AttractionList;
+export default AttractionSmallList;

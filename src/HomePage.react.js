@@ -11,7 +11,7 @@ function Home() {
         <SiteWrapper>
             <Container fluid style={{
                 backgroundImage: `url("https://eskipaper.com/images/beach-sunset-landscape-1.jpg")`,
-                backgroundRepeat: "no-repeat", width: "100vm", height: "100vh"
+                backgroundRepeat: "no-repeat", width: "100%", height: "100vh"
             }}>
                 <Row>
                     <br/>
