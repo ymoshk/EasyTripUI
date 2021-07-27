@@ -1,0 +1,26 @@
+*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_* Attraction Json Object Example _*_*_*_*_*_*_*_*_*_*_*_*_
+{
+        name: "Louvre",
+        isRecommended:true,
+        id: 4.5,
+        type: "Art",
+        rating: 2.2,
+        userTotalRating: 123,
+        image: {url: louvre, height: 780, width: 1280},
+        closedTemporarily: true,
+        priceRange: 1,
+        startTime: '12:00',
+        endTime: '12:30',
+        hours: {
+            sunday: '9am-6pm',
+            monday: '9am-6pm',
+            tuesday: '9am-6pm',
+            wednesday: '9am-6pm',
+            thursday: '9am-6pm',
+            friday: '9am-6pm',
+            saturday: 'Closed'
+        },
+        lat: 48.8606,
+        lng: 2.3376,
+        address: "Rue de Rivoli, 75001 Paris, France"
+    }
