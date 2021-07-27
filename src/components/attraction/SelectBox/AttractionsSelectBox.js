@@ -34,13 +34,13 @@ const AttractionsSelectBox = (props) => {
         let res;
 
         if (currentType === defaultText) {
-            res = <div style={{textAlign:"center"}}><h3>Please Pick A Type</h3></div>
+            res = <div style={{textAlign: "center"}}><h3>Please Pick A Type</h3></div>
         } else {
             const relevantAttractions = attractionsDictionary[currentType];
             if (relevantAttractions !== undefined && relevantAttractions.length !== 0) {
                 res = relevantAttractions.map((attraction) => mapAttraction(attraction));
             } else {
-                res = <div style={{textAlign:"center"}}><h3>Could not find any relevant attractions</h3></div>
+                res = <div style={{textAlign: "center"}}><h3>Could not find any relevant attractions</h3></div>
             }
         }
 
