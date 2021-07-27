@@ -25,7 +25,15 @@ function Home() {
                 <Row>
                     <Col></Col>
                     <Col md={8} xs={12}>
-                        <SearchDestination/>
+                        <SearchDestination url={process.env.REACT_APP_SERVER_URL + '/getCountryNames'}
+                                           placeHolder={"Which country would you like to visit?"}
+                                           ariaLabel={"Destination"}
+                                           buttonText={"Select"}
+                                           errorMessage={"You must select a destination country"}
+                                           cleanOnSubmit={true}
+                                           onChangeHandler={() => console.log("Change")}
+                                           onSubmitHandler={() => console.log("Submit")}
+                                           showButton={true}/>
                     </Col>
                     <Col></Col>
                 </Row>
