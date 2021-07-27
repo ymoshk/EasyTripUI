@@ -20,7 +20,7 @@ function App(props) {
                 <Switch>
                     <Route exact path="/" component={HomePage}/>
                     <Route exact path="/404" component={Error404}/>
-                    <Route exact path="/test" component={StepsCard}/>
+                    {/*<Route exact path="/test" component={StepsCard}/>*/}
                     <Route exact path="/attractions" component={AttractionList}/>
                     <Route exact path="/attractionsSmall" component={AttractionSmallList}/>
                     <Route exact path="/yotam" component={YotamTest}/>
