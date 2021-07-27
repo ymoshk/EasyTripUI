@@ -25,7 +25,6 @@ function App(props) {
                     <Route exact path="/attractions" component={AttractionList}/>
                     <Route exact path="/attractionsSmall" component={AttractionSmallList}/>
                     <Route exact path="/yotam" component={YotamTest}/>
-                    <Route exact path="/attraction" component={AttractionList}/>
                     <Route exact path="/search" component={SearchDestination}/>
                     <Route exact path="/SaharTest" component={SaharTest}/>
                     <Route exact path="/PassengerCount" component={PassengersCount}/>
