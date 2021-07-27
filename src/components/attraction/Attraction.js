@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Card, Image, Col, Row} from 'react-bootstrap';
+import {Card, Image, Col, Row, Button} from 'react-bootstrap';
 import CollapsibleDiv from "../utils/CollapsibleDiv";
 import OpenHours from "./OpenHours";
 import StarRating from "../utils/StarRating";
@@ -27,7 +27,16 @@ const Attraction = (props) => {
                     </Row>
                 </Col>
                 <Col md={{span: 11, offset: 0}} xs={{span: 9, offset: 0}}>
-                    <Card.Title><h1>{props.name}</h1></Card.Title>
+                    <Card.Title>
+                        <Row>
+                            <Col md={{span: 3, offset: 0}} xs={{span: 6, offset: 0}}>
+                                <h1>{props.name}</h1>
+                            </Col>
+                            <Col md={{span: 2, offset: 1}} xs={{span: 2, offset: 2}}>
+                                <Button variant="secondary">Remove</Button>{' '}
+                            </Col>
+                        </Row>
+                    </Card.Title>
                     <Card.Subtitle className="mb-2 text-muted"><h4>{props.type}</h4></Card.Subtitle>
                     <Card.Text>
                         <div>
@@ -41,7 +50,7 @@ const Attraction = (props) => {
                                     <Row><h4>Address</h4></Row>
                                     <Row><h6>{props.address}</h6></Row>
                                 </Col>
-                                <Col md={{span: 9, offset: 0}} xs={{span: 6, offset: 0}}>
+                                <Col md={{span: 9, offset: 0}} xs={{span: 5, offset: 0}}>
                                     {imageComponent}
                                 </Col>
                             </Row>
