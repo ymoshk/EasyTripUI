@@ -2,6 +2,7 @@ import React from 'react';
 
 import {Card, Image, Col, Row, Button} from 'react-bootstrap';
 import StarRating from "../utils/StarRating";
+import RecommendedIcon from "./RecommendedIcon";
 
 const AttractionSmall = (props) => {
     let priceLevel = '$'.repeat(props.priceRange + 1);
@@ -20,7 +21,9 @@ const AttractionSmall = (props) => {
                     <Card.Title>
                         <Row>
                             <Col md={{span: 2, offset: 0}} xs={{span: 6, offset: 0}}>
-                                <h3>{props.name}</h3>
+                                <h3>
+                                    {props.isRecommended && <RecommendedIcon />}
+                                    {props.name}</h3>
                             </Col>
                             <Col md={{span: 2, offset: 0}} xs={{span: 12, offset: 0}}>
                                 <Button variant="success">Add</Button>{' '}

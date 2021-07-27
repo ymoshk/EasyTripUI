@@ -77,7 +77,7 @@ const DUMMY_ATTRACTIONS = [{
     //     lng: 2.3499,
     //     address: "6 Parvis Notre-Dame - Pl. Jean-Paul II, 75004 Paris, France"
     // }
-    ];
+];
 
 
 const AttractionList = () => {
@@ -91,7 +91,8 @@ const AttractionList = () => {
                                                              startTime={attraction.startTime}
                                                              endTime={attraction.endTime}
                                                              hours={attraction.hours}
-                                                             address={attraction.address}/>);
+                                                             address={attraction.address}
+                                                             isRecommended={true}/>);
 }
 
 export default AttractionList;

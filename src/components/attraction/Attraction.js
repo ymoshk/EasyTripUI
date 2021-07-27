@@ -4,6 +4,7 @@ import {Card, Image, Col, Row, Button} from 'react-bootstrap';
 import CollapsibleDiv from "../utils/CollapsibleDiv";
 import OpenHours from "./OpenHours";
 import StarRating from "../utils/StarRating";
+import RecommendedIcon from "./RecommendedIcon";
 
 const Attraction = (props) => {
     let priceLevel = '$'.repeat(props.priceRange + 1);
@@ -30,7 +31,7 @@ const Attraction = (props) => {
                     <Card.Title>
                         <Row>
                             <Col md={{span: 3, offset: 0}} xs={{span: 6, offset: 0}}>
-                                <h1>{props.name}</h1>
+                                <h1>{props.isRecommended && <RecommendedIcon/>}{props.name}</h1>
                             </Col>
                             <Col md={{span: 2, offset: 1}} xs={{span: 2, offset: 2}}>
                                 <Button variant="secondary">Remove</Button>{' '}

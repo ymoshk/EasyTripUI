@@ -73,18 +73,19 @@ const DUMMY_ATTRACTIONS = [{
     //     lat: 48.8530,
     //     lng: 2.3499
     // }
-    ];
+];
 
 
 const AttractionSmallList = () => {
     return DUMMY_ATTRACTIONS.map((attraction) => <AttractionSmall name={attraction.name}
-                                                             type={attraction.type}
-                                                             image={attraction.image}
-                                                             rating={attraction.rating}
-                                                             userTotalRating={attraction.userTotalRating}
-                                                             closedTemporarily={attraction.closedTemporarily}
-                                                             priceRange={attraction.priceRange}
-                                                             showImage={false}/>);
+                                                                  type={attraction.type}
+                                                                  image={attraction.image}
+                                                                  rating={attraction.rating}
+                                                                  userTotalRating={attraction.userTotalRating}
+                                                                  closedTemporarily={attraction.closedTemporarily}
+                                                                  priceRange={attraction.priceRange}
+                                                                  showImage={false}
+                                                                  isRecommended={true}/>);
 }
 
 export default AttractionSmallList;
