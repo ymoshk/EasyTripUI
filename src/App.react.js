@@ -12,6 +12,7 @@ import AttractionSmallList from "./components/attraction/AttractionSmallList";
 import "tabler-react/dist/Tabler.css";
 import YotamTest from "./YotamTests/YotamTest";
 import SearchDestination from "./components/questions/destination/SearchDestination"
+import StepsCard from "./components/questions/StepsCard";
 
 function App(props) {
     return (
