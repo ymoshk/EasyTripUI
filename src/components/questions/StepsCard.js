@@ -14,10 +14,21 @@ const SESSION_STEP_CARD_MEM = "steps_card_memory";
 
 const StepsCard = () => {
 
+    const tripVibesTags = [
+        {id: 0, name: "Tag1", src: ""},
+        {id: 1, name: "Tag2", src: ""},
+        {id: 2, name: "Tag3", src: ""}
+    ]
+
+    const favoriteAttractionTags = [
+        {id: 3, name: "Tag4", src: ""},
+        {id: 4, name: "Tag5", src: ""},
+        {id: 5, name: "Tag6", src: ""}
+    ]
+
     const getStage = () => {
         return localStorage.getItem(SESSION_STEP_CARD_MEM);
     }
-
     const {isLoading, error, sendRequest: postData} = useHttp();
     const [stage, setStage] = useState(0);
     const [stagesList, setStageList] = useState([
@@ -83,7 +94,8 @@ const StepsCard = () => {
                 updateList={(value) => {
                     stagesList[getStage()].data = value
                 }}
-                textTag={true}/>,
+                tagsList={favoriteAttractionTags}
+                imageTag={false}/>,
             isValid: true,
             defaultValid: true,
         },
@@ -94,7 +106,8 @@ const StepsCard = () => {
                 updateList={(value) => {
                     stagesList[getStage()].data = value
                 }}
-                textTag={false}/>,
+                tagsList={tripVibesTags}
+                imageTag={true}/>,
             isValid: true,
             defaultValid: true,
         },
@@ -159,8 +172,22 @@ const StepsCard = () => {
             adultsCount: stagesList[2].data.adultsCount.toString(),
             childrenCount: stagesList[2].data.childrenCount.toString(),
             budget: stagesList[3].data.priceRange.toString(),
-            favoriteAttraction: JSON.stringify(stagesList[4].data),
-            tripVibes: JSON.stringify(stagesList[5].data)
+            favoriteAttraction: JSON.stringify(stagesList[4].data
+                .filter(tag => tag.status === true)
+                .map(tag => (
+                    {
+                        id: tag.id.toString(),
+                        name: tag.name,
+                        src: tag.src
+                    }))),
+            tripVibes: JSON.stringify(stagesList[5].data
+                .filter(tag => tag.status === true)
+                .map(tag => (
+                    {
+                        id: tag.id.toString(),
+                        name: tag.name,
+                        src: tag.src
+                    })))
         };
 
         postData({

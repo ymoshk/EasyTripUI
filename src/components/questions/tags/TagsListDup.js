@@ -3,17 +3,10 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import SingleTag from "./SingleTag";
 import styles from "./TagsList.module.css"
 
-const TagsList = (props) => {
+const TagsListDup = (props) => {
     const tagsListStatus = [];
-    let tagsList;
 
-    if (props.tagsList !== undefined) {
-        tagsList = props.tagsList;
-    } else {
-        tagsList = props.srcList;
-    }
-
-    tagsList.forEach(tag => tagsListStatus.push({tag: tag, status: false}));
+    props.tagsList.forEach(tag => tagsListStatus.push({name: tag.name, id: tag.id, src: tag.src, status: false}));
 
     let i = 0;
 
@@ -24,15 +17,15 @@ const TagsList = (props) => {
 
     const createList = () => {
         let result = "";
-        if (props.tagsList !== undefined) {
-            result = tagsList.map((tag) =>
+        if (!props.imageTag) {
+            result = tagsListStatus.map((tag) =>
                 <div style={{marginRight: 10}}>
-                    <SingleTag onChecked={SingleTagChecked} id={i++} text={tag}/>
+                    <SingleTag onChecked={SingleTagChecked} id={i++} text={tag.name}/>
                 </div>)
-        } else if (props.srcList !== undefined) {
-            result = tagsList.map((tag) =>
+        } else {
+            result = tagsListStatus.map((tag) =>
                 <div style={{marginRight: 10}}>
-                    <SingleTag onChecked={SingleTagChecked} id={i++} src={tag}/>
+                    <SingleTag onChecked={SingleTagChecked} id={i++} src={tag.src}/>
                 </div>)
         }
         return result;
@@ -47,4 +40,4 @@ const TagsList = (props) => {
     );
 };
 
-export default TagsList;
+export default TagsListDup;
