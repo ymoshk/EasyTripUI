@@ -17,6 +17,7 @@ const StepsCard = () => {
     const getStage = () => {
         return localStorage.getItem(SESSION_STEP_CARD_MEM);
     }
+
     const {isLoading, error, sendRequest: postData} = useHttp();
     const [stage, setStage] = useState(0);
     const [stagesList, setStageList] = useState([
@@ -82,8 +83,7 @@ const StepsCard = () => {
                 updateList={(value) => {
                     stagesList[getStage()].data = value
                 }}
-                tagsList={["Tag1", "Tag2", "Tag3"]}/>,
-            // srcList={["Tag1", "Tag2", "Tag3"]}
+                textTag={true}/>,
             isValid: true,
             defaultValid: true,
         },
@@ -94,8 +94,7 @@ const StepsCard = () => {
                 updateList={(value) => {
                     stagesList[getStage()].data = value
                 }}
-                tagsList={["Tag1", "Tag2", "Tag4"]}/>,
-            // srcList={["Tag1", "Tag2", "Tag3"]}
+                textTag={false}/>,
             isValid: true,
             defaultValid: true,
         },
@@ -165,10 +164,10 @@ const StepsCard = () => {
         };
 
         postData({
-                url: process.env.REACT_APP_SERVER_URL + "/completeQuestions",
-                method: "POST",
-                body: data
-            }).then(console.log("done"));
+            url: process.env.REACT_APP_SERVER_URL + "/completeQuestions",
+            method: "POST",
+            body: data
+        }).then(console.log("done"));
     }
 
     const checkValidation = (newStage) => {
