@@ -9,9 +9,9 @@ import SearchDestination from "./components/questions/destination/SearchDestinat
 function Home() {
     return (
         <SiteWrapper>
-            <Container fluid="true" className="vh-100 d-flex flex-column " style={{
+            <Container fluid style={{
                 backgroundImage: `url("https://eskipaper.com/images/beach-sunset-landscape-1.jpg")`,
-                backgroundRepeat: "no-repeat"
+                backgroundRepeat: "no-repeat", width: "100%", height: "100vh"
             }}>
                 <Row>
                     <br/>
@@ -25,10 +25,7 @@ function Home() {
                 <Row>
                     <Col></Col>
                     <Col md={8} xs={12}>
-                        <SearchDestination placeHolder={"Where would you like to go?"} ariaLabel={"Destination"}
-                                           buttonText={"Get started"}
-                                           errorMessage={"Could not find the destination, " +
-                                           "please enter city, region or country"}/>
+                        <SearchDestination/>
                     </Col>
                     <Col></Col>
                 </Row>

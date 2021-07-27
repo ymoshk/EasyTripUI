@@ -2,14 +2,13 @@ import React from 'react';
 import EiffelTour from "../../images/EiffelTour.jpg";
 import louvre from "../../images/louvre.jpg";
 import nortedame from "../../images/nortedame.jpg";
-
-import Attraction from "./Attraction";
+import AttractionSmall from "./AttractionSmall";
 
 const DUMMY_ATTRACTIONS = [{
     name: "Eiffel Tower",
     id: 1,
     type: "Must See",
-    rating: 4.7,
+    rating: 4.5,
     userTotalRating: 358,
     image: {url: EiffelTour, height: 1025, width: 616},
     closedTemporarily: false,
@@ -26,14 +25,13 @@ const DUMMY_ATTRACTIONS = [{
         saturday: 'Closed'
     },
     lat: 48.8584,
-    lng: 2.2945,
-    address: "Champ de Mars, 5 Av. Anatole France, 75007 Paris, France"
+    lng: 2.2945
 },
     {
         name: "Louvre",
-        id: 4.5,
+        id: 2,
         type: "Art",
-        rating: 2.2,
+        rating: 3.5,
         userTotalRating: 123,
         image: {url: louvre, height: 780, width: 1280},
         closedTemporarily: true,
@@ -50,8 +48,7 @@ const DUMMY_ATTRACTIONS = [{
             saturday: 'Closed'
         },
         lat: 48.8606,
-        lng: 2.3376,
-        address: "Rue de Rivoli, 75001 Paris, France"
+        lng: 2.3376
     },
     {
         name: "notre dame",
@@ -74,23 +71,19 @@ const DUMMY_ATTRACTIONS = [{
             saturday: 'Closed'
         },
         lat: 48.8530,
-        lng: 2.3499,
-        address: "6 Parvis Notre-Dame - Pl. Jean-Paul II, 75004 Paris, France"
+        lng: 2.3499
     }];
 
 
-const AttractionList = () => {
-    return DUMMY_ATTRACTIONS.map((attraction) => <Attraction name={attraction.name}
+const AttractionSmallList = () => {
+    return DUMMY_ATTRACTIONS.map((attraction) => <AttractionSmall name={attraction.name}
                                                              type={attraction.type}
                                                              image={attraction.image}
                                                              rating={attraction.rating}
                                                              userTotalRating={attraction.userTotalRating}
                                                              closedTemporarily={attraction.closedTemporarily}
                                                              priceRange={attraction.priceRange}
-                                                             startTime={attraction.startTime}
-                                                             endTime={attraction.endTime}
-                                                             hours={attraction.hours}
-                                                             address={attraction.address}/>);
+                                                             showImage={false}/>);
 }
 
-export default AttractionList;
+export default AttractionSmallList;

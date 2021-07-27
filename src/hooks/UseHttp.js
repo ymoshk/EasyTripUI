@@ -1,5 +1,11 @@
 import { useState, useCallback } from 'react';
 
+/**
+ *
+ * applyData - a function that will consume the data returned in the http response.
+ * requestConfig - http request configuration: 'GET'/'POST', headers, body.
+ * @returns {{isLoading: boolean, error: unknown, sendRequest: ((function(*, *): Promise<void>)|*)}}
+ */
 const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);

@@ -3,6 +3,7 @@ import React from 'react';
 import {Card, Image, Col, Row} from 'react-bootstrap';
 import CollapsibleDiv from "../utils/CollapsibleDiv";
 import OpenHours from "./OpenHours";
+import StarRating from "../utils/StarRating";
 
 const Attraction = (props) => {
     let priceLevel = '$'.repeat(props.priceRange + 1);
@@ -19,28 +20,28 @@ const Attraction = (props) => {
             <Row>
                 <Col md={{span: 1, offset: 0}} xs={{span: 3, offset: 0}}>
                     <Row>
-                        <b>{props.startTime}</b>
+                        <h5>{props.startTime}</h5>
                     </Row>
                     <Row>
-                        <b>{props.endTime}</b>
+                        <h5>{props.endTime}</h5>
                     </Row>
                 </Col>
                 <Col md={{span: 11, offset: 0}} xs={{span: 9, offset: 0}}>
-                    <Card.Title>{props.name}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">{props.type}</Card.Subtitle>
+                    <Card.Title><h1>{props.name}</h1></Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted"><h4>{props.type}</h4></Card.Subtitle>
                     <Card.Text>
                         <div>
                             <Row>
-                                <Col md={{span: 3, offset: 0}} xs={{span: 5, offset: 0}}>
-                                    <Row><b>Rating</b> </Row>
-                                    <Row><i>{props.rating}/5</i></Row>
-                                    <Row><b>Raters No. </b></Row>
-                                    <Row><i>{props.userTotalRating}</i></Row>
-                                    <Row><b>Price Range </b></Row>
-                                    <Row><i style={{color: 'green'}}>{priceLevel}</i></Row>
-
+                                <Col md={{span: 3, offset: 0}} xs={{span: 6, offset: 0}}>
+                                    <Row><StarRating value={props.rating}/></Row>
+                                    <Row><h4>Raters No. </h4></Row>
+                                    <Row><span style={{color: 'grey'}}><h5>{props.userTotalRating}</h5></span></Row>
+                                    <Row><h4>Price Range </h4></Row>
+                                    <Row><h5 style={{color: 'green'}}>{priceLevel}</h5></Row>
+                                    <Row><h4>Address</h4></Row>
+                                    <Row><h6>{props.address}</h6></Row>
                                 </Col>
-                                <Col md={{span: 9, offset: 0}} xs={{span: 7, offset: 0}}>
+                                <Col md={{span: 9, offset: 0}} xs={{span: 6, offset: 0}}>
                                     {imageComponent}
                                 </Col>
                             </Row>
