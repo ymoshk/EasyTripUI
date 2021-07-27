@@ -43,7 +43,6 @@ const PriceRange = (props) => {
             tooltipPlacement={'bottom'}
             tool
             tooltipLabel={(currentVal) => tooltipLabelValue(currentVal)}
-            // tooltipLabel={() => tooltips[value]}
             onChange={e => onChangeEventHandler(e)}
             onAfterChange={e => onAfterChangeEventHandler(e)}
         />

@@ -1,19 +1,13 @@
 import * as React from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {
-    Error404
-} from "./pages";
-
-
+import {Error404} from "./pages";
 import HomePage from "./HomePage.react";
-
 import AttractionList from "./components/attraction/AttractionList";
 import SaharTest from "./Sahar Tests/SaharTest";
-import SearchDestination from "./components/SearchDestination";
-import StepsCard from "./components/questions/StepsCard";
 import PassengersCount from "./components/questions/PassengersCount";
-
 import "tabler-react/dist/Tabler.css";
+import YotamTest from "./YotamTests/YotamTest";
+import SearchDestination from "./components/questions/destination/SearchDestination"
 
 function App(props) {
     return (
@@ -22,7 +16,7 @@ function App(props) {
                 <Switch>
                     <Route exact path="/" component={HomePage}/>
                     <Route exact path="/404" component={Error404}/>
-                    <Route exact path="/test" component={StepsCard}/>
+                    <Route exact path="/yotam" component={YotamTest}/>
                     <Route exact path="/attraction" component={AttractionList}/>
                     <Route exact path="/search" component={SearchDestination}/>
                     <Route exact path="/SaharTest" component={SaharTest}/>

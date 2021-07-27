@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Form, Button, InputGroup, FormControl, ListGroup, Col, Row} from 'react-bootstrap';
+import {Form, Button, InputGroup, FormControl, ListGroup, Col, Row, Alert} from 'react-bootstrap';
 import "./AutocompleteTextBox.css";
 
 
@@ -13,16 +13,26 @@ const AutocompleteTextBox = (props) => {
 
         setIsValidSearch(true);
 
-        if (value.length > 0) {
-            const regex = new RegExp(`^${value}`, 'i');
-            suggestions = props.suggestionsList.sort().filter(value => regex.test(value));
+        try {
+            if (value.length > 0) {
+                const regex = new RegExp(`^${value}`, 'i');
+                suggestions = props.suggestionsList.sort().filter(value => regex.test(value));
+            }
+            setSearchBar({suggestions: suggestions, text: value});
+            if (props.onChangeHandler !== undefined) {
+                props.onChangeHandler();
+            }
+        } catch (e) {
         }
-        setSearchBar({suggestions: suggestions, text: value});
     }
 
     const onSelectSuggestionHandler = (value) => {
         setSearchBar({suggestions: [], text: value});
         setIsValidSearch(true);
+
+        if (!props.showButton) {
+            props.onSubmitHandler(value);
+        }
     }
 
     const renderSuggestions = () => {
@@ -38,38 +48,49 @@ const AutocompleteTextBox = (props) => {
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
-        console.log(searchBar.text);
 
         if (!props.suggestionsList.includes(searchBar.text)) {
             setIsValidSearch(false);
-            return;
+            setTimeout(() => setIsValidSearch(true), 2000);
+        } else {
+            if (props.cleanOnSubmit) {
+                setSearchBar({suggestions: [], text: ""});
+            }
+            props.onSubmitHandler(searchBar.text);
         }
+    }
 
-        setSearchBar({suggestions: [], text: ""});
+    const getButton = () => {
+        if (props.showButton) {
+            return <Col md={3} xs={12}>
+                <Button className={"btn-block"} variant="primary" id="button-addon2" size={props.size}
+                        onClick={onSubmitHandler}>
+                    {props.buttonLabel}
+                </Button>
+            </Col>
+        }
     }
 
     return <React.Fragment>
         <Row>
-            <Col md={8} xs={12}>
+            <Col md={props.showButton ? 9 : 12} xs={12}>
+                {!isValidSearch ? <Alert variant={"danger"}>{props.errorMessage} </Alert> : ""}
+            </Col>
+            <Col md={props.showButton ? 9 : 12} xs={12}>
                 <InputGroup className="mb-3" size={props.size}>
                     <FormControl
                         placeholder={props.placeHolder}
                         aria-label={props.ariaLabel}
                         aria-describedby="basic-addon2"
-                        value={searchBar.text} onChange={onChangeHandler}
+                        value={searchBar.text}
+                        onChange={onChangeHandler}
                     />
                 </InputGroup>
             </Col>
-            <Col md={4} xs={12}>
-                <Button variant="primary" id="button-addon2" size={props.size} onClick={onSubmitHandler}>
-                    {props.buttonLabel}
-                </Button>
-            </Col>
+            {getButton()}
         </Row>
         <Row>
-            <Col md={8} xs={12}>
-                {!isValidSearch &&
-                <Form.Label htmlFor="basic-url" style={{color: 'red'}}>{props.errorMessage} </Form.Label>}
+            <Col md={props.showButton ? 9 : 12} xs={12}>
                 {renderSuggestions()}
             </Col>
         </Row>

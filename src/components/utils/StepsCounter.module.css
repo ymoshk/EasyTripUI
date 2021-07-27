@@ -1,0 +1,14 @@
+
+.title{
+    width: 30%;
+    justify-content: center;
+}
+
+.value{
+    width: 30%;
+    text-align: center;
+}
+
+.marginTop{
+    margin-top: 20px;
+}

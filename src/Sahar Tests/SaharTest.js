@@ -1,10 +1,10 @@
 import React from 'react';
-import SingleTag from "../components/tags/SingleTag";
-import TagsList from "../components/tags/TagsList";
+import SingleTag from "../components/questions/tags/SingleTag";
+import TagsList from "../components/questions/tags/TagsList";
 import PriceRangePriceRange from "../components/questions/price_range/PriceRange";
 import {Icon} from "tabler-react";
 import {CurrencyDollar} from 'tabler-icons-react'
-import DateRangeInput from "../components/date_range_picker/DateRangePicker";
+import DateRangeInput from "../components/date/DateRangePicker";
 import DragAndDropTest from "../components/dnd/DragAndDropTest";
 
 //TODO-Delete

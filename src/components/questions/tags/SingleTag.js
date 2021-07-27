@@ -13,16 +13,23 @@ const SingleTag = (props) => {
         setIsChecked(!isChecked);
     }
 
+    const getContent = () => {
+        let result = "";
+        if (props.src !== undefined) {
+            result = <img src={props.src} width={100} height={100} alt={"None"}/>
+        } else if (props.text !== undefined) {
+            result = <span>{props.text}</span>
+        }
+        return result;
+    }
+
     return (
         <Button
-            size="sm"
+            size="md"
             type="checkbox"
             variant={isChecked ? "primary" : "outline-primary"}
-            onClick={onClickEventHandler}
-
-        >
-            <img src={props.src} width={100} height={100} alt={"None"}/>
-            {/*{title === undefined ? "None" : props.title}*/}
+            onClick={onClickEventHandler}>
+            {getContent()}
         </Button>
     );
 };

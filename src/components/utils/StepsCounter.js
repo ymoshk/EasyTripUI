@@ -1,42 +1,46 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button, Col, FormControl, Row} from "react-bootstrap";
 import InputGroup from 'react-bootstrap/InputGroup';
 import {useState} from 'react';
+import styles from './StepsCounter.module.css'
 
 const StepsCounter = (props) => {
     const [counter, setCounter] = useState(props.initValue);
 
-    function incrementHandler(){
-        if(counter < props.maxVal)
-            setCounter((prevState => prevState + 1));
+    useEffect(() => {
+        props.setValue(counter);
+    }, [counter])
+
+    function incrementHandler() {
+        if (counter < props.maxVal) {
+        }
+        setCounter((prevState => prevState + 1));
     }
-    function decrementHandler(){
-        if (counter > props.minVal)
+
+    function decrementHandler() {
+        if (counter > props.minVal) {
             setCounter((prevState => prevState - 1));
+        }
     }
 
     const onChangeHandler = (event) => {
         const value = parseInt(event.target.value, 10);
 
-        if(isNaN(value)){
-            return;
+        if (!isNaN(value) && value <= props.maxVal && value >= props.minVal) {
+            setCounter(value);
         }
-
-        if(value > props.maxVal || value < props.minVal){
-            return;
-        }
-
-        setCounter(value);
     }
 
-    return(
-        <div>
+    return (
+        <div className={styles.marginTop}>
             <Row>
-                <Col md={{span: 3, offset: 0}} xs={{span: 3, offset: 0}}>
+                <Col xs={{span: 12}} md={{offset: 2, span: 8}}>
                     <InputGroup size="lg">
-                        <InputGroup.Text id="inputGroup-sizing-lg">{props.title}</InputGroup.Text>
+                        <InputGroup.Text
+                            className={styles.title}>{props.title}</InputGroup.Text>
                         <Button size="lg" onClick={decrementHandler} variant="outline-primary">-</Button>
-                        <FormControl value={counter} onChange={onChangeHandler} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
+                        <FormControl className={styles.value} value={counter} onChange={onChangeHandler}
+                                     aria-label="Large" aria-describedby="inputGroup-sizing-sm"/>
                         <Button size="lg" onClick={incrementHandler} variant="outline-primary">+</Button>
                     </InputGroup>
                 </Col>
