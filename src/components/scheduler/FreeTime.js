@@ -2,7 +2,7 @@ import React from 'react';
 import {Card, Col, Row} from "react-bootstrap";
 import StarRating from "../utils/StarRating";
 import CollapsibleDiv from "../utils/CollapsibleDiv";
-import OpenHours from "./OpenHours";
+import OpenHours from "../attraction/OpenHours";
 
 const FreeTime = (props) => {
 
@@ -19,10 +19,10 @@ const FreeTime = (props) => {
                         </Row>
                     </Col>
                     <Col md={{span: 11, offset: 0}} xs={{span: 9, offset: 0}}>
-                        <Card.Title></Card.Title>
-                        {/*<Card.Subtitle className="mb-2 text-muted"><h4></h4></Card.Subtitle>*/}
+
+
                         <Card.Text>
-                            <h1 style={{textAlign:"center"}}>Free Time</h1>
+                            <h1 style={{textAlign: "center"}}>Free Time</h1>
                         </Card.Text>
                     </Col>
                 </Row>

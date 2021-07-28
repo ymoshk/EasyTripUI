@@ -7,6 +7,8 @@ const SingleTag = (props) => {
     const title = props.title;
     const onChecked = props.onChecked;
     const id = props.id;
+    const isCheckedColor = props.isCheckedColor === undefined ? "primary" : props.isCheckedColor;
+    const isNotCheckedColor = props.isNotCheckedColor === undefined ? "outline-primary" : props.isNotCheckedColor;
 
     function onClickEventHandler() {
         onChecked(id);
@@ -19,7 +21,10 @@ const SingleTag = (props) => {
             result = <img src={props.src} width={100} height={100} alt={"None"}/>
         } else if (props.text !== undefined) {
             result = <span>{props.text}</span>
+        }else if(props.innerComponent !== undefined){
+            result = props.innerComponent;
         }
+
         return result;
     }
 
@@ -27,7 +32,7 @@ const SingleTag = (props) => {
         <Button
             size="md"
             type="checkbox"
-            variant={isChecked ? "primary" : "outline-primary"}
+            variant={isChecked ? isCheckedColor : isNotCheckedColor}
             onClick={onClickEventHandler}>
             {getContent()}
         </Button>

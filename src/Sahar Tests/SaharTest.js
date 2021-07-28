@@ -2,17 +2,18 @@ import React from 'react';
 import SingleTag from "../components/questions/tags/SingleTag";
 import TagsList from "../components/questions/tags/TagsList";
 import PriceRangePriceRange from "../components/questions/price_range/PriceRange";
-import {Icon} from "tabler-react";
-import {CurrencyDollar} from 'tabler-icons-react'
+import {Icon, Site} from "tabler-react";
+import {Car, CurrencyDollar} from 'tabler-icons-react'
 import DateRangeInput from "../components/date/DateRangePicker";
 import DragAndDropTest from "../components/dnd/DragAndDropTest";
 import DragAndDropTemplate from "../components/dnd/DragAndDropTemplate";
 import {Col, Row} from "react-bootstrap";
-import FreeTime from "../components/attraction/FreeTime";
+import FreeTime from "../components/scheduler/FreeTime";
 import AttractionsSelectBox from "../components/attraction/SelectBox/AttractionsSelectBox";
 import EiffelTour from "../images/EiffelTour.jpg";
 import louvre from "../images/louvre.jpg";
 import nortedame from "../images/nortedame.jpg";
+import Mobility from "../components/scheduler/Mobility";
 
 //TODO-Delete
 
@@ -73,7 +74,7 @@ const SaharTest = () => {
         Restaurants:
             [{
                 name: "Eiffel Tower",
-                isRecommended:true,
+                isRecommended: true,
                 id: 1,
                 type: "Must See",
                 rating: 4.5,
@@ -97,7 +98,7 @@ const SaharTest = () => {
             },
                 {
                     name: "Louvre",
-                    isRecommended:false,
+                    isRecommended: false,
                     id: 2,
                     type: "Art",
                     rating: 3.5,
@@ -122,7 +123,7 @@ const SaharTest = () => {
                 {
                     name: "notre dame",
                     id: 3,
-                    isRecommended:true,
+                    isRecommended: true,
                     type: "Art",
                     rating: 3.5,
                     userTotalRating: 123,
@@ -153,10 +154,12 @@ const SaharTest = () => {
 
     return (
         <div>
-            <AttractionsSelectBox
-                types={["Restaurants", "Test2"]}
-                data={data}
-            />
+            {/*<AttractionsSelectBox*/}
+            {/*    types={["Restaurants", "Test2"]}*/}
+            {/*    data={data}*/}
+            {/*/>*/}
+            {/*<FreeTime startTime={"11:00"} endTime={"12:00"}></FreeTime>*/}
+            <Mobility/>
         </div>
     );
 };
