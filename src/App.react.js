@@ -13,6 +13,7 @@ import "tabler-react/dist/Tabler.css";
 import YotamTest from "./YotamTests/YotamTest";
 import SearchDestination from "./components/questions/destination/SearchDestination"
 import StepsCard from "./components/questions/StepsCard";
+import reduxTest from "./components/reduxTest";
 
 function App(props) {
     return (
@@ -30,6 +31,7 @@ function App(props) {
                     <Route exact path="/PassengerCount" component={PassengersCount}/>
                     <Route exact path="/map" component={MapWrapper}/>
                     <Route exact path="/rating" component={StarRating}/>
+                    <Route exact path="/reduxTest" component={reduxTest}/>
                     <Route component={Error404}/>
                 </Switch>
             </Router>

@@ -92,7 +92,8 @@ const AttractionList = () => {
                                                              endTime={attraction.endTime}
                                                              hours={attraction.hours}
                                                              address={attraction.address}
-                                                             isRecommended={true}/>);
+                                                             isRecommended={true}
+                                                             id={attraction.id}/>);
 }
 
 export default AttractionList;
