@@ -8,33 +8,18 @@ const Mobility = () => {
 
     const [checkedStatus, setCheckedStatus] = useState([false, false, false]);
     const title = "Mobility"
+    const subTitle = "How would you like to get there?";
     const isCheckedIconColor = '#FFFFFF';
     const grey = '#656D77';
-    const primary = 'primary';
     console.log(checkedStatus);
-    let btn1 = false;
-    let btn2 = false;
-    let btn3 = false;
-    // let tmp = checkedIndex;
 
-    useEffect(() => {
-        btn1 = checkedStatus[0];
-        btn2 = checkedStatus[1];
-        btn3 = checkedStatus[2];
+    function onCheckedEventHandler(e, index) {
+        let newCheckedStatus = [false, false, false];
+        newCheckedStatus[index] = e.currentTarget.checked;
 
-    }, [checkedStatus])
+        setCheckedStatus(newCheckedStatus);
+    }
 
-    //
-    // function onCheckedEventHandler(id) {
-    //     isChecked[id] = !isChecked[id];
-    //
-    //     if (!isChecked[id]) {
-    //         setCheckIndex(-1);
-    //
-    //     } else {
-    //         setCheckIndex(id);
-    //     }
-    // }
 
     return (
         <Card>
@@ -52,7 +37,7 @@ const Mobility = () => {
                         <Card.Title>
                             <h3>{title}</h3>
                         </Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted"><h4>Pick your way ...</h4></Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><h4>{subTitle}</h4></Card.Subtitle>
                         <Card.Text>
                             {<Row>
                                 <Col>
@@ -60,42 +45,43 @@ const Mobility = () => {
                                         id="toggle-check"
                                         type="checkbox"
                                         variant="secondary"
-                                        checked={btn1}
+                                        checked={checkedStatus[0]}
                                         value="1"
-                                        onChange={(e) => setCheckedStatus([!e.currentTarget.checked, false, false])}
+                                        onChange={(e) => onCheckedEventHandler(e, 0)}
                                     >
                                         {<Car
                                             strokeWidth={2}
-                                            color={btn1 ? isCheckedIconColor : grey}
+                                            color={checkedStatus[0] ? isCheckedIconColor : grey}
                                         />}
                                     </ToggleButton>
                                 </Col>
                                 <Col>
                                     <ToggleButton
-                                        id="toggle-check"
+                                        id="toggle-check2"
                                         type="checkbox"
                                         variant="secondary"
-                                        checked={btn2}
+                                        checked={checkedStatus[1]}
                                         value="2"
-                                        onChange={(e) => setCheckedStatus([false, !e.currentTarget.checked, false])}
+                                        onChange={(e) => onCheckedEventHandler(e, 1)}
                                     >
                                         {<Bike
                                             strokeWidth={2}
-                                            color={btn2 ? isCheckedIconColor : grey}
+                                            color={checkedStatus[1] ? isCheckedIconColor : grey}
                                         />}
                                     </ToggleButton>
                                 </Col>
                                 <Col>
                                     <ToggleButton
-                                        id="toggle-check"
+                                        id="toggle-check3"
                                         type="checkbox"
                                         variant="secondary"
-                                        checked={btn3}
-                                        onChange={(e) => setCheckedStatus([false, false, !e.currentTarget.checked])}
+                                        checked={checkedStatus[2]}
+                                        value="3"
+                                        onChange={(e) => onCheckedEventHandler(e, 2)}
                                     >
                                         {<Walk
                                             strokeWidth={2}
-                                            color={btn3 ? isCheckedIconColor : grey}
+                                            color={checkedStatus[2] ? isCheckedIconColor : grey}
                                         />}
                                     </ToggleButton>
                                 </Col>
