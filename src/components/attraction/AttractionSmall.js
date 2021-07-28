@@ -1,10 +1,15 @@
 import React from 'react';
+import {useDispatch} from "react-redux";
 
 import {Card, Image, Col, Row, Button} from 'react-bootstrap';
 import StarRating from "../utils/StarRating";
 import RecommendedIcon from "./RecommendedIcon";
 
+import {attractionActions} from "../../store/attraction";
+
 const AttractionSmall = (props) => {
+    const dispatch = useDispatch();
+
     let priceLevel = '$'.repeat(props.priceRange + 1);
 
     let imageComponent;
@@ -12,6 +17,11 @@ const AttractionSmall = (props) => {
         imageComponent = <Image src={props.image.url} rounded width={100}/>;
     } else {
         imageComponent = <Image src={props.image.url} rounded height={100}/>;
+    }
+
+    const attractionId = props.id;
+    const onAddHandler = () => {
+        dispatch(attractionActions.add(attractionId));
     }
 
     return <Card>
@@ -26,7 +36,7 @@ const AttractionSmall = (props) => {
                                     {props.name}</h3>
                             </Col>
                             <Col md={{span: 2, offset: 0}} xs={{span: 12, offset: 0}}>
-                                <Button variant="success">Add</Button>{' '}
+                                <Button onClick={onAddHandler} variant="success">Add</Button>{' '}
                                 <Button variant="info">Info</Button>{' '}
                             </Col>
                         </Row>
