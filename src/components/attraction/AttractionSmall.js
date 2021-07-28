@@ -30,12 +30,12 @@ const AttractionSmall = (props) => {
                 <Col>
                     <Card.Title>
                         <Row>
-                            <Col md={{span: 2, offset: 0}} xs={{span: 6, offset: 0}}>
+                            <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
                                 <h3>
                                     {props.isRecommended && <RecommendedIcon />}
                                     {props.name}</h3>
                             </Col>
-                            <Col md={{span: 2, offset: 0}} xs={{span: 12, offset: 0}}>
+                            <Col md={{span: 6, offset: 0}} xs={{span: 12, offset: 0}}>
                                 <Button onClick={onAddHandler} variant="success">Add</Button>{' '}
                                 <Button variant="info">Info</Button>{' '}
                             </Col>
@@ -44,7 +44,7 @@ const AttractionSmall = (props) => {
                     <Card.Text>
                         <div>
                             <Row>
-                                <Col md={{span: 2, offset: 0}} xs={{span: 6, offset: 0}}>
+                                <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
                                     <Row><StarRating value={props.rating}/></Row>
                                     <Row><h5>Raters No. - <span style={{color: 'grey'}}>{props.userTotalRating}</span>
                                     </h5></Row>
@@ -52,7 +52,7 @@ const AttractionSmall = (props) => {
                                     <Row>{props.closedTemporarily && <b style={{color: 'red'}}>Temporarily closed</b>}
                                         {!props.closedTemporarily && <b style={{color: 'green'}}>Operational</b>}</Row>
                                 </Col>
-                                {props.showImage && <Col md={{span: 10, offset: 0}} xs={{span: 6, offset: 0}}>
+                                {props.showImage && <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
                                     {imageComponent}
                                 </Col>}
                             </Row>

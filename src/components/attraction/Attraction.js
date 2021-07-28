@@ -40,10 +40,10 @@ const Attraction = (props) => {
                 <Col md={{span: 11, offset: 0}} xs={{span: 9, offset: 0}}>
                     <Card.Title>
                         <Row>
-                            <Col md={{span: 4, offset: 0}} xs={{span: 12, offset: 0}}>
+                            <Col md={{span: 6, offset: 0}} xs={{span: 12, offset: 0}}>
                                 <h1>{props.isRecommended && <RecommendedIcon/>}{props.name}</h1>
                             </Col>
-                            <Col md={{span: 2, offset: 0}} xs={{span: 12, offset: 0}}>
+                            <Col md={{span: 6, offset: 0}} xs={{span: 12, offset: 0}}>
                                 <Button variant="secondary" onClick={onRemoveHandler}>Remove</Button>{' '}
                             </Col>
                         </Row>
@@ -52,7 +52,7 @@ const Attraction = (props) => {
                     <Card.Text>
                         <div>
                             <Row>
-                                <Col md={{span: 3, offset: 0}} xs={{span: 6, offset: 0}}>
+                                <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
                                     <Row><StarRating value={props.rating}/></Row>
                                     <Row><h4>Raters No. </h4></Row>
                                     <Row><span style={{color: 'grey'}}><h5>{props.userTotalRating}</h5></span></Row>
@@ -61,7 +61,7 @@ const Attraction = (props) => {
                                     <Row><h4>Address</h4></Row>
                                     <Row><h6>{props.address}</h6></Row>
                                 </Col>
-                                <Col md={{span: 9, offset: 0}} xs={{span: 5, offset: 0}}>
+                                <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
                                     {imageComponent}
                                 </Col>
                             </Row>
