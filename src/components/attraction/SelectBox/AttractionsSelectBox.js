@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import {Card, Form} from "react-bootstrap";
 import AttractionSmall from "../AttractionSmall";
+import {useSelector} from "react-redux";
 
 
-const AttractionsSelectBox = (props) => {
+const AttractionsSelectBox = () => {
     const defaultText = "Select A Type";
     const [firstChange, setFirstChange] = useState(false);
     const [currentType, setCurrentType] = useState(defaultText);
-    const attractionsDictionary = props.data;
+    const attractionsDictionary = useSelector(state => state.attraction.attractionList);
+    const typesArray = useSelector(state => state.attraction.tags);
 
     function onChangeEventHandler(e) {
         setCurrentType(e.target.value); // e.target.value is a string
@@ -48,11 +50,11 @@ const AttractionsSelectBox = (props) => {
     }
 
     return (
-        <Card>
+        <Card style={{height:"100%"}}>
             <Card.Header>
                 <Form.Select aria-label="Default select example" onChange={onChangeEventHandler}>
                     {<option disabled={firstChange}>{defaultText}</option>}
-                    {props.types.map((typeAsString) => <option>{typeAsString}</option>)}
+                    {typesArray.map((typeAsString) => <option>{typeAsString}</option>)}
                 </Form.Select>
             </Card.Header>
             <Card.Body>
