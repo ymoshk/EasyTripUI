@@ -90,6 +90,9 @@ const attractionSlice = createSlice({
         add(state, action){
             const newAttraction = state.attractionList.find(attraction => attraction.id === action.payload);
             state.itinerary.push(newAttraction);
+        },
+        replace(state, action){
+            state.attractionList = action.payload;
         }
     }
 })

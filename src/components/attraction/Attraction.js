@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {useDispatch} from "react-redux";
 
 import {Card, Image, Col, Row, Button} from 'react-bootstrap';
@@ -25,6 +25,7 @@ const Attraction = (props) => {
     const onRemoveHandler = () => {
         dispatch(attractionActions.remove(attractionId));
     }
+
 
     return <Card>
         <Card.Body>
@@ -60,6 +61,10 @@ const Attraction = (props) => {
                                     <Row><h5 style={{color: 'green'}}>{priceLevel}</h5></Row>
                                     <Row><h4>Address</h4></Row>
                                     <Row><h6>{props.address}</h6></Row>
+                                    <Row><h4>Phone No.</h4></Row>
+                                    <Row><h6>{props.phoneNumber}</h6></Row>
+                                    {props.website && <Fragment><Row><h4>Webiste</h4></Row>
+                                    <Row><a href={props.website}>{props.website}</a></Row></Fragment>}
                                 </Col>
                                 <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
                                     {imageComponent}
