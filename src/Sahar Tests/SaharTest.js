@@ -159,7 +159,8 @@ const SaharTest = () => {
             {/*    data={data}*/}
             {/*/>*/}
             {/*<FreeTime startTime={"11:00"} endTime={"12:00"}></FreeTime>*/}
-            <Mobility/>
+            {/*<Mobility/>*/}
+            <DragAndDropTest/>
         </div>
     );
 };
