@@ -1,0 +1,7 @@
+.fixedHeight{
+    height: 90px;
+}
+
+.scrollable{
+    overflow-y: scroll;
+}

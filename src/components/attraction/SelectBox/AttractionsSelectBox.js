@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Card, Form} from "react-bootstrap";
 import AttractionSmall from "../AttractionSmall";
 import {useSelector} from "react-redux";
+import styles from "./AttractionSelectBox.module.css"
 
 
 const AttractionsSelectBox = () => {
@@ -50,7 +51,7 @@ const AttractionsSelectBox = () => {
     }
 
     return (
-        <Card style={{height:"100%"}}>
+        <Card style={{height: "100%"}}>
             <Card.Header>
                 <Form.Select aria-label="Default select example" onChange={onChangeEventHandler}>
                     {<option disabled={firstChange}>{defaultText}</option>}
@@ -58,7 +59,12 @@ const AttractionsSelectBox = () => {
                 </Form.Select>
             </Card.Header>
             <Card.Body>
-                {renderBody()}
+                <div style={{height: "90vh", overflowY: "scroll"}}>
+                    {renderBody()}
+                    {renderBody()}
+                    {renderBody()}
+                    {renderBody()}
+                </div>
             </Card.Body>
         </Card>
 

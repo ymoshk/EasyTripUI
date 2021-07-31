@@ -104,7 +104,7 @@ const DailyPlanner = () => {
                         </Col>
                         <Col md={8}>
                             <Card style={{height: "100%"}}>
-                                <DragAndDropTest/>
+                            {/*<DragAndDropTest></DragAndDropTest>*/}
                             </Card>
                         </Col>
                     </Row>
