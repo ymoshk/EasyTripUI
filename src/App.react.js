@@ -14,6 +14,8 @@ import YotamTest from "./YotamTests/YotamTest";
 import SearchDestination from "./components/questions/destination/SearchDestination"
 import StepsCard from "./components/questions/StepsCard";
 import reduxTest from "./components/reduxTest";
+import SingleHour from "./components/dnd/hoursBar/SingleHour";
+import HoursBar from "./components/dnd/hoursBar/HoursBar";
 
 function App(props) {
     return (
@@ -26,6 +28,7 @@ function App(props) {
                     <Route exact path="/attractions" component={AttractionList}/>
                     <Route exact path="/attractionsSmall" component={AttractionSmallList}/>
                     <Route exact path="/yotam" component={YotamTest}/>
+                    <Route exact path="/hoursBar" component={HoursBar}/>
                     <Route exact path="/search" component={SearchDestination}/>
                     <Route exact path="/SaharTest" component={SaharTest}/>
                     <Route exact path="/PassengerCount" component={PassengersCount}/>

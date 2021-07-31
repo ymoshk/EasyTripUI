@@ -2,9 +2,7 @@ import React from 'react';
 import {Row, Col} from "react-bootstrap";
 
 const OpenHours = (props) => {
-    const hours = JSON.parse(props.hours);
-    console.log(props.hours);
-    console.log(props.hours.monday);
+    const hours = props.hours;
 
     return <React.Fragment>
         <Row>

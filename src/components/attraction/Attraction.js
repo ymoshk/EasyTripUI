@@ -33,6 +33,7 @@ const Attraction = (props) => {
                 <Col md={{span: 1, offset: 0}} xs={{span: 3, offset: 0}}>
                     <Row>
                         <h5>{props.startTime}</h5>
+                        {/*<h5>{props.hoursChange}</h5>*/}
                     </Row>
                     <Row>
                         <h5>{props.endTime}</h5>

@@ -1,0 +1,14 @@
+.myHr {
+    /*border-top: 100px dotted;*/
+    margin: 11px 0 0 0;
+    border:none;
+    border-top:3px dashed #000000;
+    color:#fff;
+    background-color:#fff;
+    height:1px;
+}
+
+.myCol {
+    padding-left: 0;
+    padding-right: 0;
+}

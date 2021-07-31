@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 // import DragDropContext from "react-beautiful-dnd/src/view/drag-drop-context";
 // import Droppable from "react-beautiful-dnd/src/view/drag-drop-context";
 // import Draggable from "react-beautiful-dnd/src/view/drag-drop-context";
@@ -10,8 +10,13 @@ import EiffelTour from "../../images/EiffelTour.jpg";
 import Attraction from "../attraction/Attraction";
 import louvre from "../../images/louvre.jpg";
 import nortedame from "../../images/nortedame.jpg";
+import {findDOMNode} from "react-dom";
+import {parse} from "dotenv";
 
 const DragAndDropTest = (props) => {
+
+    const HOURS_PER_DAY = 17;
+
     const DUMMY_ATTRACTIONS = [{
         name: "Eiffel Tower",
         id: 1,
@@ -86,29 +91,32 @@ const DragAndDropTest = (props) => {
         }
     ];
 
-    const [componentsOrder, setOrder] = useState(DUMMY_ATTRACTIONS.map((attraction) => <Attraction name={attraction.name}
-                                                                                                   type={attraction.type}
-                                                                                                   image={attraction.image}
-                                                                                                   rating={attraction.rating}
-                                                                                                   userTotalRating={attraction.userTotalRating}
-                                                                                                   closedTemporarily={attraction.closedTemporarily}
-                                                                                                   priceRange={attraction.priceRange}
-                                                                                                   startTime={attraction.startTime}
-                                                                                                   endTime={attraction.endTime}
-                                                                                                   hours={attraction.hours}
-                                                                                                   address={attraction.address}
-                                                                                                   isRecommended={true}
-                                                                                                   id={attraction.id}/>));
+    const [change, setChange] = useState(0);
 
+    const [componentsOrder, setOrder] = useState(DUMMY_ATTRACTIONS.map((attraction) => <Attraction
+        name={attraction.name}
+        type={attraction.type}
+        image={attraction.image}
+        rating={attraction.rating}
+        userTotalRating={attraction.userTotalRating}
+        closedTemporarily={attraction.closedTemporarily}
+        priceRange={attraction.priceRange}
+        startTime={attraction.startTime}
+        endTime={attraction.endTime}
+        hours={attraction.hours}
+        hoursChange={change}
+        address={attraction.address}
+        isRecommended={true}
+        id={attraction.id}/>));
 
     function mapComponent(component, index) {
         return (
             <Draggable draggableId={index.toString()} index={index}>
                 {provided => (
-                    <div
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        ref={provided.innerRef}
+                    <div onMouseDown={(e) => onDragStart(index, e)}
+                         {...provided.draggableProps}
+                         {...provided.dragHandleProps}
+                         ref={provided.innerRef}
                     >
                         {component}
                     </div>
@@ -139,17 +147,55 @@ const DragAndDropTest = (props) => {
         setOrder(newArray);
     }
 
+    const [mousePosition, setMousePosition] = useState(null);
+    const [draggedId, setDraggedId] = useState(null);
+    const [draggedStatPos, setDraggedStartPos] = useState(null);
+    const [pixelPerMinute, setPixelPerMinutes] = useState(-1);
+    const [draggedDuration, setDraggedDuration] = useState(null);
+    const [containerDetails, setContainerDetails] = useState(null);
+
+    const updateMousePosition = (e) => {
+        setMousePosition(e.pageY)
+    }
+
+    const onDragStart = (index, e) => {
+        setDraggedId(index);
+        setDraggedStartPos(e.pageY)
+        setDraggedDuration(e.currentTarget.offsetHeight / pixelPerMinute)
+    }
+
+    const onStopDrag = () => {
+        // TODO fire the update event
+        setDraggedId(null);
+        setDraggedStartPos(null);
+        setDraggedDuration(null);
+    }
+
+    useEffect(() => {
+        if (draggedId !== null) {
+            let diff = parseInt((draggedStatPos - mousePosition) / pixelPerMinute);
+            setChange(diff);
+            console.log(diff);
+        }
+    }, [mousePosition])
+
+
+    useEffect(() => {
+        const container = document.querySelector('#dayContainer')
+        // setContainerDetails([container.clientTop, container.clientHeight])
+        // setPixelPerMinutes((container.clientHeight - container.clientTop) / (HOURS_PER_DAY * 60));
+    }, [])
+
     return (
         <DragDropContext
             onDragEnd={onDragEndEventHandler}>
-            <Row>
+            <Row id={"dayContainer"} onMouseMove={updateMousePosition} onMouseUp={onStopDrag}>
                 <Droppable droppableId={"someId"}>
                     {(provided) => (
                         <Col
                             style={{listStyleType: "none"}}
                             ref={provided.innerRef}
-                            {...provided.droppableProps}
-                        >
+                            {...provided.droppableProps}>
                             {
                                 componentsOrder.map((component, index) => mapComponent(component, index))
                             }
@@ -160,8 +206,6 @@ const DragAndDropTest = (props) => {
                 </Droppable>
             </Row>
         </DragDropContext>
-
-
     );
 }
 
