@@ -91,9 +91,8 @@ const DragAndDropTest = (props) => {
         }
     ];
 
-    const [change, setChange] = useState(0);
 
-    const [componentsOrder, setOrder] = useState(DUMMY_ATTRACTIONS.map((attraction) => <Attraction
+    const [componentsOrder, setOrder] = useState(DUMMY_ATTRACTIONS.map(attraction => <Attraction
         name={attraction.name}
         type={attraction.type}
         image={attraction.image}
@@ -104,10 +103,14 @@ const DragAndDropTest = (props) => {
         startTime={attraction.startTime}
         endTime={attraction.endTime}
         hours={attraction.hours}
-        hoursChange={change}
         address={attraction.address}
         isRecommended={true}
+        calcHeight={true}
+        onRender={(func) => {
+            changeSetFunction(func)
+        }}
         id={attraction.id}/>));
+
 
     function mapComponent(component, index) {
         return (
@@ -151,8 +154,7 @@ const DragAndDropTest = (props) => {
     const [draggedId, setDraggedId] = useState(null);
     const [draggedStatPos, setDraggedStartPos] = useState(null);
     const [pixelPerMinute, setPixelPerMinutes] = useState(-1);
-    const [draggedDuration, setDraggedDuration] = useState(null);
-    const [containerDetails, setContainerDetails] = useState(null);
+
 
     const updateMousePosition = (e) => {
         setMousePosition(e.pageY)
@@ -161,35 +163,40 @@ const DragAndDropTest = (props) => {
     const onDragStart = (index, e) => {
         setDraggedId(index);
         setDraggedStartPos(e.pageY)
-        setDraggedDuration(e.currentTarget.offsetHeight / pixelPerMinute)
     }
 
     const onStopDrag = () => {
         // TODO fire the update event
         setDraggedId(null);
         setDraggedStartPos(null);
-        setDraggedDuration(null);
     }
 
     useEffect(() => {
         if (draggedId !== null) {
-            let diff = parseInt((draggedStatPos - mousePosition) / pixelPerMinute);
-            setChange(diff);
-            console.log(diff);
+            let diff = parseInt((mousePosition - draggedStatPos) / pixelPerMinute);
+            // setChange(diff);
+            // currentDraggedChange(diff);
+            // console.log(currentDraggedChange);
+            console.log(test);
         }
     }, [mousePosition])
 
+    let test;
+    const changeSetFunction = (func) => {
+        test = 5;
+    }
+
 
     useEffect(() => {
-        const container = document.querySelector('#dayContainer')
-        // setContainerDetails([container.clientTop, container.clientHeight])
-        // setPixelPerMinutes((container.clientHeight - container.clientTop) / (HOURS_PER_DAY * 60));
+        const dailyPlannerContainer = document.querySelector('#DailyPlannerContainer')
+        setPixelPerMinutes(dailyPlannerContainer.clientHeight / (HOURS_PER_DAY * 60));
     }, [])
 
     return (
         <DragDropContext
             onDragEnd={onDragEndEventHandler}>
-            <Row id={"dayContainer"} onMouseMove={updateMousePosition} onMouseUp={onStopDrag}>
+
+            <Row style={{height: "100%"}} id={"dayContainer"} onMouseMove={updateMousePosition} onMouseUp={onStopDrag}>
                 <Droppable droppableId={"someId"}>
                     {(provided) => (
                         <Col

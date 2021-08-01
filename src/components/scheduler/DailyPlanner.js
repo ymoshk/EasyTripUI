@@ -6,6 +6,7 @@ import louvre from "../../images/louvre.jpg";
 import nortedame from "../../images/nortedame.jpg";
 import styles from "./DailyPlanner.module.css";
 import DragAndDropTest from "../dnd/DragAndDropTest";
+import HoursBar from "../dnd/hoursBar/HoursBar";
 
 const DailyPlanner = () => {
     let data = {
@@ -88,7 +89,7 @@ const DailyPlanner = () => {
     return (
         <Card style={{height: "100%"}}>
             <Card.Header>
-                <span style={{textAlign: 'center !important', maxWidth:'100% !important'}}>
+                <span style={{textAlign: 'center !important', maxWidth: '100% !important'}}>
                     <h3>Day X builder</h3>
                 </span>
             </Card.Header>
@@ -103,8 +104,15 @@ const DailyPlanner = () => {
                             />
                         </Col>
                         <Col md={8}>
-                            <Card style={{height: "100%"}}>
-                            {/*<DragAndDropTest></DragAndDropTest>*/}
+                            <Card id={"DailyPlannerContainer"} style={{height: "100%"}}>
+                                <HoursBar startHour={8} count={17}/>
+                                <Row style={{zIndex: 10, position: "absolute", height: "100%", width: "100%", top: 13}}>
+                                    <Col xs={{span: 8, offset: 2}}>
+                                        <div style={{height: "100%", width: "100%"}}>
+                                            <DragAndDropTest/>
+                                        </div>
+                                    </Col>
+                                </Row>
                             </Card>
                         </Col>
                     </Row>
@@ -112,7 +120,8 @@ const DailyPlanner = () => {
             </Card.Body>
             <Card.Footer className="text-muted">2 days ago</Card.Footer>
         </Card>
-    );
+    )
+        ;
 };
 
 export default DailyPlanner;

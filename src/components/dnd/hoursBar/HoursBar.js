@@ -1,5 +1,6 @@
 import React from 'react';
 import SingleHour from "./SingleHour";
+import ONE_HOUR_HEIGHT from "../../constants"
 
 const HoursBar = (props) => {
 
@@ -17,7 +18,7 @@ const HoursBar = (props) => {
 
         for (let i = 0; i < props.count; i++) {
             result.push(
-                <div style={{height: "15vh"}}>
+                <div style={{height: ONE_HOUR_HEIGHT.toString() + "vh"}}>
                     <SingleHour hour={formatDate(current).toString()}/>
                 </div>
             )
@@ -28,7 +29,7 @@ const HoursBar = (props) => {
     }
 
     return (
-        <div>
+        <div style={{zIndex: 1, position: "relative", width: "100%"}}>
             {createBar()}
         </div>
     );

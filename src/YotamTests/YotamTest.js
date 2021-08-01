@@ -6,19 +6,24 @@ import pic from "../images/EiffelTour.jpg"
 import {Col, Row} from "react-bootstrap";
 
 const YotamTest = () => {
-    // return (<StepsCard/>)
-    return (
-        <>
-            <Row>
-                <Col md={4}/>
-                <Col md={8}>
-                    <img style={{zIndex: 2, position: "relative", top:0}} width={200} src={pic}/>
-                </Col>
-            </Row>
-            <div style={{zIndex: 1, position: "relative", top:-100}}><HoursBar height={100} startHour={8} count={17}/></div>
-        </>
-    )
-    // return (<SingleHour hour={"14:00"}/>)
-};
+    return (<StepsCard/>);
+    // return (
+        // <>
+        //     <HoursBar height={100} startHour={8} count={17}/>
+        //     <Row>
+        //         <Col md={4}/>
+        //         <Col md={8}>
+        //             <img style={{zIndex: 2, position: "relative"}} width={200} src={pic}/>
+        //         </Col>
+        //     </Row>
+        //     <Row>
+        //         <Col md={4}/>
+        //         <Col md={8}>
+        //             <img style={{zIndex: 2, position: "relative"}} width={200} src={pic}/>
+        //         </Col>
+        //     </Row>
+        // </>
+    // )
+}
 
 export default YotamTest;

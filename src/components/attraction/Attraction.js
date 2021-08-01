@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 
 import {Card, Image, Col, Row, Button} from 'react-bootstrap';
@@ -8,8 +8,25 @@ import StarRating from "../utils/StarRating";
 import RecommendedIcon from "./RecommendedIcon";
 
 import {attractionActions} from "../../store/attraction";
+import ONE_HOUR_HEIGHT from "../constants";
 
 const Attraction = (props) => {
+
+    const extractTime = () => {
+        let startTime = new Date("01-01-2030 " + props.startTime + ":00");
+        let endTime = new Date("01-01-2030 " + props.endTime + ":00");
+
+        return (endTime - startTime) / (1000 * 60 * 60);
+    }
+
+    const getHeight = () => {
+        if (props.calcHeight) {
+            return (ONE_HOUR_HEIGHT * extractTime()).toString() + "vh"
+        } else {
+            return "auto"
+        }
+    }
+
     const dispatch = useDispatch();
 
     let priceLevel = '$'.repeat(props.priceRange + 1);
@@ -26,14 +43,16 @@ const Attraction = (props) => {
         dispatch(attractionActions.remove(attractionId));
     }
 
+    const [change, setChange] = useState(0);
 
-    return <Card>
+
+    return <Card onMouseDown={() => props.onRender(setChange)} style={{marginBottom: 0, height: getHeight()}}>
         <Card.Body>
             <Row>
                 <Col md={{span: 1, offset: 0}} xs={{span: 3, offset: 0}}>
                     <Row>
-                        <h5>{props.startTime}</h5>
-                        {/*<h5>{props.hoursChange}</h5>*/}
+                        {/*<h5>{props.startTime}</h5>*/}
+                        <h5>{change}</h5>
                     </Row>
                     <Row>
                         <h5>{props.endTime}</h5>
@@ -65,7 +84,7 @@ const Attraction = (props) => {
                                     <Row><h4>Phone No.</h4></Row>
                                     <Row><h6>{props.phoneNumber}</h6></Row>
                                     {props.website && <Fragment><Row><h4>Webiste</h4></Row>
-                                    <Row><a href={props.website}>{props.website}</a></Row></Fragment>}
+                                        <Row><a href={props.website}>{props.website}</a></Row></Fragment>}
                                 </Col>
                                 <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
                                     {imageComponent}

@@ -14,6 +14,7 @@ import EiffelTour from "../images/EiffelTour.jpg";
 import louvre from "../images/louvre.jpg";
 import nortedame from "../images/nortedame.jpg";
 import Mobility from "../components/scheduler/Mobility";
+import DailyPlanner from "../components/scheduler/DailyPlanner";
 
 //TODO-Delete
 
@@ -160,7 +161,8 @@ const SaharTest = () => {
             {/*/>*/}
             {/*<FreeTime startTime={"11:00"} endTime={"12:00"}></FreeTime>*/}
             {/*<Mobility/>*/}
-            <DragAndDropTest/>
+            {/*<DragAndDropTest/>*/}
+            {<DailyPlanner/>}
         </div>
     );
 };
