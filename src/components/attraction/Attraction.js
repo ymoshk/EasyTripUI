@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment, useContext, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 
 import {Card, Image, Col, Row, Button} from 'react-bootstrap';
@@ -7,8 +7,10 @@ import OpenHours from "./OpenHours";
 import StarRating from "../utils/StarRating";
 import RecommendedIcon from "./RecommendedIcon";
 
-import {attractionActions} from "../../store/attraction";
+import {attractionActions} from "../../store/attraction-slice";
 import ONE_HOUR_HEIGHT from "../constants";
+import ChangeHoursContext from "../scheduler/ChangeHourContext"
+import formatDateToHours from "../utils/helpers/DateFormatter";
 
 const Attraction = (props) => {
 
@@ -43,19 +45,48 @@ const Attraction = (props) => {
         dispatch(attractionActions.remove(attractionId));
     }
 
-    const [change, setChange] = useState(0);
+    const [hoursChange, setHoursChange] = useState(0);
+    const [endHourChange, setEndHourChange] = useState(0);
+    const hoursChangeContext = useContext(ChangeHoursContext);
+    const [calculatedStartTime, setCalculatedStartTime] = useState(props.startTime);
+    const [calculatedEndTime, setCalculatedEndTime] = useState(props.end);
+
+    const updateContext = () => {
+        hoursChangeContext.changeHoursFunc = setHoursChange;
+        hoursChangeContext.changeEndHourFunc = setEndHourChange;
+    }
+
+    const addMinutes = (date, minutes) => {
+        return new Date(date.getTime() + minutes * 60000);
+    }
+
+    useEffect(() => {
+        let startTime = new Date("01-01-2030 " + props.startTime + ":00");
+        let endTime = new Date("01-01-2030 " + props.endTime + ":00");
+
+        let newStartTime = addMinutes(startTime, hoursChange);
+        let newEndTime = addMinutes(endTime, hoursChange);
+
+        setCalculatedStartTime(formatDateToHours(newStartTime));
+        setCalculatedEndTime(formatDateToHours(newEndTime));
+    }, [hoursChange])
+
+    useEffect(() => {
+        let endTime = new Date("01-01-2030 " + props.endTime + ":00");
+        let newEndTime = addMinutes(endTime, hoursChange);
+        setCalculatedEndTime(formatDateToHours(newEndTime));
+    }, [endHourChange])
 
 
-    return <Card onMouseDown={() => props.onRender(setChange)} style={{marginBottom: 0, height: getHeight()}}>
+    return <Card onMouseDown={updateContext} style={{marginBottom: 0, height: getHeight()}}>
         <Card.Body>
             <Row>
                 <Col md={{span: 1, offset: 0}} xs={{span: 3, offset: 0}}>
                     <Row>
-                        {/*<h5>{props.startTime}</h5>*/}
-                        <h5>{change}</h5>
+                        <h5>{calculatedStartTime}</h5>
                     </Row>
                     <Row>
-                        <h5>{props.endTime}</h5>
+                        <h5>{calculatedEndTime}</h5>
                     </Row>
                 </Col>
                 <Col md={{span: 11, offset: 0}} xs={{span: 9, offset: 0}}>

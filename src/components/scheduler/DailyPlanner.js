@@ -106,7 +106,7 @@ const DailyPlanner = () => {
                         <Col md={8}>
                             <Card id={"DailyPlannerContainer"} style={{height: "100%"}}>
                                 <HoursBar startHour={8} count={17}/>
-                                <Row style={{zIndex: 10, position: "absolute", height: "100%", width: "100%", top: 13}}>
+                                <Row style={{zIndex: 10, position: "absolute", height: "100%", width: "100%", top: 12}}>
                                     <Col xs={{span: 8, offset: 2}}>
                                         <div style={{height: "100%", width: "100%"}}>
                                             <DragAndDropTest/>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 // import DragDropContext from "react-beautiful-dnd/src/view/drag-drop-context";
 // import Droppable from "react-beautiful-dnd/src/view/drag-drop-context";
 // import Draggable from "react-beautiful-dnd/src/view/drag-drop-context";
@@ -12,6 +12,7 @@ import louvre from "../../images/louvre.jpg";
 import nortedame from "../../images/nortedame.jpg";
 import {findDOMNode} from "react-dom";
 import {parse} from "dotenv";
+import ChangeHoursContext from "../scheduler/ChangeHourContext"
 
 const DragAndDropTest = (props) => {
 
@@ -26,8 +27,8 @@ const DragAndDropTest = (props) => {
         image: {url: EiffelTour, height: 1025, width: 616},
         closedTemporarily: false,
         priceRange: 3,
-        startTime: '10:30',
-        endTime: '12:00',
+        startTime: '08:00',
+        endTime: '09:00',
         hours: {
             sunday: '9am-6pm',
             monday: '9am-6pm',
@@ -106,9 +107,6 @@ const DragAndDropTest = (props) => {
         address={attraction.address}
         isRecommended={true}
         calcHeight={true}
-        onRender={(func) => {
-            changeSetFunction(func)
-        }}
         id={attraction.id}/>));
 
 
@@ -150,10 +148,12 @@ const DragAndDropTest = (props) => {
         setOrder(newArray);
     }
 
+
     const [mousePosition, setMousePosition] = useState(null);
     const [draggedId, setDraggedId] = useState(null);
     const [draggedStatPos, setDraggedStartPos] = useState(null);
     const [pixelPerMinute, setPixelPerMinutes] = useState(-1);
+    const [minutesToAdd, setMinutesToAdd] = useState(null);
 
 
     const updateMousePosition = (e) => {
@@ -166,25 +166,27 @@ const DragAndDropTest = (props) => {
     }
 
     const onStopDrag = () => {
+
+        console.log(DUMMY_ATTRACTIONS[draggedId].name);
+        console.log(DUMMY_ATTRACTIONS[draggedId].startTime);
+        console.log(DUMMY_ATTRACTIONS[draggedId].endTime);
+        console.log(minutesToAdd);
+
         // TODO fire the update event
         setDraggedId(null);
         setDraggedStartPos(null);
+        setMinutesToAdd(null);
     }
+
+    const hoursChangeContext = useContext(ChangeHoursContext);
 
     useEffect(() => {
         if (draggedId !== null) {
             let diff = parseInt((mousePosition - draggedStatPos) / pixelPerMinute);
-            // setChange(diff);
-            // currentDraggedChange(diff);
-            // console.log(currentDraggedChange);
-            console.log(test);
+            hoursChangeContext.changeHoursFunc(diff);
+            setMinutesToAdd(diff);
         }
     }, [mousePosition])
-
-    let test;
-    const changeSetFunction = (func) => {
-        test = 5;
-    }
 
 
     useEffect(() => {
@@ -193,10 +195,12 @@ const DragAndDropTest = (props) => {
     }, [])
 
     return (
+
         <DragDropContext
             onDragEnd={onDragEndEventHandler}>
 
-            <Row style={{height: "100%"}} id={"dayContainer"} onMouseMove={updateMousePosition} onMouseUp={onStopDrag}>
+            <Row style={{height: "100%"}} id={"dayContainer"} onMouseMove={updateMousePosition}
+                 onMouseUp={onStopDrag}>
                 <Droppable droppableId={"someId"}>
                     {(provided) => (
                         <Col

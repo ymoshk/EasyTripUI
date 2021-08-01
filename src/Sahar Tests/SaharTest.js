@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import SingleTag from "../components/questions/tags/SingleTag";
 import TagsList from "../components/questions/tags/TagsList";
 import PriceRangePriceRange from "../components/questions/price_range/PriceRange";
@@ -15,6 +15,8 @@ import louvre from "../images/louvre.jpg";
 import nortedame from "../images/nortedame.jpg";
 import Mobility from "../components/scheduler/Mobility";
 import DailyPlanner from "../components/scheduler/DailyPlanner";
+import ChangeHoursContext from "../components/scheduler/ChangeHourContext"
+
 
 //TODO-Delete
 
@@ -83,8 +85,8 @@ const SaharTest = () => {
                 image: {url: EiffelTour, height: 1025, width: 616},
                 closedTemporarily: false,
                 priceRange: 3,
-                startTime: '10:30',
-                endTime: '12:00',
+                startTime: '08:00',
+                endTime: '09:00',
                 hours: {
                     sunday: '9am-6pm',
                     monday: '9am-6pm',
@@ -154,16 +156,18 @@ const SaharTest = () => {
     }
 
     return (
-        <div>
-            {/*<AttractionsSelectBox*/}
-            {/*    types={["Restaurants", "Test2"]}*/}
-            {/*    data={data}*/}
-            {/*/>*/}
-            {/*<FreeTime startTime={"11:00"} endTime={"12:00"}></FreeTime>*/}
-            {/*<Mobility/>*/}
-            {/*<DragAndDropTest/>*/}
-            {<DailyPlanner/>}
-        </div>
+        <ChangeHoursContext.Provider value={{changeHoursFunc: undefined, changeEndHourFunc: undefined}}>
+            <div>
+                {/*<AttractionsSelectBox*/}
+                {/*    types={["Restaurants", "Test2"]}*/}
+                {/*    data={data}*/}
+                {/*/>*/}
+                {/*<FreeTime startTime={"11:00"} endTime={"12:00"}></FreeTime>*/}
+                {/*<Mobility/>*/}
+                {/*<DragAndDropTest/>*/}
+                {<DailyPlanner/>}
+            </div>
+        </ChangeHoursContext.Provider>
     );
 };
 
