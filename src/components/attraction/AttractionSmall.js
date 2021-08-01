@@ -5,7 +5,7 @@ import {Card, Image, Col, Row, Button} from 'react-bootstrap';
 import StarRating from "../utils/StarRating";
 import RecommendedIcon from "./RecommendedIcon";
 
-import {attractionActions} from "../../store/attraction";
+import {attractionActions} from "../../store/attraction-slice";
 import {CirclePlus, InfoCircle} from "tabler-icons-react";
 
 const AttractionSmall = (props) => {
@@ -51,7 +51,6 @@ const AttractionSmall = (props) => {
                         </Row>
                     </Card.Title>
                     <Card.Text>
-                        <div>
                             <Row>
                                 <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
                                     <Row><StarRating value={props.rating}/></Row>
@@ -65,7 +64,6 @@ const AttractionSmall = (props) => {
                                     {imageComponent}
                                 </Col>}
                             </Row>
-                        </div>
                     </Card.Text>
                 </Col>
             </Row>

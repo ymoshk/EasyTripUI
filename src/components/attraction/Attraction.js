@@ -7,7 +7,7 @@ import OpenHours from "./OpenHours";
 import StarRating from "../utils/StarRating";
 import RecommendedIcon from "./RecommendedIcon";
 
-import {attractionActions} from "../../store/attraction";
+import {attractionActions} from "../../store/attraction-slice";
 import {Eraser} from "tabler-icons-react";
 
 const Attraction = (props) => {
