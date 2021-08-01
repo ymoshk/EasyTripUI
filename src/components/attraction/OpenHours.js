@@ -1,10 +1,10 @@
 import React from 'react';
-import {Row, Col} from "react-bootstrap";
+import {Row} from "react-bootstrap";
 
 const OpenHours = (props) => {
-    const hours = props.hours;
+    const hours = JSON.parse(props.hours);
 
-    return <React.Fragment>
+    return <div style = {{paddingLeft: 15, paddingTop: 10}}>
         <Row>
             {hours.sunday}
         </Row>
@@ -26,7 +26,7 @@ const OpenHours = (props) => {
         <Row>
             {hours.saturday}
         </Row>
-    </React.Fragment>
+    </div>
 }
 
 export default OpenHours;
