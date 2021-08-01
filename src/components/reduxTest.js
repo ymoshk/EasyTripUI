@@ -18,8 +18,8 @@ const reduxTest = () => {
         const urlAttractions = new URL(process.env.REACT_APP_SERVER_URL.concat('/getCityAttractions'));
 
         const transformAttraction = (attractionsObj) => {
-            console.log(attractionsObj.restaurant);
-            dispatch(attractionActions.replace(attractionsObj.restaurant));
+            console.log(attractionsObj.Attraction);
+            dispatch(attractionActions.replace(attractionsObj.Attraction));
         }
 
         fetchAttractions({url: urlAttractions, method: 'POST', body: {cityName: "Tel Aviv"}}, transformAttraction);
