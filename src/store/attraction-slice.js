@@ -80,7 +80,7 @@ const DUMMY_ATTRACTIONS = {
             }]
 };
 
-const initialState = {itinerary: [], attractionList: DUMMY_ATTRACTIONS, tags : ["Restaurants", " Test2"]};
+const initialState = {itinerary: [], attractionList: [], tags : ["Restaurants", " Test2"]};
 
 const attractionSlice = createSlice({
     name: 'attractions',

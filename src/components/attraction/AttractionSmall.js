@@ -5,7 +5,8 @@ import {Card, Image, Col, Row, Button} from 'react-bootstrap';
 import StarRating from "../utils/StarRating";
 import RecommendedIcon from "./RecommendedIcon";
 
-import {attractionActions} from "../../store/attraction";
+import {attractionActions} from "../../store/attraction-slice";
+import {CirclePlus, InfoCircle} from "tabler-icons-react";
 
 const AttractionSmall = (props) => {
     const dispatch = useDispatch();
@@ -32,17 +33,24 @@ const AttractionSmall = (props) => {
                         <Row>
                             <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
                                 <h3>
-                                    {props.isRecommended && <RecommendedIcon />}
+                                    {props.isRecommended && <RecommendedIcon/>}
                                     {props.name}</h3>
                             </Col>
                             <Col md={{span: 6, offset: 0}} xs={{span: 12, offset: 0}}>
-                                <Button onClick={onAddHandler} variant="success">Add</Button>{' '}
-                                <Button variant="info">Info</Button>{' '}
+                                <Button onClick={onAddHandler} variant="success"><CirclePlus
+                                    size={24}
+                                    strokeWidth={2}
+                                    color={'black'}
+                                /></Button>{' '}
+                                <Button variant="info"><InfoCircle
+                                    size={24}
+                                    strokeWidth={2}
+                                    color={'black'}
+                                /></Button>{' '}
                             </Col>
                         </Row>
                     </Card.Title>
                     <Card.Text>
-                        <div>
                             <Row>
                                 <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
                                     <Row><StarRating value={props.rating}/></Row>
@@ -56,7 +64,6 @@ const AttractionSmall = (props) => {
                                     {imageComponent}
                                 </Col>}
                             </Row>
-                        </div>
                     </Card.Text>
                 </Col>
             </Row>
