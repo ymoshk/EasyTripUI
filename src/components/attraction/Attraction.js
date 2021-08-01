@@ -8,6 +8,7 @@ import StarRating from "../utils/StarRating";
 import RecommendedIcon from "./RecommendedIcon";
 
 import {attractionActions} from "../../store/attraction";
+import {Eraser} from "tabler-icons-react";
 
 const Attraction = (props) => {
     const dispatch = useDispatch();
@@ -46,7 +47,11 @@ const Attraction = (props) => {
                                 <h1>{props.isRecommended && <RecommendedIcon/>}{props.name}</h1>
                             </Col>
                             <Col md={{span: 6, offset: 0}} xs={{span: 12, offset: 0}}>
-                                <Button variant="secondary" onClick={onRemoveHandler}>Remove</Button>{' '}
+                                <Button variant="secondary" onClick={onRemoveHandler}><Eraser
+                                    size={24}
+                                    strokeWidth={2}
+                                    color={'black'}
+                                /></Button>{' '}
                             </Col>
                         </Row>
                     </Card.Title>
