@@ -1,6 +1,6 @@
 import React from 'react';
 import SingleHour from "./SingleHour";
-import ONE_HOUR_HEIGHT from "../../constants"
+import ONE_HOUR_HEIGHT from "../Constants"
 
 const HoursBar = (props) => {
 

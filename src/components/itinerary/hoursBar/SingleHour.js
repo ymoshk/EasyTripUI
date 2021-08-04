@@ -10,14 +10,14 @@ const SingleHour = (props) => {
                     <label>{props.hour}</label>
                 </div>
             </Col>
-            <Col xs={8} md={10}>
+            <Col xs={8} md={11}>
                 <hr className={styles.myHr}/>
             </Col>
-            <Col xs={2} md={1}>
-                <div style={{textAlign: "center", height: "100%"}}>
-                    <label>{props.hour}</label>
-                </div>
-            </Col>
+            {/*<Col xs={2} md={1}>*/}
+            {/*    <div style={{textAlign: "center", height: "100%"}}>*/}
+            {/*        <label>{props.hour}</label>*/}
+            {/*    </div>*/}
+            {/*</Col>*/}
         </Row>
     );
 };

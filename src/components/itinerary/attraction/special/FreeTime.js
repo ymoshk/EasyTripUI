@@ -1,8 +1,8 @@
 import React from 'react';
 import {Card, Col, Row} from "react-bootstrap";
-import StarRating from "../utils/StarRating";
-import CollapsibleDiv from "../utils/CollapsibleDiv";
-import OpenHours from "../attraction/OpenHours";
+import StarRating from "../../../utils/StarRating";
+import CollapsibleDiv from "../../../utils/CollapsibleDiv";
+import OpenHours from "../../../attraction/OpenHours";
 
 const FreeTime = (props) => {
 
@@ -19,8 +19,6 @@ const FreeTime = (props) => {
                         </Row>
                     </Col>
                     <Col md={{span: 11, offset: 0}} xs={{span: 9, offset: 0}}>
-
-
                         <Card.Text>
                             <h1 style={{textAlign: "center"}}>Free Time</h1>
                         </Card.Text>

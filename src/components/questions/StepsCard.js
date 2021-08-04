@@ -181,6 +181,7 @@ const StepsCard = () => {
             adultsCount: stagesList[2].data.adultsCount.toString(),
             childrenCount: stagesList[2].data.childrenCount.toString(),
             budget: stagesList[3].data.priceRange.toString(),
+            // TODO handle empty tags lists
             favoriteAttraction: JSON.stringify(stagesList[4].data
                 .filter(tag => tag.status === true)
                 .map(tag => (
@@ -203,7 +204,11 @@ const StepsCard = () => {
             url: process.env.REACT_APP_SERVER_URL + "/completeQuestions",
             method: "POST",
             body: data
-        }).then(console.log("done"));
+        }, setItinerary).then();
+    }
+
+    const setItinerary = (data) => {
+        console.log(data);
     }
 
     const checkValidation = (newStage) => {

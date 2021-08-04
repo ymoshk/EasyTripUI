@@ -1,12 +1,15 @@
 import React from 'react';
 import {Card, Col, Row} from "react-bootstrap";
-import AttractionsSelectBox from "../attraction/SelectBox/AttractionsSelectBox";
+import AttractionsSelectBox from "./selectBox/AttractionsSelectBox";
 import EiffelTour from "../../images/EiffelTour.jpg";
 import louvre from "../../images/louvre.jpg";
 import nortedame from "../../images/nortedame.jpg";
 import styles from "./DailyPlanner.module.css";
-import DragAndDropTest from "../dnd/DragAndDropTest";
-import HoursBar from "../dnd/hoursBar/HoursBar";
+import DailyDnd from "./DailyDnd";
+import HoursBar from "./hoursBar/HoursBar";
+import ChangeHoursContext from "./ChangeHourContext";
+import DayPicker from "./dayPicker/DayPicker";
+
 
 const DailyPlanner = () => {
     let data = {
@@ -82,46 +85,60 @@ const DailyPlanner = () => {
                     },
                     lat: 48.8530,
                     lng: 2.3499
-                }]
+                }
+            ]
     }
 
 
     return (
-        <Card style={{height: "100%"}}>
-            <Card.Header>
-                <span style={{textAlign: 'center !important', maxWidth: '100% !important'}}>
-                    <h3>Day X builder</h3>
-                </span>
-            </Card.Header>
-            <Card.Body>
-                <Card.Text>
-                    <Row>
-                        <Col md={4}>
-                            <AttractionsSelectBox
-                                classname={styles.maxSize}
-                                types={["Restaurants", "Test2"]}
-                                data={data}
-                            />
-                        </Col>
-                        <Col md={8}>
-                            <Card id={"DailyPlannerContainer"} style={{height: "100%"}}>
-                                <HoursBar startHour={8} count={17}/>
-                                <Row style={{zIndex: 10, position: "absolute", height: "100%", width: "100%", top: 12}}>
-                                    <Col xs={{span: 8, offset: 2}}>
-                                        <div style={{height: "100%", width: "100%"}}>
-                                            <DragAndDropTest/>
-                                        </div>
+        <ChangeHoursContext.Provider
+            value={{
+                changeHoursFunc: undefined,
+                changeEndHourFunc: undefined,
+                isDragDisabled: false
+            }}>
+            <Card style={{height: "100%"}}>
+                <Card.Body>
+                    <Card.Text>
+                        <Row>
+                            <Col md={4}>
+                                <AttractionsSelectBox
+                                    classname={styles.maxSize}
+                                    types={["Restaurants", "Test2"]}
+                                    data={data}
+                                />
+                            </Col>
+                            <Col md={8}>
+                                <Row>
+                                    <Col>
+                                        <DayPicker/>
                                     </Col>
                                 </Row>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Card.Text>
-            </Card.Body>
-            <Card.Footer className="text-muted">2 days ago</Card.Footer>
-        </Card>
-    )
-        ;
+                                <Row>
+                                    <Card id={"DailyPlannerContainer"} style={{height: "100%"}}>
+                                        <HoursBar startHour={8} count={17}/>
+                                        <Row style={{
+                                            zIndex: 10,
+                                            position: "absolute",
+                                            height: "100%",
+                                            width: "100%",
+                                            top: 11
+                                        }}>
+                                            <Col xs={{span: 11, offset: 1}}>
+                                                <div style={{marginLeft: 11, height: "100%", width: "100%"}}>
+                                                    <DailyDnd/>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </Card>
+                                </Row>
+                            </Col>
+                        </Row>
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        </ChangeHoursContext.Provider>
+    );
 };
 
 export default DailyPlanner;

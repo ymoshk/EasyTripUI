@@ -1,7 +1,7 @@
 import React from "react";
 import {Row, Col} from "react-bootstrap";
 
-import AttractionList from "./attraction/AttractionList";
+import AttractionList from "./itinerary/attraction/AttractionList";
 import MapWrapper from "./utils/MapWrapper";
 
 const Timeline = () => {

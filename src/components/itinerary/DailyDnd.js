@@ -1,23 +1,16 @@
 import React, {useContext, useEffect, useState} from 'react';
-// import DragDropContext from "react-beautiful-dnd/src/view/drag-drop-context";
-// import Droppable from "react-beautiful-dnd/src/view/drag-drop-context";
-// import Draggable from "react-beautiful-dnd/src/view/drag-drop-context";
-import {Col, Image, Row} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
+import HelpersContext from "./ChangeHourContext"
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
-import {Card} from "tabler-react";
-import {H3} from "tabler-icons-react";
+import AttractionContainer from "./attraction/AttractionContainer";
+
 import EiffelTour from "../../images/EiffelTour.jpg";
-import Attraction from "../attraction/Attraction";
 import louvre from "../../images/louvre.jpg";
 import nortedame from "../../images/nortedame.jpg";
-import {findDOMNode} from "react-dom";
-import {parse} from "dotenv";
-import ChangeHoursContext from "../scheduler/ChangeHourContext"
 
-const DragAndDropTest = (props) => {
+const DailyDnd = (props) => {
 
     const HOURS_PER_DAY = 17;
-
     const DUMMY_ATTRACTIONS = [{
         name: "Eiffel Tower",
         id: 1,
@@ -28,7 +21,9 @@ const DragAndDropTest = (props) => {
         closedTemporarily: false,
         priceRange: 3,
         startTime: '08:00',
-        endTime: '09:00',
+        endTime: '9:45',
+        phoneNumber: "+1234567899",
+        website: "https://www.google.com",
         hours: {
             sunday: '9am-6pm',
             monday: '9am-6pm',
@@ -40,60 +35,61 @@ const DragAndDropTest = (props) => {
         },
         lat: 48.8584,
         lng: 2.2945,
-        address: "Champ de Mars, 5 Av. Anatole France, 75007 Paris, France"
+        address: "Champ de Mars, 5 Av. Anatole France, 75007 Paris, France",
+        isRecommended: true
     },
-        {
-            name: "Louvre",
-            id: 4.5,
-            type: "Art",
-            rating: 2.2,
-            userTotalRating: 123,
-            image: {url: louvre, height: 780, width: 1280},
-            closedTemporarily: true,
-            priceRange: 1,
-            startTime: '12:00',
-            endTime: '12:30',
-            hours: {
-                sunday: '9am-6pm',
-                monday: '9am-6pm',
-                tuesday: '9am-6pm',
-                wednesday: '9am-6pm',
-                thursday: '9am-6pm',
-                friday: '9am-6pm',
-                saturday: 'Closed'
-            },
-            lat: 48.8606,
-            lng: 2.3376,
-            address: "Rue de Rivoli, 75001 Paris, France"
-        },
-        {
-            name: "notre dame",
-            id: 3,
-            type: "Art",
-            rating: 3.5,
-            userTotalRating: 123,
-            image: {url: nortedame, height: 868, width: 636},
-            closedTemporarily: false,
-            priceRange: 1,
-            startTime: '12:00',
-            endTime: '12:30',
-            hours: {
-                sunday: '9am-6pm',
-                monday: '9am-6pm',
-                tuesday: '9am-6pm',
-                wednesday: '9am-6pm',
-                thursday: '9am-6pm',
-                friday: '9am-6pm',
-                saturday: 'Closed'
-            },
-            lat: 48.8530,
-            lng: 2.3499,
-            address: "6 Parvis Notre-Dame - Pl. Jean-Paul II, 75004 Paris, France"
-        }
+        // {
+        //     name: "Louvre",
+        //     id: 4.5,
+        //     type: "Art",
+        //     rating: 2.2,
+        //     userTotalRating: 123,
+        //     image: {url: louvre, height: 780, width: 1280},
+        //     closedTemporarily: true,
+        //     priceRange: 1,
+        //     startTime: '12:00',
+        //     endTime: '12:30',
+        //     hours: {
+        //         sunday: '9am-6pm',
+        //         monday: '9am-6pm',
+        //         tuesday: '9am-6pm',
+        //         wednesday: '9am-6pm',
+        //         thursday: '9am-6pm',
+        //         friday: '9am-6pm',
+        //         saturday: 'Closed'
+        //     },
+        //     lat: 48.8606,
+        //     lng: 2.3376,
+        //     address: "Rue de Rivoli, 75001 Paris, France"
+        // },
+        // {
+        //     name: "notre dame",
+        //     id: 3,
+        //     type: "Art",
+        //     rating: 3.5,
+        //     userTotalRating: 123,
+        //     image: {url: nortedame, height: 868, width: 636},
+        //     closedTemporarily: false,
+        //     priceRange: 1,
+        //     startTime: '12:00',
+        //     endTime: '12:30',
+        //     hours: {
+        //         sunday: '9am-6pm',
+        //         monday: '9am-6pm',
+        //         tuesday: '9am-6pm',
+        //         wednesday: '9am-6pm',
+        //         thursday: '9am-6pm',
+        //         friday: '9am-6pm',
+        //         saturday: 'Closed'
+        //     },
+        //     lat: 48.8530,
+        //     lng: 2.3499,
+        //     address: "6 Parvis Notre-Dame - Pl. Jean-Paul II, 75004 Paris, France"
+        // }
     ];
 
 
-    const [componentsOrder, setOrder] = useState(DUMMY_ATTRACTIONS.map(attraction => <Attraction
+    const [componentsOrder, setOrder] = useState(DUMMY_ATTRACTIONS.map(attraction => <AttractionContainer
         name={attraction.name}
         type={attraction.type}
         image={attraction.image}
@@ -105,14 +101,17 @@ const DragAndDropTest = (props) => {
         endTime={attraction.endTime}
         hours={attraction.hours}
         address={attraction.address}
-        isRecommended={true}
+        isRecommended={attraction.isRecommended}
         calcHeight={true}
+        phoneNumber={attraction.phoneNumber}
+        website={attraction.website}
+        attraction={attraction}
         id={attraction.id}/>));
 
 
     function mapComponent(component, index) {
         return (
-            <Draggable draggableId={index.toString()} index={index}>
+            <Draggable isDragDisabled={helpersContext.isDragDisabled} draggableId={index.toString()} index={index}>
                 {provided => (
                     <div onMouseDown={(e) => onDragStart(index, e)}
                          {...provided.draggableProps}
@@ -166,11 +165,12 @@ const DragAndDropTest = (props) => {
     }
 
     const onStopDrag = () => {
-
-        console.log(DUMMY_ATTRACTIONS[draggedId].name);
-        console.log(DUMMY_ATTRACTIONS[draggedId].startTime);
-        console.log(DUMMY_ATTRACTIONS[draggedId].endTime);
-        console.log(minutesToAdd);
+        if (draggedId !== undefined && draggedId !== null && minutesToAdd !== undefined) {
+            console.log(DUMMY_ATTRACTIONS[draggedId].name);
+            console.log(DUMMY_ATTRACTIONS[draggedId].startTime);
+            console.log(DUMMY_ATTRACTIONS[draggedId].endTime);
+            console.log(minutesToAdd);
+        }
 
         // TODO fire the update event
         setDraggedId(null);
@@ -178,13 +178,18 @@ const DragAndDropTest = (props) => {
         setMinutesToAdd(null);
     }
 
-    const hoursChangeContext = useContext(ChangeHoursContext);
+    const helpersContext = useContext(HelpersContext);
 
     useEffect(() => {
         if (draggedId !== null) {
             let diff = parseInt((mousePosition - draggedStatPos) / pixelPerMinute);
-            hoursChangeContext.changeHoursFunc(diff);
             setMinutesToAdd(diff);
+
+            if (!helpersContext.isDragDisabled) {
+                helpersContext.changeHoursFunc(diff);
+            } else {
+                helpersContext.changeEndHourFunc(diff);
+            }
         }
     }, [mousePosition])
 
@@ -220,4 +225,4 @@ const DragAndDropTest = (props) => {
     );
 }
 
-export default DragAndDropTest;
+export default DailyDnd;

@@ -1,0 +1,5 @@
+.resize {
+    resize:vertical;
+    overflow:auto;
+    border: solid 1px;
+}

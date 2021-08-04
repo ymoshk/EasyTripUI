@@ -4,17 +4,30 @@ import Attraction from "./attraction/Attraction";
 import {Row, Col} from "react-bootstrap";
 import AttractionSmall from "./attraction/AttractionSmall";
 import {useDispatch} from "react-redux";
-import {fetchAttractionData} from "../store/attraction-actions";
+import {fetchAttractionData, sendItinerary} from "../store/attraction-actions";
 
+let isInitial = true;
 
 const reduxTest = () => {
     const itinerary = useSelector(state => state.attraction.itinerary);
     const attractions = useSelector(state => state.attraction.attractionList);
+    const isChanged = useSelector(state => state.attraction.changed);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchAttractionData());
     }, [dispatch])
+
+    useEffect(() => {
+        if (isInitial) {
+            isInitial = false;
+            return;
+        }
+
+        if (isChanged) {
+            dispatch(sendItinerary(itinerary));
+        }
+    }, [itinerary, dispatch])
 
     const itineraryList = itinerary.map((attraction) => <Attraction name={attraction.name}
                                                                     type={attraction.type}
