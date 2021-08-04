@@ -24,24 +24,24 @@ const TagsList = (props) => {
                 </div>)
         } else {
             line = lineOfTags.map((tag) =>
-                    <div style={{marginRight: 10}}>
-                        <SingleTag onChecked={SingleTagChecked} id={i++} src={tag.src}/>
-                    </div>)
+                <div style={{marginRight: 10}}>
+                    <SingleTag onChecked={SingleTagChecked} id={i++} src={tag.src}/>
+                </div>)
         }
 
         return line;
     }
 
     const createList = () => {
-        let result = "";
+        let result = [];
         let lineOfTags = [];
         const numberOfTags = tagsListStatus.length;
-        if(tagsListStatus.length % 4 === 0){
-            for(let i = 0; i++ ; i < numberOfTags/4){
-                lineOfTags = tagsListStatus.slice(i*4, i*4+3);
-                result += <ButtonGroup>;
-                result += createLine(lineOfTags);
-                result+= </ButtonGroup>;
+        if (tagsListStatus.length % 4 === 0) {
+            for (let i = 0; i < numberOfTags / 4; i++) {
+                lineOfTags = tagsListStatus.slice(i * 4, i * 4 + 4);
+                result.push(<ButtonGroup>
+                    createLine(lineOfTags);
+                </ButtonGroup>);
             }
         }
 
@@ -50,7 +50,18 @@ const TagsList = (props) => {
 
     return (
         <div className={styles.center}>
-            {createList()}
+            <ButtonGroup>
+                {createLine(tagsListStatus.slice(0,4))}
+            </ButtonGroup>
+            <br/>
+            <ButtonGroup>
+                {createLine(tagsListStatus.slice(3,8))}
+            </ButtonGroup>
+            <br/>
+            <ButtonGroup>
+                {createLine(tagsListStatus.slice(7,12))}
+            </ButtonGroup>
+            <br/>
         </div>
     );
 };
