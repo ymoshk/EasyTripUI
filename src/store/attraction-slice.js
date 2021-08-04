@@ -80,23 +80,22 @@ const DUMMY_ATTRACTIONS = {
             }]
 };
 
-const initialState = {itinerary: [], attractionList: [], tags: ["Restaurants", " Test2"], changed: false};
+// const initialState = {itinerary: [], attractionList: [], tags: ["Restaurants", " Test2"], changed: false};
+const initialState = {itineraryId: 0, attractions: {}, itineraryDays: [], questionsData: {}, changed: false};
 
 const attractionSlice = createSlice({
     name: 'attractions',
     initialState: initialState,
     reducers: {
-        remove(state, action) {
-            state.itinerary = state.itinerary.filter(attraction => attraction.id !== action.payload);
-            state.changed = true;
-        },
-        add(state, action) {
-            const newAttraction = state.attractionList.find(attraction => attraction.id === action.payload);
-            state.itinerary.push(newAttraction);
-            state.changed = true;
-        },
-        replace(state, action) {
-            state.attractionList = action.payload;
+        // remove(state, action) {
+        //     state.itinerary = state.itinerary.filter(attraction => attraction.id !== action.payload);
+        //     state.changed = true;
+        // },
+        set(state, action){
+            state.itineraryId = action.payload.itineraryId;
+            state.attractions = action.payload.attractions;
+            state.itineraryDays = action.payload.itineraryDays;
+            state.questionsData = action.payload.questionsData;
         }
     }
 })
