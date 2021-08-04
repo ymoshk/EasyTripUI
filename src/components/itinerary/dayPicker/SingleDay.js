@@ -1,11 +1,11 @@
 import React from 'react';
 
-const TimelineContainer = () => {
+const SingleDay = (props) => {
     return (
         <div>
-            
+
         </div>
     );
 };
 
-export default TimelineContainer;
+export default SingleDay;

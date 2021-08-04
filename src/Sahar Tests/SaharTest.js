@@ -1,22 +1,9 @@
-import React, {useContext} from 'react';
-import SingleTag from "../components/questions/tags/SingleTag";
-import TagsList from "../components/questions/tags/TagsList";
-import PriceRangePriceRange from "../components/questions/price_range/PriceRange";
-import {Icon, Site} from "tabler-react";
-import {Car, CurrencyDollar} from 'tabler-icons-react'
-import DateRangeInput from "../components/date/DateRangePicker";
-import DragAndDropTest from "../components/dnd/DragAndDropTest";
-import DragAndDropTemplate from "../components/dnd/DragAndDropTemplate";
-import {Col, Row} from "react-bootstrap";
-import FreeTime from "../components/scheduler/FreeTime";
-import AttractionsSelectBox from "../components/attraction/SelectBox/AttractionsSelectBox";
+import React, {useContext, useEffect, useState} from 'react';
 import EiffelTour from "../images/EiffelTour.jpg";
 import louvre from "../images/louvre.jpg";
 import nortedame from "../images/nortedame.jpg";
-import Mobility from "../components/scheduler/Mobility";
-import DailyPlanner from "../components/scheduler/DailyPlanner";
-import ChangeHoursContext from "../components/scheduler/ChangeHourContext"
-
+import DailyPlanner from "../components/itinerary/DailyPlanner";
+import ChangeHoursContext from "../components/itinerary/ChangeHourContext"
 
 //TODO-Delete
 
@@ -155,8 +142,20 @@ const SaharTest = () => {
         console.log(componentsArray2);
     }
 
+
+    const [size, setSize] = useState({
+        width: 200,
+        height: 200,
+    });
+
+
     return (
-        <ChangeHoursContext.Provider value={{changeHoursFunc: undefined, changeEndHourFunc: undefined}}>
+        <ChangeHoursContext.Provider
+            value={{
+                changeHoursFunc: undefined,
+                changeEndHourFunc: undefined,
+                isDragDisabled: false
+            }}>
             <div>
                 {/*<AttractionsSelectBox*/}
                 {/*    types={["Restaurants", "Test2"]}*/}
@@ -164,11 +163,11 @@ const SaharTest = () => {
                 {/*/>*/}
                 {/*<FreeTime startTime={"11:00"} endTime={"12:00"}></FreeTime>*/}
                 {/*<Mobility/>*/}
-                {/*<DragAndDropTest/>*/}
+                {/*<DailyDnd/>*/}
                 {<DailyPlanner/>}
             </div>
         </ChangeHoursContext.Provider>
-    );
-};
+    )
+}
 
 export default SaharTest;
