@@ -15,27 +15,42 @@ const TagsList = (props) => {
         props.updateList(tagsListStatus);
     }
 
-    const createList = () => {
-        let result = "";
+    function createLine(lineOfTags) {
+        let line = "";
         if (!props.imageTag) {
-            result = tagsListStatus.map((tag) =>
+            line = lineOfTags.map((tag) =>
                 <div style={{marginRight: 10}}>
                     <SingleTag onChecked={SingleTagChecked} id={i++} text={tag.name}/>
                 </div>)
         } else {
-            result = tagsListStatus.map((tag) =>
-                <div style={{marginRight: 10}}>
-                    <SingleTag onChecked={SingleTagChecked} id={i++} src={tag.src}/>
-                </div>)
+            line = lineOfTags.map((tag) =>
+                    <div style={{marginRight: 10}}>
+                        <SingleTag onChecked={SingleTagChecked} id={i++} src={tag.src}/>
+                    </div>)
         }
+
+        return line;
+    }
+
+    const createList = () => {
+        let result = "";
+        let lineOfTags = [];
+        const numberOfTags = tagsListStatus.length;
+        if(tagsListStatus.length % 4 === 0){
+            for(let i = 0; i++ ; i < numberOfTags/4){
+                lineOfTags = tagsListStatus.slice(i*4, i*4+3);
+                result += <ButtonGroup>;
+                result += createLine(lineOfTags);
+                result+= </ButtonGroup>;
+            }
+        }
+
         return result;
     }
 
     return (
         <div className={styles.center}>
-            <ButtonGroup>
-                {createList()}
-            </ButtonGroup>
+            {createList()}
         </div>
     );
 };

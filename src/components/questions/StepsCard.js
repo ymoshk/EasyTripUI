@@ -15,15 +15,24 @@ const SESSION_STEP_CARD_MEM = "steps_card_memory";
 const StepsCard = () => {
 
     const tripVibesTags = [
-        {id: 0, name: "Tag1", src: ""},
+        {id: 0, name: "Chill", src: ""},
         {id: 1, name: "Tag2", src: ""},
         {id: 2, name: "Tag3", src: ""}
     ]
 
     const favoriteAttractionTags = [
-        {id: 3, name: "Tag4", src: ""},
-        {id: 4, name: "Tag5", src: ""},
-        {id: 5, name: "Tag6", src: ""}
+        {id: 3, name: "Amusement Park", src: "https://cdn.dnaindia.com/sites/default/files/styles/full/public/2017/06/02/580699-amusement-park-060217.jpg"},
+        {id: 4, name: "Aquarium", src: "https://www.georgiaaquarium.org/wp-content/uploads/2019/05/GAQ-Digital-Marketing-201-1-1024x683.jpg"},
+        {id: 5, name: "Zoo", src: ""},
+        {id: 6, name: "Art Gallery", src: ""},
+        {id: 7, name: "Camp Ground", src: ""},
+        {id: 8, name: "Casino", src: ""},
+        {id: 9, name: "Museum", src: ""},
+        {id: 10, name: "Night Life", src: ""},
+        {id: 11, name: "Park", src: ""},
+        {id: 12, name: "Shopping Mall", src: ""},
+        {id: 13, name: "Spa", src: ""},
+        {id: 14, name: "Test", src: ""}
     ]
 
     const getStage = () => {
@@ -95,7 +104,7 @@ const StepsCard = () => {
                     stagesList[getStage()].data = value
                 }}
                 tagsList={favoriteAttractionTags}
-                imageTag={false}/>,
+                imageTag={true}/>,
             isValid: true,
             defaultValid: true,
         },

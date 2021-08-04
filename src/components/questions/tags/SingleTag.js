@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import styles from './SingleTag.module.css'
 import Button from "react-bootstrap/Button";
 
 const SingleTag = (props) => {
@@ -18,7 +19,7 @@ const SingleTag = (props) => {
     const getContent = () => {
         let result = "";
         if (props.src !== undefined) {
-            result = <img src={props.src} width={100} height={100} alt={"None"}/>
+            result = <img className={styles.img} src={props.src} width={100} height={100} alt={"None"}/>
         } else if (props.text !== undefined) {
             result = <span>{props.text}</span>
         }else if(props.innerComponent !== undefined){
@@ -30,7 +31,7 @@ const SingleTag = (props) => {
 
     return (
         <Button
-            size="md"
+            size="lg"
             type="checkbox"
             variant={isChecked ? isCheckedColor : isNotCheckedColor}
             onClick={onClickEventHandler}>
