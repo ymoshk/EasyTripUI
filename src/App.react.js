@@ -14,6 +14,7 @@ import SearchDestination from "./components/questions/destination/SearchDestinat
 import reduxTest from "./components/reduxTest";
 import HoursBar from "./components/itinerary/hoursBar/HoursBar";
 import DailyPlanner from "./components/itinerary/DailyPlanner";
+import BarTest from "./BarTests/BarTest";
 
 function App(props) {
     return (
@@ -29,6 +30,7 @@ function App(props) {
                     <Route exact path="/hoursBar" component={HoursBar}/>
                     <Route exact path="/search" component={SearchDestination}/>
                     <Route exact path="/SaharTest" component={DailyPlanner}/>
+                    <Route exact path="/BarTest" component={BarTest}/>
                     <Route exact path="/PassengerCount" component={PassengersCount}/>
                     <Route exact path="/map" component={MapWrapper}/>
                     <Route exact path="/rating" component={StarRating}/>
