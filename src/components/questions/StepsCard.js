@@ -9,6 +9,8 @@ import PriceRange from "./price_range/PriceRange";
 import TagsList from "./tags/TagsList";
 import useHttp from "../../hooks/UseHttp";
 import TagsListDup from "./tags/TagsListDup";
+import {ITINERARY_ID_STORAGE} from "../itinerary/Constants";
+
 
 const SESSION_STEP_CARD_MEM = "steps_card_memory";
 
@@ -173,31 +175,38 @@ const StepsCard = () => {
         }
     }
     const sendData = () => {
+        let startDateObject = new Date(stagesList[1].data.startDate);
+        let endDateObject = new Date(stagesList[1].data.endDate);
+
+        startDateObject.setHours(12);
+        endDateObject.setHours(12);
+        startDateObject.setMinutes(0);
+        endDateObject.setMinutes(0);
+
         const data = {
             country: stagesList[0].data.country,
             city: stagesList[0].data.city,
-            startDate: stagesList[1].data.startDate,
-            endDate: stagesList[1].data.endDate,
+            startDate: startDateObject,
+            endDate: endDateObject,
             adultsCount: stagesList[2].data.adultsCount.toString(),
             childrenCount: stagesList[2].data.childrenCount.toString(),
             budget: stagesList[3].data.priceRange.toString(),
-            // TODO handle empty tags lists
-            favoriteAttraction: JSON.stringify(stagesList[4].data
+            favoriteAttraction: stagesList[4].data !== undefined ? JSON.stringify(stagesList[4].data
                 .filter(tag => tag.status === true)
                 .map(tag => (
                     {
                         id: tag.id.toString(),
                         name: tag.name,
                         src: tag.src
-                    }))),
-            tripVibes: JSON.stringify(stagesList[5].data
+                    }))) : JSON.stringify([]),
+            tripVibes: stagesList[5].data !== undefined ? JSON.stringify(stagesList[5].data
                 .filter(tag => tag.status === true)
                 .map(tag => (
                     {
                         id: tag.id.toString(),
                         name: tag.name,
                         src: tag.src
-                    })))
+                    }))) : JSON.stringify([])
         };
 
         postData({
@@ -208,7 +217,8 @@ const StepsCard = () => {
     }
 
     const setItinerary = (data) => {
-        console.log(data);
+        localStorage.setItem(ITINERARY_ID_STORAGE, data)
+        window.location = '/itinerary';
     }
 
     const checkValidation = (newStage) => {

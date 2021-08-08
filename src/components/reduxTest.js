@@ -4,7 +4,7 @@ import Attraction from "./attraction/Attraction";
 import {Row, Col} from "react-bootstrap";
 import AttractionSmall from "./attraction/AttractionSmall";
 import {useDispatch} from "react-redux";
-import {fetchAttractionData, sendItinerary} from "../store/attraction-actions";
+import {fetchAttractionData, sendItinerary} from "../store/itinerary-actions";
 
 let isInitial = true;
 
@@ -29,34 +29,11 @@ const reduxTest = () => {
         }
     }, [itinerary, dispatch])
 
-    const itineraryList = itinerary.map((attraction) => <Attraction name={attraction.name}
-                                                                    type={attraction.type}
-                                                                    image={attraction.image}
-                                                                    rating={attraction.rating}
-                                                                    userTotalRating={attraction.userTotalRating}
-                                                                    closedTemporarily={attraction.isTemporarlyClose}
-                                                                    priceRange={attraction.priceLevel}
-                                                                    startTime={attraction.startTime}
-                                                                    endTime={attraction.endTime}
-                                                                    hours={attraction.openingHoursText}
-                                                                    address={attraction.address}
-                                                                    isRecommended={true}
-                                                                    id={attraction.id}
-                                                                    phoneNumber={attraction.internationalNumber}
-                                                                    website={attraction.website}
-                                                                    key={attraction.id}/>);
+    const itineraryList = itinerary.map((attraction) =>
+        <Attraction attraction={attraction} key={attraction.id}/>);
 
-    const attractionList = attractions.map((attraction) => <AttractionSmall name={attraction.name}
-                                                                            type={attraction.type}
-                                                                            image={attraction.image}
-                                                                            rating={attraction.rating}
-                                                                            userTotalRating={attraction.userTotalRating}
-                                                                            closedTemporarily={attraction.closedTemporarily}
-                                                                            priceRange={attraction.priceLevel}
-                                                                            showImage={false}
-                                                                            isRecommended={true}
-                                                                            id={attraction.id}
-                                                                            key={attraction.id}/>);
+    const attractionList = attractions.map((attraction) =>
+        <AttractionSmall attraction={attraction} key={attraction.id}/>);
 
     return <React.Fragment>
         <Row>

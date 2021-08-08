@@ -12,22 +12,9 @@ const AttractionModal = (props) => {
                 <Modal.Header closeButton/>
                 <Modal.Body>
                     <Attraction
+                        attraction={props.attraction}
                         showRemove={false}
-                        name={props.attraction.name}
-                        type={props.attraction.type}
-                        image={props.attraction.image}
-                        rating={props.attraction.rating}
-                        userTotalRating={props.attraction.userTotalRating}
-                        closedTemporarily={props.attraction.closedTemporarily}
-                        priceRange={props.attraction.priceRange}
-                        startTime={props.attraction.startTime}
-                        endTime={props.attraction.endTime}
-                        hours={props.attraction.hours}
-                        address={props.attraction.address}
-                        isRecommended={props.attraction.isRecommended}
-                        phoneNumber={props.attraction.phoneNumber}
-                        website={props.attraction.website}
-                        id={props.attraction.id}/>
+                    />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={props.onClose} variant="secondary">Close</Button>

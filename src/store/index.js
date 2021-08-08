@@ -1,8 +1,8 @@
 import {configureStore} from "@reduxjs/toolkit";
-import attractionSlice from "./attraction-slice";
+import itinerarySlice from "./itinerary-slice";
 
 const store = configureStore({
-    reducer: {attraction: attractionSlice.reducer},
+    reducer: {itineraryData: itinerarySlice.reducer},
 });
 
 export default store;

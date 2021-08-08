@@ -3,113 +3,48 @@ import {Col, Row} from "react-bootstrap";
 import HelpersContext from "./ChangeHourContext"
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import AttractionContainer from "./attraction/AttractionContainer";
+import {useSelector} from "react-redux";
 
-import EiffelTour from "../../images/EiffelTour.jpg";
-import louvre from "../../images/louvre.jpg";
-import nortedame from "../../images/nortedame.jpg";
 
-const DailyDnd = (props) => {
-
+const DailyDnd = () => {
     const HOURS_PER_DAY = 17;
-    const DUMMY_ATTRACTIONS = [{
-        name: "Eiffel Tower",
-        id: 1,
-        type: "Must See",
-        rating: 4.7,
-        userTotalRating: 358,
-        image: {url: EiffelTour, height: 1025, width: 616},
-        closedTemporarily: false,
-        priceRange: 3,
-        startTime: '08:00',
-        endTime: '9:45',
-        phoneNumber: "+1234567899",
-        website: "https://www.google.com",
-        hours: {
-            sunday: '9am-6pm',
-            monday: '9am-6pm',
-            tuesday: '9am-6pm',
-            wednesday: '9am-6pm',
-            thursday: '9am-6pm',
-            friday: '9am-6pm',
-            saturday: 'Closed'
-        },
-        lat: 48.8584,
-        lng: 2.2945,
-        address: "Champ de Mars, 5 Av. Anatole France, 75007 Paris, France",
-        isRecommended: true
-    },
-        // {
-        //     name: "Louvre",
-        //     id: 4.5,
-        //     type: "Art",
-        //     rating: 2.2,
-        //     userTotalRating: 123,
-        //     image: {url: louvre, height: 780, width: 1280},
-        //     closedTemporarily: true,
-        //     priceRange: 1,
-        //     startTime: '12:00',
-        //     endTime: '12:30',
-        //     hours: {
-        //         sunday: '9am-6pm',
-        //         monday: '9am-6pm',
-        //         tuesday: '9am-6pm',
-        //         wednesday: '9am-6pm',
-        //         thursday: '9am-6pm',
-        //         friday: '9am-6pm',
-        //         saturday: 'Closed'
-        //     },
-        //     lat: 48.8606,
-        //     lng: 2.3376,
-        //     address: "Rue de Rivoli, 75001 Paris, France"
-        // },
-        // {
-        //     name: "notre dame",
-        //     id: 3,
-        //     type: "Art",
-        //     rating: 3.5,
-        //     userTotalRating: 123,
-        //     image: {url: nortedame, height: 868, width: 636},
-        //     closedTemporarily: false,
-        //     priceRange: 1,
-        //     startTime: '12:00',
-        //     endTime: '12:30',
-        //     hours: {
-        //         sunday: '9am-6pm',
-        //         monday: '9am-6pm',
-        //         tuesday: '9am-6pm',
-        //         wednesday: '9am-6pm',
-        //         thursday: '9am-6pm',
-        //         friday: '9am-6pm',
-        //         saturday: 'Closed'
-        //     },
-        //     lat: 48.8530,
-        //     lng: 2.3499,
-        //     address: "6 Parvis Notre-Dame - Pl. Jean-Paul II, 75004 Paris, France"
-        // }
-    ];
+
+    const dayIndex = useSelector(state => state.itineraryData.itinerary.currentDayIndex);
+    const dayAttractions = useSelector(state => state.itineraryData.itinerary.itineraryDays[dayIndex].activities);
+    const [attractionList, setAttractionsList] = useState([]);
 
 
-    const [componentsOrder, setOrder] = useState(DUMMY_ATTRACTIONS.map(attraction => <AttractionContainer
-        name={attraction.name}
-        type={attraction.type}
-        image={attraction.image}
-        rating={attraction.rating}
-        userTotalRating={attraction.userTotalRating}
-        closedTemporarily={attraction.closedTemporarily}
-        priceRange={attraction.priceRange}
-        startTime={attraction.startTime}
-        endTime={attraction.endTime}
-        hours={attraction.hours}
-        address={attraction.address}
-        isRecommended={attraction.isRecommended}
-        calcHeight={true}
-        phoneNumber={attraction.phoneNumber}
-        website={attraction.website}
-        attraction={attraction}
-        id={attraction.id}/>));
+    useEffect(() => {
+        setAttractionsList(dayAttractions);
+    }, [dayAttractions]);
 
+    useEffect(() => {
+        setOrder(attractionList.map((attractionNode, index) =>
+            <AttractionContainer
+                calcHeight={true}
+                index={index}
+                attractionNode={
+                    {
+                        ...attractionNode,
+                        startTime: attractionNode.startTime,
+                        endTime: attractionNode.endTime
+                    }}/>));
+    }, [attractionList]);
 
-    function mapComponent(component, index) {
+    const [componentsOrder, setOrder] = useState(attractionList.map((attractionNode, index) => {
+            return <AttractionContainer
+                index={index}
+                calcHeight={true}
+                attractionNode={
+                    {
+                        ...attractionNode,
+                        startTime: attractionNode.startTime,
+                        endTime: attractionNode.endTime
+                    }}/>
+        }
+    ))
+
+    const mapComponent = (component, index) => {
         return (
             <Draggable isDragDisabled={helpersContext.isDragDisabled} draggableId={index.toString()} index={index}>
                 {provided => (
@@ -138,7 +73,6 @@ const DailyDnd = (props) => {
             return;
         }
 
-
         let newArray = componentsOrder;
         let tmp = newArray[source.index];
         newArray.splice(source.index, 1);
@@ -146,7 +80,6 @@ const DailyDnd = (props) => {
 
         setOrder(newArray);
     }
-
 
     const [mousePosition, setMousePosition] = useState(null);
     const [draggedId, setDraggedId] = useState(null);
@@ -166,9 +99,6 @@ const DailyDnd = (props) => {
 
     const onStopDrag = () => {
         if (draggedId !== undefined && draggedId !== null && minutesToAdd !== undefined) {
-            console.log(DUMMY_ATTRACTIONS[draggedId].name);
-            console.log(DUMMY_ATTRACTIONS[draggedId].startTime);
-            console.log(DUMMY_ATTRACTIONS[draggedId].endTime);
             console.log(minutesToAdd);
         }
 
@@ -200,10 +130,8 @@ const DailyDnd = (props) => {
     }, [])
 
     return (
-
         <DragDropContext
             onDragEnd={onDragEndEventHandler}>
-
             <Row style={{height: "100%"}} id={"dayContainer"} onMouseMove={updateMousePosition}
                  onMouseUp={onStopDrag}>
                 <Droppable droppableId={"someId"}>
@@ -212,10 +140,7 @@ const DailyDnd = (props) => {
                             style={{listStyleType: "none"}}
                             ref={provided.innerRef}
                             {...provided.droppableProps}>
-                            {
-                                componentsOrder.map((component, index) => mapComponent(component, index))
-                            }
-
+                            {componentsOrder.map((component, index) => mapComponent(component, index))}
                             {provided.placeholder}
                         </Col>
                     )}

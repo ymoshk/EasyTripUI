@@ -3,8 +3,9 @@ import {Row} from "react-bootstrap";
 
 const OpenHours = (props) => {
     const hours = props.hours;
+    console.log(hours);
 
-    return <div style = {{paddingLeft: 15, paddingTop: 10}}>
+    return <div style={{paddingLeft: 15, paddingTop: 10}}>
         <Row>
             {hours.sunday}
         </Row>

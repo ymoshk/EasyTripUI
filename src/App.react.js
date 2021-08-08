@@ -29,7 +29,7 @@ function App(props) {
                     <Route exact path="/yotam" component={YotamTest}/>
                     <Route exact path="/hoursBar" component={HoursBar}/>
                     <Route exact path="/search" component={SearchDestination}/>
-                    <Route exact path="/SaharTest" component={DailyPlanner}/>
+                    <Route exact path="/itinerary" component={DailyPlanner}/>
                     <Route exact path="/BarTest" component={BarTest}/>
                     <Route exact path="/PassengerCount" component={PassengersCount}/>
                     <Route exact path="/map" component={MapWrapper}/>

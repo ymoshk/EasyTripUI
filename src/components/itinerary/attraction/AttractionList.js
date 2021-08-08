@@ -32,19 +32,7 @@ const DUMMY_ATTRACTIONS = [{
 
 
 const AttractionList = () => {
-    return DUMMY_ATTRACTIONS.map((attraction) => <Attraction name={attraction.name}
-                                                             type={attraction.type}
-                                                             image={attraction.image}
-                                                             rating={attraction.rating}
-                                                             userTotalRating={attraction.userTotalRating}
-                                                             closedTemporarily={attraction.closedTemporarily}
-                                                             priceRange={attraction.priceRange}
-                                                             startTime={attraction.startTime}
-                                                             endTime={attraction.endTime}
-                                                             hours={attraction.hours}
-                                                             address={attraction.address}
-                                                             isRecommended={true}
-                                                             id={attraction.id}/>);
+    return DUMMY_ATTRACTIONS.map((attraction) => <Attraction attraction={attraction}/>);
 }
 
 export default AttractionList;

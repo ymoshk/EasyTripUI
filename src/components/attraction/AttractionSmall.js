@@ -1,74 +1,110 @@
-import React from 'react';
-import {useDispatch} from "react-redux";
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 
-import {Card, Image, Col, Row, Button} from 'react-bootstrap';
+import {Card, Image, Col, Row, Button, Tooltip, OverlayTrigger} from 'react-bootstrap';
 import StarRating from "../utils/StarRating";
 import RecommendedIcon from "./RecommendedIcon";
 
-import {attractionActions} from "../../store/attraction-slice";
-import {CirclePlus, InfoCircle} from "tabler-icons-react";
+import {itineraryActions} from "../../store/itinerary-slice";
+import {CirclePlus, InfoSquare} from "tabler-icons-react";
+import AttractionModal from "../itinerary/attraction/modal/AttractionModal";
 
 const AttractionSmall = (props) => {
     const dispatch = useDispatch();
+    const [showModal, setShowModal] = useState(false);
 
-    let priceLevel = '$'.repeat(props.priceRange + 1);
+    let priceLevel = '$'.repeat(props.attraction.priceLevel + 1);
 
     let imageComponent;
-    if (props.image.height > props.image.width) {
-        imageComponent = <Image src={props.image.url} rounded width={100}/>;
+    if (props.attraction.image.height > props.attraction.image.width) {
+        imageComponent = <Image src={props.attraction.image.url} rounded width={100}/>;
     } else {
-        imageComponent = <Image src={props.image.url} rounded height={100}/>;
+        imageComponent = <Image src={props.attraction.image.url} rounded height={100}/>;
     }
 
-    const attractionId = props.id;
     const onAddHandler = () => {
-        dispatch(attractionActions.add(attractionId));
+        dispatch(itineraryActions.addAttraction({
+            attraction: {
+                attraction: props.attraction,
+                type: "ATTRACTION"
+            },
+            duration: props.duration
+        }));
     }
 
-    return <Card>
-        <Card.Body>
-            <Row>
-                <Col>
-                    <Card.Title>
+    return (
+        <>
+            <AttractionModal onClose={() => setShowModal(false)} show={showModal} attraction={props.attraction}/>
+            <Card>
+                <Card.Body>
+                    <Row>
+                        <Col>
+                            <Card.Title>
+                                <Row>
+                                    <Col md={{span: 8, offset: 0}} xs={{span: 8, offset: 0}}>
+                                        <h3>
+                                            {props.attraction.isRecommended && <RecommendedIcon/>}
+                                            {props.attraction.name}</h3>
+                                    </Col>
+                                    <Col xs={2} md={2}>
+                                        <OverlayTrigger
+                                            key={'infoToolTip'}
+                                            placement={'top'}
+                                            overlay={
+                                                <Tooltip id={'tooltip-info'}>
+                                                    Add Attraction To Your Itinerary
+                                                </Tooltip>
+                                            }>
+                                            <Button onClick={onAddHandler}
+                                                    style={{backgroundColor: "transparent", border: "none"}}
+                                                    size={"sm"}>
+                                                <CirclePlus color={"black"} strokeWidth={2}/>
+                                            </Button>
+                                        </OverlayTrigger>
+                                    </Col>
+                                    <Col xs={2} md={2}>
+                                        <OverlayTrigger
+                                            key={'infoToolTip'}
+                                            placement={'top'}
+                                            overlay={
+                                                <Tooltip id={'tooltip-info'}>
+                                                    More Info
+                                                </Tooltip>
+                                            }>
+                                            <Button onClick={() => setShowModal(true)}
+                                                    style={{backgroundColor: "transparent", border: "none"}}
+                                                    size={"sm"}>
+                                                <InfoSquare color={"black"} strokeWidth={2}/>
+                                            </Button>
+                                        </OverlayTrigger>
+                                    </Col>
+                                </Row>
+                            </Card.Title>
+                        </Col>
+                    </Row>
+                    <Card.Text>
                         <Row>
                             <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
-                                <h3>
-                                    {props.isRecommended && <RecommendedIcon/>}
-                                    {props.name}</h3>
+                                <Row><StarRating value={props.attraction.rating}/></Row>
+                                <Row><h5>Raters No. - <span
+                                    style={{color: 'grey'}}>{props.attraction.userTotalRating}</span>
+                                </h5></Row>
+                                <Row><h5>Price Range - <span style={{color: 'green'}}>{priceLevel}</span></h5>
+                                </Row>
+                                <Row>{props.attraction.closedTemporarily &&
+                                <b style={{color: 'red'}}>Temporarily closed</b>}
+                                    {!props.attraction.closedTemporarily &&
+                                    <b style={{color: 'green'}}>Operational</b>}</Row>
                             </Col>
-                            <Col md={{span: 6, offset: 0}} xs={{span: 12, offset: 0}}>
-                                <Button onClick={onAddHandler} variant="success"><CirclePlus
-                                    size={24}
-                                    strokeWidth={2}
-                                    color={'black'}
-                                /></Button>{' '}
-                                <Button variant="info"><InfoCircle
-                                    size={24}
-                                    strokeWidth={2}
-                                    color={'black'}
-                                /></Button>{' '}
-                            </Col>
+                            {props.attraction.showImage && <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
+                                {imageComponent}
+                            </Col>}
                         </Row>
-                    </Card.Title>
-                    <Card.Text>
-                            <Row>
-                                <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
-                                    <Row><StarRating value={props.rating}/></Row>
-                                    <Row><h5>Raters No. - <span style={{color: 'grey'}}>{props.userTotalRating}</span>
-                                    </h5></Row>
-                                    <Row><h5>Price Range - <span style={{color: 'green'}}>{priceLevel}</span></h5></Row>
-                                    <Row>{props.closedTemporarily && <b style={{color: 'red'}}>Temporarily closed</b>}
-                                        {!props.closedTemporarily && <b style={{color: 'green'}}>Operational</b>}</Row>
-                                </Col>
-                                {props.showImage && <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
-                                    {imageComponent}
-                                </Col>}
-                            </Row>
                     </Card.Text>
-                </Col>
-            </Row>
-        </Card.Body>
-    </Card>
+                </Card.Body>
+            </Card>
+        </>
+    )
 }
 
 export default AttractionSmall;

@@ -1,15 +1,18 @@
 import React, {useState} from 'react';
 import HorizontalTimeline from "react-horizontal-timeline";
+import {useSelector} from "react-redux";
 
 // https://www.npmjs.com/package/react-horizontal-timeline
+const DayPicker = (props) => {
+    const formatDate = (dateObj) => {
+        return new Date(dateObj.year, dateObj.month - 1, dateObj.day)
+    }
 
-function DayPicker() {
+    const daysList = useSelector(state => state.itineraryData.itinerary.itineraryDays
+        .map(day => formatDate(day.date)));
 
     const [value, setValue] = useState(0);
-    const [previous, setPrevious] = useState(0);
 
-    // Values should be only date
-    const VALUES = ["2021-01-01", "2021-01-15", "2021-03-22","2021-01-01", "2021-01-15", "2021-03-22"];
 
     return (
         <div style={{
@@ -21,9 +24,9 @@ function DayPicker() {
                 index={value}
                 indexClick={(index) => {
                     setValue(index);
-                    setPrevious(value);
+                    props.onDayChange(index);
                 }}
-                values={VALUES}
+                values={daysList}
                 slidingMotion={{stiffness: 150, damping: 25}}
                 isOpenBeginnin={false}
 
