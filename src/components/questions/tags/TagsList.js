@@ -19,12 +19,12 @@ const TagsList = (props) => {
         let line = "";
         if (!props.imageTag) {
             line = lineOfTags.map((tag) =>
-                <div style={{marginRight: 10}}>
+                <div style={{marginRight: 10, marginTop:10}}>
                     <SingleTag onChecked={SingleTagChecked} id={i++} text={tag.name}/>
                 </div>)
         } else {
             line = lineOfTags.map((tag) =>
-                <div style={{marginRight: 10}}>
+                <div style={{marginRight: 10, marginTop:10}}>
                     <SingleTag onChecked={SingleTagChecked} id={i++} src={tag.src}/>
                 </div>)
         }
@@ -55,11 +55,11 @@ const TagsList = (props) => {
             </ButtonGroup>
             <br/>
             <ButtonGroup>
-                {createLine(tagsListStatus.slice(3,8))}
+                {createLine(tagsListStatus.slice(4,8))}
             </ButtonGroup>
             <br/>
             <ButtonGroup>
-                {createLine(tagsListStatus.slice(7,12))}
+                {createLine(tagsListStatus.slice(8,12))}
             </ButtonGroup>
             <br/>
         </div>
