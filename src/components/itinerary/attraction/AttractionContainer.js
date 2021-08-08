@@ -13,7 +13,6 @@ const AttractionContainer = (props) => {
     const [calculatedStartTime, setCalculatedStartTime] = useState(props.attractionNode.startTime);
     const [calculatedEndTime, setCalculatedEndTime] = useState(props.attractionNode.endTime);
 
-
     const extractTime = () => {
         let startTime = new Date("01-01-2030 " + calculatedStartTime + ":00");
         let endTime = new Date("01-01-2030 " + calculatedEndTime + ":00");
@@ -63,6 +62,7 @@ const AttractionContainer = (props) => {
         helpersContext.isDragDisabled = false;
     }
 
+
     const getComponent = () => {
         if (props.attractionNode.type === "FREE_TIME") {
             return <FreeTime
@@ -71,19 +71,7 @@ const AttractionContainer = (props) => {
                 calculatedEndTime={calculatedEndTime}
                 height={getHeight()}/>
         } else if (props.attractionNode.type === "ATTRACTION") {
-            return <CompactAttraction
-                index={props.index}
-                calcHeight={true}
-                calculatedStartTime={calculatedStartTime}
-                calculatedEndTime={calculatedEndTime}
-                attraction={props.attractionNode.attraction}
-                height={getHeight()}/>
-        }
-    }
-
-    return (
-        <div onMouseDown={updateContext}>
-            <Resizable
+            return <Resizable
                 enable={{
                     top: false,
                     right: false,
@@ -96,8 +84,20 @@ const AttractionContainer = (props) => {
                 }}
                 onResizeStart={onResizeStartHandler}
                 onResizeStop={onResizeEndHandler}>
-                {getComponent()}
+                <CompactAttraction
+                    index={props.index}
+                    calcHeight={true}
+                    calculatedStartTime={calculatedStartTime}
+                    calculatedEndTime={calculatedEndTime}
+                    attraction={props.attractionNode.attraction}
+                    height={getHeight()}/>
             </Resizable>
+        }
+    }
+
+    return (
+        <div onMouseDown={updateContext}>
+            {getComponent()}
         </div>
     );
 };

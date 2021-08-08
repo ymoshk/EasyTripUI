@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {cleanItinerary, updateItineraryDay} from "./itinerary-actions";
 import formatDateToHours from "../components/utils/helpers/DateFormatter";
+import uuid from "uuid-random";
 
 
 const initialState = {
@@ -26,25 +27,43 @@ const initialState = {
 const initialFreeTime = {
     type: "FREE_TIME",
     startTime: "08:00",
-    endTime: "08:00"
+    endTime: "08:00",
+    uniqueKey: uuid()
 }
 
 const removeAttractionByIndex = (dailyArray, index) => {
     let result;
 
-    if (dailyArray.length - 2 === index) {
+    if (dailyArray.length === 2 && index === 1) {
+        result = [initialFreeTime];
+    } else if (index === 1) {
+        const newPadding = {...dailyArray[index - 1], endTime: dailyArray[index + 1].endTime, uniqueKey: uuid()};
+        const subList = dailyArray.slice(3);
+        result = [newPadding].concat(subList)
+    } else if (dailyArray.length - 2 === index) {
         result = dailyArray.slice(0, dailyArray.length - 2);
     } else {
-        const partOne = dailyArray.slice(0, index);
+        let newPadding = {...dailyArray[index - 1], endTime: dailyArray[index + 1].startTime, uniqueKey: uuid()};
+        const partOne = dailyArray.slice(0, index - 1);
+        partOne.push(newPadding);
         const partTwo = dailyArray.slice(index + 2);
-
-        partOne[partOne.length - 1].endTime = dailyArray[index + 1].endTime;
-
         result = partOne.concat(partTwo);
     }
 
+
     if (result.length === 1) {
         result = [initialFreeTime];
+    } else {
+        result = result.slice(0, result.length - 1);
+
+        const lastPadding = {
+            ...dailyArray[dailyArray.length - 1],
+            startTime: result[result.length - 2].endTime,
+            endTime: result[result.length - 2].endTime,
+            uniqueKey: uuid()
+        };
+
+        result.push(lastPadding);
     }
 
     return result;
@@ -81,14 +100,16 @@ const itinerarySlice = createSlice({
                 attraction: attraction,
                 type: type,
                 startTime: prevEndTime,
-                endTime: newEndTime
+                endTime: newEndTime,
+                uniqueKey: uuid(),
             })
 
             currentDay.activities.push({
                 attraction: null,
                 type: "FREE_TIME",
                 startTime: newEndTime,
-                endTime: newEndTime
+                endTime: newEndTime,
+                uniqueKey: uuid(),
             })
 
             updateItineraryDay(id, currentDay, index);

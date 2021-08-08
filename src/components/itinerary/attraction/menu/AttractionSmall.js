@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import {Card, Image, Col, Row, Button, Tooltip, OverlayTrigger} from 'react-bootstrap';
-import StarRating from "../utils/StarRating";
-import RecommendedIcon from "./RecommendedIcon";
+import StarRating from "../../../utils/StarRating";
+import RecommendedIcon from "../RecommendedIcon";
 
-import {itineraryActions} from "../../store/itinerary-slice";
+import {itineraryActions} from "../../../../store/itinerary-slice";
 import {CirclePlus, InfoSquare} from "tabler-icons-react";
-import AttractionModal from "../itinerary/attraction/modal/AttractionModal";
+import AttractionModal from "../modal/AttractionModal";
 
 const AttractionSmall = (props) => {
     const dispatch = useDispatch();

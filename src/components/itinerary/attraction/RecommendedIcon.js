@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "./Attraction.module.css";
+import styles from "./modal/Attraction.module.css";
 import {CircleCheck} from "tabler-icons-react";
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
 

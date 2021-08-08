@@ -6,53 +6,26 @@ import AttractionContainer from "./attraction/AttractionContainer";
 import {useSelector} from "react-redux";
 
 
-const DailyDnd = (props) => {
+const DailyDnd = () => {
     const HOURS_PER_DAY = 17;
     const dayIndex = useSelector(state => state.itineraryData.itinerary.currentDayIndex);
     const dayAttractions = useSelector(state => state.itineraryData.itinerary.itineraryDays[dayIndex].activities);
-    const [attractionList, setAttractionsList] = useState([]);
 
-
-    useEffect(() => {
-        setAttractionsList(dayAttractions);
-    }, [dayAttractions]);
-
-    useEffect(() => {
-        setOrder(attractionList.map((attractionNode, index) =>
-            <AttractionContainer
-                calcHeight={true}
-                index={index}
-                attractionNode={
-                    {
-                        ...attractionNode,
-                        startTime: attractionNode.startTime,
-                        endTime: attractionNode.endTime
-                    }}/>));
-    }, [attractionList]);
-
-    const [componentsOrder, setOrder] = useState(attractionList.map((attractionNode, index) => {
-            return <AttractionContainer
-                index={index}
-                calcHeight={true}
-                attractionNode={
-                    {
-                        ...attractionNode,
-                        startTime: attractionNode.startTime,
-                        endTime: attractionNode.endTime
-                    }}/>
-        }
-    ))
-
-    const mapComponent = (component, index) => {
+    const mapComponent = (attractionNode, index) => {
         return (
-            <Draggable isDragDisabled={helpersContext.isDragDisabled} draggableId={index.toString()} index={index}>
+            <Draggable key={"draggable_" + attractionNode.uniqueKey} isDragDisabled={helpersContext.isDragDisabled}
+                       draggableId={index.toString()}
+                       index={index}>
                 {provided => (
                     <div onMouseDown={(e) => onDragStart(index, e)}
                          {...provided.draggableProps}
                          {...provided.dragHandleProps}
                          ref={provided.innerRef}
                     >
-                        {component}
+                        <AttractionContainer
+                            index={index}
+                            calcHeight={true}
+                            attractionNode={attractionNode}/>
                     </div>
                 )}
             </Draggable>
@@ -60,23 +33,23 @@ const DailyDnd = (props) => {
     }
 
     const onDragEndEventHandler = (res) => {
-        const {destination, source} = res;
-
-        if (!destination) {
-            return;
-        }
-
-        if (destination.droppableId === source.droppableId &&
-            destination.index === source.index) {
-            return;
-        }
-
-        let newArray = componentsOrder;
-        let tmp = newArray[source.index];
-        newArray.splice(source.index, 1);
-        newArray.splice(destination.index, 0, tmp);
-
-        setOrder(newArray);
+        // const {destination, source} = res;
+        //
+        // if (!destination) {
+        //     return;
+        // }
+        //
+        // if (destination.droppableId === source.droppableId &&
+        //     destination.index === source.index) {
+        //     return;
+        // }
+        //
+        // let newArray = componentsOrder;
+        // let tmp = newArray[source.index];
+        // newArray.splice(source.index, 1);
+        // newArray.splice(destination.index, 0, tmp);
+        //
+        // setOrder(newArray);
     }
 
     const [mousePosition, setMousePosition] = useState(null);
@@ -132,13 +105,13 @@ const DailyDnd = (props) => {
             onDragEnd={onDragEndEventHandler}>
             <Row style={{height: "100%"}} id={"dayContainer"} onMouseMove={updateMousePosition}
                  onMouseUp={onStopDrag}>
-                <Droppable droppableId={"someId"}>
+                <Droppable droppableId={"day_" + dayIndex}>
                     {(provided) => (
                         <Col
                             style={{listStyleType: "none"}}
                             ref={provided.innerRef}
                             {...provided.droppableProps}>
-                            {componentsOrder.map((component, index) => mapComponent(component, index))}
+                            {dayAttractions.map((component, index) => mapComponent(component, index))}
                             {provided.placeholder}
                         </Col>
                     )}

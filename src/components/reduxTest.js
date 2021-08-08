@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {useSelector} from "react-redux";
-import Attraction from "./attraction/Attraction";
+import Attraction from "./itinerary/attraction/modal/Attraction";
 import {Row, Col} from "react-bootstrap";
-import AttractionSmall from "./attraction/AttractionSmall";
+import AttractionSmall from "./itinerary/attraction/menu/AttractionSmall";
 import {useDispatch} from "react-redux";
 import {fetchAttractionData, sendItinerary} from "../store/itinerary-actions";
 

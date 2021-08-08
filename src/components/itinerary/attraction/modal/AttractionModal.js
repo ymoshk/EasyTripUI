@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Button, Modal} from "react-bootstrap";
-import Attraction from "../../../attraction/Attraction";
-import AttractionContainer from "../AttractionContainer";
+import Attraction from "./Attraction";
 import "./AttractionModal.css"
 
 const AttractionModal = (props) => {
@@ -13,7 +12,6 @@ const AttractionModal = (props) => {
                 <Modal.Body>
                     <Attraction
                         attraction={props.attraction}
-                        showRemove={false}
                     />
                 </Modal.Body>
                 <Modal.Footer>

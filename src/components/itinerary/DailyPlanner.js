@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, Col, Row} from "react-bootstrap";
-import AttractionsSelectBox from "./selectBox/AttractionsSelectBox";
+import AttractionsSelectBox from "./attraction/menu/selectBox/AttractionsSelectBox";
 import styles from "./DailyPlanner.module.css";
 import DailyDnd from "./DailyDnd";
 import HoursBar from "./hoursBar/HoursBar";
 import ChangeHoursContext from "./ChangeHourContext";
 import DayPicker from "./dayPicker/DayPicker";
 import {itineraryActions} from "../../store/itinerary-slice";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {fetchItineraryData} from "../../store/itinerary-actions";
 import SweetAlert from "react-bootstrap-sweetalert";
 
@@ -95,7 +95,7 @@ const DailyPlanner = () => {
                 {showStartOverAlert && startOverAlert()}
                 {showSuccessAlert && finishItineraryAlert()}
                 <Card.Body>
-                    <Card.Text>
+                    <Card.Text as={"div"}>
                         <Row>
                             <Col md={4}>
                                 <AttractionsSelectBox
@@ -114,7 +114,7 @@ const DailyPlanner = () => {
                                             <Button onClick={() => setShowCleanDayAlert(true)}
                                                     style={{marginBottom: 20}}
                                                     variant={"outline-primary"}
-                                                    size="lg" block={true}>Clean Day</Button>
+                                                    size="lg">Clean Day</Button>
                                         </div>
                                     </Col>
                                     <Col md={{span: 4}}>
@@ -122,7 +122,7 @@ const DailyPlanner = () => {
                                             <Button onClick={() => setShowSuccessAlert(true)}
                                                     style={{marginBottom: 20}}
                                                     variant={"outline-success"}
-                                                    size="lg" block={true}>Save Your Trip</Button>
+                                                    size="lg">Save Your Trip</Button>
                                         </div>
                                     </Col>
                                     <Col md={{span: 4}}>
@@ -130,7 +130,7 @@ const DailyPlanner = () => {
                                             <Button onClick={() => setShowStartOverAlert(true)}
                                                     style={{marginBottom: 20}}
                                                     variant={"outline-dark"}
-                                                    size="lg" block={true}>Start Over</Button>
+                                                    size="lg">Start Over</Button>
                                         </div>
                                     </Col>
                                 </Row>

@@ -2,7 +2,6 @@ import DateRangePicker from 'react-bootstrap-daterangepicker'
 import 'bootstrap-daterangepicker/daterangepicker.css'
 
 //documentation - https://www.npmjs.com/package/react-bootstrap-daterangepicker
-
 import React from 'react';
 
 const DateRangeInput = (props) => {

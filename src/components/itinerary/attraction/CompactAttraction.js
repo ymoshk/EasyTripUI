@@ -3,7 +3,7 @@ import {itineraryActions} from "../../../store/itinerary-slice";
 import {Card, Image, Col, Row, Button, Modal, Tooltip, OverlayTrigger} from 'react-bootstrap';
 import {useDispatch} from "react-redux";
 import {InfoSquare, Trash} from "tabler-icons-react";
-import RecommendedIcon from "../../attraction/RecommendedIcon";
+import RecommendedIcon from "./RecommendedIcon";
 import StarRating from "../../utils/StarRating";
 import AttractionModal from "./modal/AttractionModal";
 import ONE_HOUR_HEIGHT from "../Constants";

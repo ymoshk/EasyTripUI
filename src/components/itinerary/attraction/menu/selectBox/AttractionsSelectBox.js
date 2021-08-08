@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Card, Form} from "react-bootstrap";
-import AttractionSmall from "../../attraction/AttractionSmall";
+import AttractionSmall from "../AttractionSmall";
 import {useSelector} from "react-redux";
 
 
@@ -23,8 +23,11 @@ const AttractionsSelectBox = () => {
             setFirstChange(true);
         }
 
-        function mapAttraction(attraction) {
-            return <AttractionSmall attraction={attraction} category={currentType} duration={duration}/>
+        let i = 0;
+
+        function mapAttraction(attraction, index) {
+            return <AttractionSmall key={"attSmall_" + index.toString()} attraction={attraction}
+                                    category={currentType} duration={duration}/>
         }
 
         function renderBody() {
@@ -36,7 +39,7 @@ const AttractionsSelectBox = () => {
             } else {
                 const relevantAttractions = attractionsDictionary[currentType];
                 if (relevantAttractions !== undefined && relevantAttractions.length !== 0) {
-                    res = relevantAttractions.map((attraction) => mapAttraction(attraction));
+                    res = relevantAttractions.map((attraction, index) => mapAttraction(attraction, index));
                 } else {
                     res = <div style={{textAlign: "center"}}><h3>Couldn't find any relevant attractions</h3></div>
                 }
@@ -47,11 +50,11 @@ const AttractionsSelectBox = () => {
 
         return (
             <Card style={{height: "100%"}}>
-                <Card.Header>
+                <Card.Header as={"div"}>
                     <Form.Select onChange={onChangeEventHandler}>
                         {<option disabled={firstChange}>{defaultText}</option>}
                         {typesArray.map((typeAsString) => {
-                            return <option>{typeAsString}</option>
+                            return <option key={currentType + "_" + (i++).toString()}>{typeAsString}</option>
                         })}
                     </Form.Select>
                 </Card.Header>

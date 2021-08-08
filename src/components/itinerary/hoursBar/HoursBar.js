@@ -18,7 +18,7 @@ const HoursBar = (props) => {
 
         for (let i = 0; i < props.count; i++) {
             result.push(
-                <div style={{height: ONE_HOUR_HEIGHT.toString() + "vh"}}>
+                <div key={i} style={{height: ONE_HOUR_HEIGHT.toString() + "vh"}}>
                     <SingleHour hour={formatDate(current).toString()}/>
                 </div>
             )

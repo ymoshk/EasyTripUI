@@ -1,7 +1,7 @@
 import React from 'react';
-import EiffelTour from "../../../images/EiffelTour.jpg";
+import EiffelTour from "../../../../images/EiffelTour.jpg";
 
-import Attraction from "../../attraction/Attraction";
+import Attraction from "../modal/Attraction";
 
 const DUMMY_ATTRACTIONS = [{
     name: "Eiffel Tower",
