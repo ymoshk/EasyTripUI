@@ -6,9 +6,8 @@ import AttractionContainer from "./attraction/AttractionContainer";
 import {useSelector} from "react-redux";
 
 
-const DailyDnd = () => {
+const DailyDnd = (props) => {
     const HOURS_PER_DAY = 17;
-
     const dayIndex = useSelector(state => state.itineraryData.itinerary.currentDayIndex);
     const dayAttractions = useSelector(state => state.itineraryData.itinerary.itineraryDays[dayIndex].activities);
     const [attractionList, setAttractionsList] = useState([]);
@@ -60,8 +59,7 @@ const DailyDnd = () => {
         );
     }
 
-
-    function onDragEndEventHandler(res) {
+    const onDragEndEventHandler = (res) => {
         const {destination, source} = res;
 
         if (!destination) {

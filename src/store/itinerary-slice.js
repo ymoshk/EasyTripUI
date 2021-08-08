@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {updateItineraryDay} from "./itinerary-actions";
+import {cleanItinerary, updateItineraryDay} from "./itinerary-actions";
 import formatDateToHours from "../components/utils/helpers/DateFormatter";
 
 
@@ -19,20 +19,35 @@ const initialState = {
         // TODO fill the rest
         Restaurant: 1.5,
         NightLife: 3,
+        Museum: 3
     }
 };
 
+const initialFreeTime = {
+    type: "FREE_TIME",
+    startTime: "08:00",
+    endTime: "08:00"
+}
+
 const removeAttractionByIndex = (dailyArray, index) => {
+    let result;
+
     if (dailyArray.length - 2 === index) {
-        return dailyArray.slice(0, dailyArray.length - 2);
+        result = dailyArray.slice(0, dailyArray.length - 2);
     } else {
         const partOne = dailyArray.slice(0, index);
         const partTwo = dailyArray.slice(index + 2);
 
         partOne[partOne.length - 1].endTime = dailyArray[index + 1].endTime;
 
-        return partOne.concat(partTwo);
+        result = partOne.concat(partTwo);
     }
+
+    if (result.length === 1) {
+        result = [initialFreeTime];
+    }
+
+    return result;
 }
 
 const itinerarySlice = createSlice({
@@ -86,6 +101,20 @@ const itinerarySlice = createSlice({
 
             currentDay.activities = removeAttractionByIndex(currentDay.activities, arrayIndex);
             updateItineraryDay(id, currentDay, dayIndex);
+        },
+        cleanDay(state, action) {
+            const dayIndex = state.itinerary.currentDayIndex;
+            const id = state.itinerary.itineraryId;
+            const currentDay = state.itinerary.itineraryDays[dayIndex];
+            currentDay.activities = [initialFreeTime]
+            updateItineraryDay(id, currentDay, dayIndex);
+        },
+        startOver(state, action) {
+            const id = state.itinerary.itineraryId;
+            state.itinerary.itineraryDays.forEach(day => {
+                day.activities = [initialFreeTime]
+            })
+            cleanItinerary(id);
         }
     }
 })

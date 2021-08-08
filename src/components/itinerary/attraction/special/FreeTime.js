@@ -1,10 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Card, Col, Row} from "react-bootstrap";
-import StarRating from "../../../utils/StarRating";
-import CollapsibleDiv from "../../../utils/CollapsibleDiv";
-import OpenHours from "../../../attraction/OpenHours";
 
 const FreeTime = (props) => {
+
     return (
         <Card style={{backgroundColor: "transparent", border: "solid 0px", marginBottom: 0, height: props.height}}>
             <Card.Body>

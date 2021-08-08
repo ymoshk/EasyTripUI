@@ -6,6 +6,7 @@ const urlAttractions = new URL(process.env.REACT_APP_SERVER_URL.concat('/getCity
 const urlSetItinerary = new URL(process.env.REACT_APP_SERVER_URL.concat('/setItinerary'));
 const urlGetItinerary = new URL(process.env.REACT_APP_SERVER_URL.concat('/getItinerary'));
 const urlUpdateItineraryDay = new URL(process.env.REACT_APP_SERVER_URL.concat('/updateItinerary'));
+const urlCleanItinerary = new URL(process.env.REACT_APP_SERVER_URL.concat('/cleanItinerary'));
 
 export const fetchItineraryData = () => {
     return async (dispatch) => {
@@ -89,6 +90,17 @@ export const updateItineraryDay = (id, day, index) => {
                 id: id.toString(),
                 dayJson: JSON.stringify(day),
                 index: index.toString()
+            })
+        }
+    ).then()
+}
+
+export const cleanItinerary = (id) => {
+    fetch(urlCleanItinerary,
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                id: id.toString(),
             })
         }
     ).then()

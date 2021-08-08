@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Card, Col, Row} from "react-bootstrap";
+import {Button, Card, Col, Row} from "react-bootstrap";
 import AttractionsSelectBox from "./selectBox/AttractionsSelectBox";
 import styles from "./DailyPlanner.module.css";
 import DailyDnd from "./DailyDnd";
@@ -9,6 +9,7 @@ import DayPicker from "./dayPicker/DayPicker";
 import {itineraryActions} from "../../store/itinerary-slice";
 import {useDispatch} from "react-redux";
 import {fetchItineraryData} from "../../store/itinerary-actions";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 const DailyPlanner = () => {
     const dispatch = useDispatch();
@@ -22,6 +23,66 @@ const DailyPlanner = () => {
         dispatch(itineraryActions.updateDay(index));
     }
 
+
+    const [showCleanDayAlert, setShowCleanDayAlert] = useState(false);
+
+    const cleanDayAlert = () => {
+        return <SweetAlert
+            warning
+            showCancel
+            confirmBtnText="Yes, clean the current day"
+            confirmBtnBsStyle="danger"
+            title="Are you sure?"
+            focusCancelBtn
+            onConfirm={() => {
+                dispatch(itineraryActions.cleanDay());
+                setShowCleanDayAlert(false);
+            }}
+            onCancel={() => setShowCleanDayAlert(false)}
+        >
+            Any attraction you added to the current day will be removed.
+        </SweetAlert>
+    }
+
+    const [showStartOverAlert, setShowStartOverAlert] = useState(false);
+
+    const startOverAlert = () => {
+        return <SweetAlert
+            warning
+            showCancel
+            confirmBtnText="Yes, start over planning your trip"
+            confirmBtnBsStyle="danger"
+            title="Are you sure?"
+            focusCancelBtn
+            onConfirm={() => {
+                dispatch(itineraryActions.startOver());
+                setShowStartOverAlert(false);
+            }}
+            onCancel={() => setShowStartOverAlert(false)}
+        >
+            If you confirm this action, any attraction you added to your trip will be removed.
+        </SweetAlert>
+    }
+
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
+    const finishItineraryAlert = () => {
+        const moveToItineraryPage = () => {
+            // TODO
+            setShowSuccessAlert(false);
+            alert('moving to itinerary page');
+        }
+        return <SweetAlert
+            success
+            title="Saved!"
+            onConfirm={moveToItineraryPage}
+            timeout={2000}
+        >
+            Your trip is now saved!
+        </SweetAlert>
+    }
+
+
     return (
         <ChangeHoursContext.Provider
             value={{
@@ -30,6 +91,9 @@ const DailyPlanner = () => {
                 isDragDisabled: false
             }}>
             <Card style={{height: "100%"}}>
+                {showCleanDayAlert && cleanDayAlert()}
+                {showStartOverAlert && startOverAlert()}
+                {showSuccessAlert && finishItineraryAlert()}
                 <Card.Body>
                     <Card.Text>
                         <Row>
@@ -42,6 +106,32 @@ const DailyPlanner = () => {
                                 <Row>
                                     <Col>
                                         <DayPicker onDayChange={dayChangedHandler}/>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col md={{span: 4}}>
+                                        <div className="d-grid gap-2">
+                                            <Button onClick={() => setShowCleanDayAlert(true)}
+                                                    style={{marginBottom: 20}}
+                                                    variant={"outline-primary"}
+                                                    size="lg" block={true}>Clean Day</Button>
+                                        </div>
+                                    </Col>
+                                    <Col md={{span: 4}}>
+                                        <div className="d-grid gap-2">
+                                            <Button onClick={() => setShowSuccessAlert(true)}
+                                                    style={{marginBottom: 20}}
+                                                    variant={"outline-success"}
+                                                    size="lg" block={true}>Save Your Trip</Button>
+                                        </div>
+                                    </Col>
+                                    <Col md={{span: 4}}>
+                                        <div className="d-grid gap-2">
+                                            <Button onClick={() => setShowStartOverAlert(true)}
+                                                    style={{marginBottom: 20}}
+                                                    variant={"outline-dark"}
+                                                    size="lg" block={true}>Start Over</Button>
+                                        </div>
                                     </Col>
                                 </Row>
                                 <Row>
