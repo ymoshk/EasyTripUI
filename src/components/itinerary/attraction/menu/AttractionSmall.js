@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
-import {Card, Image, Col, Row, Button, Tooltip, OverlayTrigger} from 'react-bootstrap';
+import {Button, Card, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap';
 import StarRating from "../StarRating";
 import RecommendedIcon from "../RecommendedIcon";
 
@@ -15,14 +15,9 @@ const AttractionSmall = (props) => {
 
     let priceLevel = '$'.repeat(props.attraction.priceLevel + 1);
 
-    let imageComponent;
-    if (props.attraction.image.height > props.attraction.image.width) {
-        imageComponent = <Image src={props.attraction.image.url} rounded width={100}/>;
-    } else {
-        imageComponent = <Image src={props.attraction.image.url} rounded height={100}/>;
-    }
 
     const onAddHandler = () => {
+
         dispatch(itineraryActions.addAttraction({
             attraction: {
                 attraction: props.attraction,
@@ -39,7 +34,7 @@ const AttractionSmall = (props) => {
                 <Card.Body>
                     <Row>
                         <Col>
-                            <Card.Title>
+                            <Card.Title as={"div"}>
                                 <Row>
                                     <Col md={{span: 8, offset: 0}} xs={{span: 8, offset: 0}}>
                                         <h3>
@@ -82,7 +77,7 @@ const AttractionSmall = (props) => {
                             </Card.Title>
                         </Col>
                     </Row>
-                    <Card.Text>
+                    <Card.Text as={"div"}>
                         <Row>
                             <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
                                 <Row><StarRating value={props.attraction.rating}/></Row>
@@ -96,9 +91,6 @@ const AttractionSmall = (props) => {
                                     {!props.attraction.closedTemporarily &&
                                     <b style={{color: 'green'}}>Operational</b>}</Row>
                             </Col>
-                            {props.attraction.showImage && <Col md={{span: 6, offset: 0}} xs={{span: 6, offset: 0}}>
-                                {imageComponent}
-                            </Col>}
                         </Row>
                     </Card.Text>
                 </Card.Body>

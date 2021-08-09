@@ -1,36 +1,12 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment} from 'react';
 import {Button, Card, Col, Image, Row} from 'react-bootstrap';
 import OpenHours from "./OpenHours";
 import RecommendedIcon from "../RecommendedIcon";
 import StarRating from "../StarRating";
 import styles from "./Attraction.module.css"
-import useHttp from "../../../../hooks/UseHttp";
 
 
 const Attraction = (props) => {
-    const [imageBase64, setImageBase64] = useState("");
-    const {isLoading, error, sendRequest: getImagePost} = useHttp();
-
-    useEffect(() => {
-        getImage();
-    }, [getImagePost]);
-
-    const getImage = () => {
-        const data = {
-            id: props.attraction.id
-        };
-
-        const handlePhoto = (data) => {
-            setImageBase64(data.base64);
-        }
-
-        getImagePost({
-            url: process.env.REACT_APP_SERVER_URL + "/getAttractionImage",
-            method: "POST",
-            body: data
-        }, handlePhoto).then();
-    }
-
     let priceLevel = '$'.repeat(props.attraction.priceLevel + 1);
 
     return (
@@ -58,11 +34,11 @@ const Attraction = (props) => {
                                         <Row><h4>Price Range </h4></Row>
                                         <Row><h5 style={{color: 'green'}}>{priceLevel}</h5></Row>
                                         <Row>
-                                            <Col style={{marginTop:10, textAlign: "center"}}>
-                                                <Image
+                                            <Col style={{marginTop: 10, textAlign: "center"}}>
+                                                {props.imageBase64 && <Image
                                                     style={{width: "auto", height: "auto"}}
-                                                    src={`data:image/jpeg;base64,${imageBase64}`}
-                                                />
+                                                    src={`data:image/jpeg;base64,${props.imageBase64}`}
+                                                />}
                                             </Col>
                                         </Row>
                                     </Col>

@@ -177,7 +177,7 @@ const StepsCard = () => {
     }, [stage])
 
     useEffect(() => {
-        if(isLoading){
+        if (isLoading) {
             loader.setShow(true)
         } else {
             loader.setShow(false);
@@ -263,7 +263,7 @@ const StepsCard = () => {
             url: process.env.REACT_APP_SERVER_URL + "/completeQuestions",
             method: "POST",
             body: data
-        }, setItinerary).then(loader.setShow(false));
+        }, setItinerary).then();
     }
 
     const setItinerary = (data) => {
@@ -301,22 +301,26 @@ const StepsCard = () => {
                     <Col className={styles.marginTop} xs={12} md={4}>
                         <Row>
                             <Col xs={6}>
-                                <Button
-                                    style={{cursor: previousState ? 'pointer' : 'not-allowed'}}
-                                    className={previousState ? 'active' : 'disabled'}
-                                    onClick={previousClick}
-                                    block={true}
-                                    variant="outline-secondary">
-                                    Previous
-                                </Button>{' '}
+                                <div className="d-grid gap-2">
+                                    <Button
+                                        style={{cursor: previousState ? 'pointer' : 'not-allowed'}}
+                                        className={previousState ? 'active' : 'disabled'}
+                                        onClick={previousClick}
+                                        block={true}
+                                        variant="outline-secondary">
+                                        Previous
+                                    </Button>{' '}
+                                </div>
                             </Col>
                             <Col xs={6}>
-                                <Button
-                                    onClick={finishButton ? finish : nextClick}
-                                    block={true}
-                                    variant={"outline-primary"}>
-                                    {finishButton ? "Finish" : "Next"}
-                                </Button>{' '}
+                                <div className="d-grid gap-2">
+                                    <Button
+                                        onClick={finishButton ? finish : nextClick}
+                                        block={true}
+                                        variant={"outline-primary"}>
+                                        {finishButton ? "Finish" : "Next"}
+                                    </Button>{' '}
+                                </div>
                             </Col>
                         </Row>
                     </Col>

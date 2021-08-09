@@ -19,7 +19,7 @@ const AttractionsSelectBox = () => {
 
         function onChangeEventHandler(e) {
             setCurrentType(e.target.value); // e.target.value is a string
-            setDuration(durationsDic[e.target.value]);
+            setDuration(durationsDic[e.target.value] / 60);
             setFirstChange(true);
         }
 
@@ -54,7 +54,11 @@ const AttractionsSelectBox = () => {
                     <Form.Select onChange={onChangeEventHandler}>
                         {<option disabled={firstChange}>{defaultText}</option>}
                         {typesArray.map((typeAsString) => {
-                            return <option key={currentType + "_" + (i++).toString()}>{typeAsString}</option>
+                            return <option
+                                selected={typeAsString === currentType}
+                                key={currentType + "_" + (i++).toString()}>
+                                {typeAsString}
+                            </option>
                         })}
                     </Form.Select>
                 </Card.Header>

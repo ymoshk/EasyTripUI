@@ -11,6 +11,7 @@ const AttractionModal = (props) => {
                 <Modal.Header closeButton/>
                 <Modal.Body>
                     <Attraction
+                        imageBase64={props.imageBase64}
                         attraction={props.attraction}
                     />
                 </Modal.Body>

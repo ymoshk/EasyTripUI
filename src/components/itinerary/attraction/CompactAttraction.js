@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {itineraryActions} from "../../../store/itinerary-slice";
-import {Card, Image, Col, Row, Button, Modal, Tooltip, OverlayTrigger} from 'react-bootstrap';
+import {Button, Card, Col, Image, OverlayTrigger, Row, Tooltip} from 'react-bootstrap';
 import {useDispatch} from "react-redux";
 import {InfoSquare, Trash} from "tabler-icons-react";
 import RecommendedIcon from "./RecommendedIcon";
@@ -8,18 +8,21 @@ import StarRating from "./StarRating";
 import AttractionModal from "./modal/AttractionModal";
 import ONE_HOUR_HEIGHT from "../Constants";
 import useHttp from "../../../hooks/UseHttp";
+import ChangeHourContext from "../ChangeHourContext";
 
 
 const CompactAttraction = (props) => {
     const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
     const [showImage, setShowImage] = useState(false);
-    const [imageBase64, setImageBase64] = useState("");
+    const [imageBase64, setImageBase64] = useState(null);
     const {isLoading, error, sendRequest: getImagePost} = useHttp();
+    const context = useContext(ChangeHourContext);
 
-    useEffect(() => {
-        getImage();
-    }, [getImagePost]);
+    // TODO - fix image load
+    // useEffect(() => {
+    //     getImage();
+    // }, []);
 
     const getImage = () => {
         const data = {
@@ -71,7 +74,8 @@ const CompactAttraction = (props) => {
 
     return (
         <>
-            <AttractionModal onClose={() => setShowModal(false)} show={showModal} attraction={props.attraction}/>
+            <AttractionModal onClose={() => setShowModal(false)} show={showModal} imageBase64={imageBase64}
+                             attraction={props.attraction}/>
             <Card style={{border: "solid 2px", marginBottom: 0, height: props.height}}>
                 <Card.Body>
                     <Row>
@@ -117,7 +121,13 @@ const CompactAttraction = (props) => {
                                 </Col>
                             </Row>
                         </Col>
-                        <Col xs={1} md={1}>
+                        <Col
+                            onMouseEnter={() => {
+                                context.isOnButton = true
+                            }}
+                            onMouseLeave={() => {
+                                context.isOnButton = false
+                            }}>
                             <Row>
                                 <OverlayTrigger
                                     key={'infoToolTip'}
@@ -127,8 +137,9 @@ const CompactAttraction = (props) => {
                                             More Info
                                         </Tooltip>
                                     }>
-                                    <Button onClick={() => setShowModal(true)}
-                                            style={{backgroundColor: "transparent", border: "none"}} size={"sm"}>
+                                    <Button
+                                        xs={1} md={1} onClick={() => setShowModal(true)}
+                                        style={{backgroundColor: "transparent", border: "none"}} size={"sm"}>
                                         <InfoSquare color={"black"}
                                                     strokeWidth={2}/>
                                     </Button>
@@ -143,9 +154,10 @@ const CompactAttraction = (props) => {
                                             Remove From Your Itinerary
                                         </Tooltip>
                                     }>
-                                    <Button onClick={onRemoveHandler}
-                                            style={{backgroundColor: "transparent", border: "none"}}
-                                            size={"sm"}>
+                                    <Button
+                                        onClick={onRemoveHandler}
+                                        style={{backgroundColor: "transparent", border: "none"}}
+                                        size={"sm"}>
                                         <Trash color={"black"} strokeWidth={2}/>
                                     </Button>
                                 </OverlayTrigger>

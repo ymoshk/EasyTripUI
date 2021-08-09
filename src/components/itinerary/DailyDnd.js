@@ -3,17 +3,20 @@ import {Col, Row} from "react-bootstrap";
 import HelpersContext from "./ChangeHourContext"
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import AttractionContainer from "./attraction/AttractionContainer";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {itineraryActions} from "../../store/itinerary-slice";
 
 
 const DailyDnd = () => {
     const HOURS_PER_DAY = 17;
     const dayIndex = useSelector(state => state.itineraryData.itinerary.currentDayIndex);
     const dayAttractions = useSelector(state => state.itineraryData.itinerary.itineraryDays[dayIndex].activities);
+    const dispatch = useDispatch();
 
     const mapComponent = (attractionNode, index) => {
         return (
-            <Draggable key={"draggable_" + attractionNode.uniqueKey} isDragDisabled={helpersContext.isDragDisabled}
+            <Draggable key={"draggable_" + attractionNode.uniqueKey}
+                       isDragDisabled={helpersContext.isDragDisabled || helpersContext.isOnButton}
                        draggableId={index.toString()}
                        index={index}>
                 {provided => (
@@ -56,33 +59,40 @@ const DailyDnd = () => {
     const [draggedId, setDraggedId] = useState(null);
     const [draggedStatPos, setDraggedStartPos] = useState(null);
     const [pixelPerMinute, setPixelPerMinutes] = useState(-1);
-    const [minutesToAdd, setMinutesToAdd] = useState(null);
-
+    const [minutesToAdd, setMinutesToAdd] = useState(0);
 
     const updateMousePosition = (e) => {
         setMousePosition(e.pageY)
     }
 
+    const helpersContext = useContext(HelpersContext);
+
     const onDragStart = (index, e) => {
-        setDraggedId(index);
-        setDraggedStartPos(e.pageY)
+        if (!helpersContext.isOnButton) {
+            setDraggedId(index);
+            setDraggedStartPos(e.pageY)
+        }
     }
 
     const onStopDrag = () => {
-        if (draggedId !== undefined && draggedId !== null && minutesToAdd !== undefined) {
-            console.log(minutesToAdd);
-        }
+        if (!helpersContext.isOnButton) {
+            if (draggedId !== undefined && draggedId !== null && minutesToAdd !== undefined) {
+                dispatch(itineraryActions.changeEndTime(
+                    {
+                        index: draggedId,
+                        minutesCount: minutesToAdd
+                    }
+                ));
+            }
 
-        // TODO fire the update event
+        }
         setDraggedId(null);
         setDraggedStartPos(null);
         setMinutesToAdd(null);
     }
 
-    const helpersContext = useContext(HelpersContext);
-
     useEffect(() => {
-        if (draggedId !== null) {
+        if (draggedId !== null && !helpersContext.isOnButton) {
             let diff = parseInt((mousePosition - draggedStatPos) / pixelPerMinute);
             setMinutesToAdd(diff);
 

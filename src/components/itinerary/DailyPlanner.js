@@ -8,20 +8,29 @@ import ChangeHoursContext from "./ChangeHourContext";
 import DayPicker from "./dayPicker/DayPicker";
 import {itineraryActions} from "../../store/itinerary-slice";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchItineraryData} from "../../store/itinerary-actions";
+import {fetchAttractionsDurations, fetchItineraryData, updateItineraryDay} from "../../store/itinerary-actions";
 import SweetAlert from "react-bootstrap-sweetalert";
 
 const DailyPlanner = () => {
     const dispatch = useDispatch();
+    const myItinerary = useSelector(state => state.itineraryData.itinerary);
 
     useEffect(() => {
         dispatch(fetchItineraryData());
+        dispatch(fetchAttractionsDurations());
     }, [dispatch])
 
 
     const dayChangedHandler = (index) => {
         dispatch(itineraryActions.updateDay(index));
     }
+
+    useEffect(() => {
+        const id = myItinerary.itineraryId;
+        const index = myItinerary.currentDayIndex;
+        const currentDay = myItinerary.itineraryDays[index];
+        updateItineraryDay(id, currentDay, index);
+    }, [myItinerary])
 
 
     const [showCleanDayAlert, setShowCleanDayAlert] = useState(false);
@@ -83,11 +92,13 @@ const DailyPlanner = () => {
     }
 
     return (
+        // <SiteWrapper>
         <ChangeHoursContext.Provider
             value={{
                 changeHoursFunc: undefined,
                 changeEndHourFunc: undefined,
-                isDragDisabled: false
+                isDragDisabled: false,
+                isOnButton: false
             }}>
             <Card style={{height: "100%"}}>
                 {showCleanDayAlert && cleanDayAlert()}
@@ -157,6 +168,7 @@ const DailyPlanner = () => {
                 </Card.Body>
             </Card>
         </ChangeHoursContext.Provider>
+        // </SiteWrapper>
     );
 };
 

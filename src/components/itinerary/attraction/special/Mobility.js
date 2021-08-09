@@ -11,7 +11,6 @@ const Mobility = () => {
     const subTitle = "How would you like to get there?";
     const isCheckedIconColor = '#FFFFFF';
     const grey = '#656D77';
-    console.log(checkedStatus);
 
     function onCheckedEventHandler(e, index) {
         let newCheckedStatus = [false, false, false];

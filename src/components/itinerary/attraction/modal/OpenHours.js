@@ -3,7 +3,6 @@ import {Row} from "react-bootstrap";
 
 const OpenHours = (props) => {
     const hours = JSON.parse(props.hours);
-    console.log(hours);
 
     return <div style={{paddingLeft: 15, paddingTop: 10}}>
         <Row>

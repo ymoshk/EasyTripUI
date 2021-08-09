@@ -16,12 +16,7 @@ const initialState = {
         questionsData: {},
         currentDayIndex: 0
     },
-    defaultDurations: {
-        // TODO fill the rest
-        Restaurant: 1.5,
-        NightLife: 3,
-        Museum: 3
-    }
+    defaultDurations: {}
 };
 
 const initialFreeTime = {
@@ -69,6 +64,35 @@ const removeAttractionByIndex = (dailyArray, index) => {
     return result;
 }
 
+const addMinutesToHour = (hour, minutesCount) => {
+    const newTime = new Date("01-01-2030 " + hour + ":00");
+    newTime.setTime(newTime.getTime() + minutesCount * 1000 * 60);
+
+    return formatDateToHours(newTime);
+}
+
+const changeComponentEndTime = (state, index, minutesToAdd) => {
+    const dayIndex = state.itinerary.currentDayIndex;
+    const originAttraction = state.itinerary.itineraryDays[dayIndex].activities[index];
+    const firstSlice = state.itinerary.itineraryDays[dayIndex].activities.slice(0, index);
+    const secondSlice = state.itinerary.itineraryDays[dayIndex].activities.slice(index + 1);
+
+    firstSlice.push({
+        ...originAttraction,
+        uniqueKey: uuid(),
+        endTime: addMinutesToHour(originAttraction.endTime, minutesToAdd)
+    })
+
+    secondSlice.forEach(node => firstSlice.push({
+        ...node,
+        uniqueKey: uuid(),
+        startTime: addMinutesToHour(node.startTime, minutesToAdd),
+        endTime: addMinutesToHour(node.endTime, minutesToAdd)
+    }))
+
+    return firstSlice;
+}
+
 const itinerarySlice = createSlice({
     name: 'itinerary',
     initialState: initialState,
@@ -81,7 +105,6 @@ const itinerarySlice = createSlice({
         },
         addAttraction(state, action) {
             const index = state.itinerary.currentDayIndex;
-            const id = state.itinerary.itineraryId;
             const currentDay = state.itinerary.itineraryDays[index];
             const prevEndTime = currentDay.activities[currentDay.activities.length - 1].endTime
 
@@ -111,24 +134,17 @@ const itinerarySlice = createSlice({
                 endTime: newEndTime,
                 uniqueKey: uuid(),
             })
-
-            updateItineraryDay(id, currentDay, index);
         },
         removeAttraction(state, action) {
             const arrayIndex = action.payload;
-            const id = state.itinerary.itineraryId;
             const dayIndex = state.itinerary.currentDayIndex;
             const currentDay = state.itinerary.itineraryDays[dayIndex];
-
             currentDay.activities = removeAttractionByIndex(currentDay.activities, arrayIndex);
-            updateItineraryDay(id, currentDay, dayIndex);
         },
         cleanDay(state, action) {
             const dayIndex = state.itinerary.currentDayIndex;
-            const id = state.itinerary.itineraryId;
             const currentDay = state.itinerary.itineraryDays[dayIndex];
             currentDay.activities = [initialFreeTime]
-            updateItineraryDay(id, currentDay, dayIndex);
         },
         startOver(state, action) {
             const id = state.itinerary.itineraryId;
@@ -136,6 +152,19 @@ const itinerarySlice = createSlice({
                 day.activities = [initialFreeTime]
             })
             cleanItinerary(id);
+        },
+        changeEndTime(state, action) {
+            const dayIndex = state.itinerary.currentDayIndex;
+            const currentDay = state.itinerary.itineraryDays[dayIndex];
+            const id = state.itinerary.itineraryId;
+
+            currentDay.activities = changeComponentEndTime(state,
+                action.payload.index, action.payload.minutesCount);
+
+            updateItineraryDay(id, currentDay, dayIndex);
+        },
+        setDurations(state, action){
+            state.defaultDurations = action.payload;
         }
     }
 })

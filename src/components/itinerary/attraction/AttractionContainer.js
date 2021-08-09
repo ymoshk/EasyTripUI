@@ -57,7 +57,6 @@ const AttractionContainer = (props) => {
     const onResizeStartHandler = () => {
         helpersContext.isDragDisabled = true;
     }
-
     const onResizeEndHandler = () => {
         helpersContext.isDragDisabled = false;
     }
@@ -83,7 +82,8 @@ const AttractionContainer = (props) => {
                     topLeft: false
                 }}
                 onResizeStart={onResizeStartHandler}
-                onResizeStop={onResizeEndHandler}>
+                onResizeStop={onResizeEndHandler}
+            >
                 <CompactAttraction
                     index={props.index}
                     calcHeight={true}
