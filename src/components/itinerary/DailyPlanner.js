@@ -82,7 +82,6 @@ const DailyPlanner = () => {
         </SweetAlert>
     }
 
-
     return (
         <ChangeHoursContext.Provider
             value={{

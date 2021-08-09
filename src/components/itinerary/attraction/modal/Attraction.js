@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {Button, Card, Col, Image, Row} from 'react-bootstrap';
 import OpenHours from "./OpenHours";
 import RecommendedIcon from "../RecommendedIcon";
-import StarRating from "../../../utils/StarRating";
+import StarRating from "../StarRating";
 import styles from "./Attraction.module.css"
 import useHttp from "../../../../hooks/UseHttp";
 

@@ -4,7 +4,7 @@ import {Card, Image, Col, Row, Button, Modal, Tooltip, OverlayTrigger} from 'rea
 import {useDispatch} from "react-redux";
 import {InfoSquare, Trash} from "tabler-icons-react";
 import RecommendedIcon from "./RecommendedIcon";
-import StarRating from "../../utils/StarRating";
+import StarRating from "./StarRating";
 import AttractionModal from "./modal/AttractionModal";
 import ONE_HOUR_HEIGHT from "../Constants";
 import useHttp from "../../../hooks/UseHttp";
@@ -41,13 +41,13 @@ const CompactAttraction = (props) => {
     let priceLevel = '$'.repeat(props.attraction.priceLevel + 1);
 
     useEffect(() => {
-        if (extractHeight(props.height) >= ONE_HOUR_HEIGHT * 1.5) {
+        if (!isLoading && extractHeight(props.height) >= ONE_HOUR_HEIGHT * 1.5) {
             setShowImage(true);
         } else {
             setShowImage(false);
         }
 
-    }, [props.height])
+    }, [props.height, isLoading])
 
 
     const onRemoveHandler = () => {

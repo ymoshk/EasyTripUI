@@ -1,12 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import AutocompleteTextBox from "../../utils/AutocompleteTextBox";
 import useHttp from "../../../hooks/UseHttp";
+import LoaderContext from "../../utils/loader/LoaderContext";
 
 
 const SearchDestination = (props) => {
     const [countries, setCountries] = useState([]);
 
     const {isLoading, error, sendRequest: fetchCountries} = useHttp();
+    const loader = useContext(LoaderContext);
+
+    useEffect(() => {
+        if(isLoading){
+            loader.setShow(true)
+        } else {
+            loader.setShow(false);
+        }
+    }, [isLoading])
 
     useEffect(() => {
         const transformCountries = (countriesObj) => {

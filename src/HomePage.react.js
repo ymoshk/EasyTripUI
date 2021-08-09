@@ -3,10 +3,11 @@
 import * as React from "react";
 
 import SiteWrapper from "./SiteWrapper.react";
-import {Row, Col, Container} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import SearchDestination from "./components/questions/destination/SearchDestination";
 
 function Home() {
+
     return (
         <SiteWrapper>
             <Container fluid style={{

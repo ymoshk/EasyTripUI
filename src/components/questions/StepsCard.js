@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Card} from "tabler-react";
 import {Alert, Button, Col, ProgressBar, Row} from "react-bootstrap";
 import styles from "./Fotter.module.css";
@@ -10,11 +10,14 @@ import TagsList from "./tags/TagsList";
 import useHttp from "../../hooks/UseHttp";
 import TagsListDup from "./tags/TagsListDup";
 import {ITINERARY_ID_STORAGE} from "../itinerary/Constants";
+import loaderContext from "../../components/utils/loader/LoaderContext"
 
 
 const SESSION_STEP_CARD_MEM = "steps_card_memory";
 
 const StepsCard = () => {
+
+    const loader = useContext(loaderContext)
 
     const tripVibesTags = [
         {id: 0, name: "Chill", src: ""},
@@ -23,17 +26,57 @@ const StepsCard = () => {
     ]
 
     const favoriteAttractionTags = [
-        {id: 3, name: "Amusement Park", src: "https://cdn.dnaindia.com/sites/default/files/styles/full/public/2017/06/02/580699-amusement-park-060217.jpg"},
-        {id: 4, name: "Aquarium", src: "https://www.georgiaaquarium.org/wp-content/uploads/2019/05/GAQ-Digital-Marketing-201-1-1024x683.jpg"},
-        {id: 5, name: "Zoo", src: "https://images.miamiandbeaches.com/crm/simpleview/image/upload/c_fit,w_1440,h_900/crm/miamifl/Zoo_Miami_Kids_Feeding_Giraffes_12.17.20_405706D2-5056-A36A-0B8E0EDD9C2F8424-405705585056a36_40570728-5056-a36a-0bd4ba282c839594.jpg"},
-        {id: 6, name: "Art Gallery", src: "https://img.theculturetrip.com/1440x807/smart/wp-content/uploads/2019/01/dg00xh.jpg"},
-        {id: 7, name: "Camp Ground", src: "https://365cincinnati.com/wp-content/uploads/2020/05/Camping-at-the-camground-900x525.jpg"},
-        {id: 8, name: "Casino", src: "https://ventsmagazine.com/wp-content/uploads/2020/11/Firekeepers-Casino-Hotel_54_990x660.jpg"},
+        {
+            id: 3,
+            name: "Amusement Park",
+            src: "https://cdn.dnaindia.com/sites/default/files/styles/full/public/2017/06/02/580699-amusement-park-060217.jpg"
+        },
+        {
+            id: 4,
+            name: "Aquarium",
+            src: "https://www.georgiaaquarium.org/wp-content/uploads/2019/05/GAQ-Digital-Marketing-201-1-1024x683.jpg"
+        },
+        {
+            id: 5,
+            name: "Zoo",
+            src: "https://images.miamiandbeaches.com/crm/simpleview/image/upload/c_fit,w_1440,h_900/crm/miamifl/Zoo_Miami_Kids_Feeding_Giraffes_12.17.20_405706D2-5056-A36A-0B8E0EDD9C2F8424-405705585056a36_40570728-5056-a36a-0bd4ba282c839594.jpg"
+        },
+        {
+            id: 6,
+            name: "Art Gallery",
+            src: "https://img.theculturetrip.com/1440x807/smart/wp-content/uploads/2019/01/dg00xh.jpg"
+        },
+        {
+            id: 7,
+            name: "Camp Ground",
+            src: "https://365cincinnati.com/wp-content/uploads/2020/05/Camping-at-the-camground-900x525.jpg"
+        },
+        {
+            id: 8,
+            name: "Casino",
+            src: "https://ventsmagazine.com/wp-content/uploads/2020/11/Firekeepers-Casino-Hotel_54_990x660.jpg"
+        },
         {id: 9, name: "Museum", src: "https://media.timeout.com/images/105246805/image.jpg"},
-        {id: 10, name: "Night Life", src: "https://belgradeatnight.com/wp-content/uploads/2018/04/Belgrade-nightlife-tips-for-how-to-survive.jpg"},
-        {id: 11, name: "Park", src: "https://images.theconversation.com/files/118670/original/image-20160414-4709-vaix4b.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=900.0&fit=crop"},
-        {id: 12, name: "Shopping Mall", src: "https://i.pinimg.com/originals/0f/3d/f9/0f3df9f9f55c2250c16163e9be797809.jpg"},
-        {id: 13, name: "Spa", src: "https://vilaspa.co.il/wp-content/uploads/2020/07/spa-arrangement-with-towel-soap-salt_23-2148268482-300x200.jpg"},
+        {
+            id: 10,
+            name: "Night Life",
+            src: "https://belgradeatnight.com/wp-content/uploads/2018/04/Belgrade-nightlife-tips-for-how-to-survive.jpg"
+        },
+        {
+            id: 11,
+            name: "Park",
+            src: "https://images.theconversation.com/files/118670/original/image-20160414-4709-vaix4b.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=900.0&fit=crop"
+        },
+        {
+            id: 12,
+            name: "Shopping Mall",
+            src: "https://i.pinimg.com/originals/0f/3d/f9/0f3df9f9f55c2250c16163e9be797809.jpg"
+        },
+        {
+            id: 13,
+            name: "Spa",
+            src: "https://vilaspa.co.il/wp-content/uploads/2020/07/spa-arrangement-with-towel-soap-salt_23-2148268482-300x200.jpg"
+        },
         {id: 14, name: "Test", src: "https://www.pro-sky.com/images/en/news/news_header_webseite_-49-_342_big.jpg"}
     ]
 
@@ -133,6 +176,13 @@ const StepsCard = () => {
         localStorage.setItem(SESSION_STEP_CARD_MEM, stage);
     }, [stage])
 
+    useEffect(() => {
+        if(isLoading){
+            loader.setShow(true)
+        } else {
+            loader.setShow(false);
+        }
+    }, [isLoading])
 
     const [showError, setShowError] = useState(false);
     const [previousState, setPreviousState] = useState(stage !== 0);
@@ -213,7 +263,7 @@ const StepsCard = () => {
             url: process.env.REACT_APP_SERVER_URL + "/completeQuestions",
             method: "POST",
             body: data
-        }, setItinerary).then();
+        }, setItinerary).then(loader.setShow(false));
     }
 
     const setItinerary = (data) => {

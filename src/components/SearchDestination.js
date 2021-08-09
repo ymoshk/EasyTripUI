@@ -1,13 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import AutocompleteTextBox from "./utils/AutocompleteTextBox";
 import useHttp from "../hooks/use-http";
+import LoaderContext from "./utils/loader/LoaderContext";
 
-const GET_COUNTRIES_SUFFIX = '/api/getCountryNames';
 const GET_CITIES_SUFFIX = '/api/getCities';
 
 const SearchDestination = () => {
     const [countries, setCountries] = useState([]);
     const {isLoading, error, sendRequest: fetchCountries} = useHttp();
+    const loader = useContext(LoaderContext)
+
+    useEffect(() => {
+        if(isLoading){
+            loader.setShow(true)
+        } else {
+            loader.setShow(false);
+        }
+    }, [isLoading])
 
     useEffect(() => {
         const urlCountries = new URL(process.env.REACT_APP_SERVER_URL.concat(GET_CITIES_SUFFIX));
