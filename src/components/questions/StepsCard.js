@@ -156,7 +156,7 @@ const StepsCard = () => {
         {
             key: 5,
             header: "Trip Vibes",
-            content: <TagsListDup
+            content: <TagsList
                 updateList={(value) => {
                     stagesList[getStage()].data = value
                 }}

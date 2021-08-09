@@ -2,6 +2,7 @@ import React from 'react';
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import SingleTag from "./SingleTag";
 import styles from "./TagsList.module.css"
+import uuid from "uuid-random";
 
 const TagsList = (props) => {
     const tagsListStatus = [];
@@ -20,12 +21,12 @@ const TagsList = (props) => {
         if (!props.imageTag) {
             line = lineOfTags.map((tag) =>
                 <div style={{marginRight: 10, marginTop:10}}>
-                    <SingleTag onChecked={SingleTagChecked} id={i++} text={tag.name}/>
+                    <SingleTag onChecked={SingleTagChecked} key={uuid()} id={i++} text={tag.name}/>
                 </div>)
         } else {
             line = lineOfTags.map((tag) =>
                 <div style={{marginRight: 10, marginTop:10}}>
-                    <SingleTag onChecked={SingleTagChecked} id={i++} src={tag.src}/>
+                    <SingleTag onChecked={SingleTagChecked} key={uuid()} id={i++} src={tag.src}/>
                 </div>)
         }
 
