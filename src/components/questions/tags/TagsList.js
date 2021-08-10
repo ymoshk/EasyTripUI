@@ -3,6 +3,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import SingleTag from "./SingleTag";
 import styles from "./TagsList.module.css"
 import uuid from "uuid-random";
+import ReactTooltip from "react-tooltip";
 
 const TagsList = (props) => {
     const tagsListStatus = [];
@@ -25,8 +26,11 @@ const TagsList = (props) => {
                 </div>)
         } else {
             line = lineOfTags.map((tag) =>
-                <div style={{marginRight: 10, marginTop:10}}>
-                    <SingleTag onChecked={SingleTagChecked} key={uuid()} id={i++} src={tag.src}/>
+                <div style={{marginRight: 100, marginTop:100}}>
+                    <SingleTag onChecked={SingleTagChecked} name={tag.name} key={uuid()} id={i++} src={tag.src}/>
+                    <ReactTooltip id="registerTip" place="top" effect="solid">
+                        Tooltip for the register button
+                    </ReactTooltip>
                 </div>)
         }
 

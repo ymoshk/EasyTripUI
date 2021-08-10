@@ -7,6 +7,7 @@ import MapWrapper from "./components/utils/MapWrapper";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "tabler-react/dist/Tabler.css";
 import YotamTest from "./YotamTests/YotamTest";
+import BarTest from "./BarTests/BarTest";
 import DailyPlanner from "./components/itinerary/DailyPlanner";
 import LoaderComponent from "./components/utils/loader/LoaderComponent";
 import LoaderContext from "./components/utils/loader/LoaderContext";

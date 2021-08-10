@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.css";
 import styles from './SingleTag.module.css'
 import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+
 
 const SingleTag = (props) => {
     const [isChecked, setIsChecked] = useState(false);
@@ -29,14 +33,27 @@ const SingleTag = (props) => {
         return result;
     }
 
+    const renderTooltip = (
+        <Tooltip>{props.name}</Tooltip>
+    );
+
     return (
+            // <Button
+            //     size="lg"
+            //     type="checkbox"
+            //     variant={isChecked ? isCheckedColor : isNotCheckedColor}
+            //     onClick={onClickEventHandler}>
+            //     {getContent()}
+            // </Button>
+
+    <OverlayTrigger placement="top" overlay={renderTooltip}>
         <Button
             size="lg"
             type="checkbox"
             variant={isChecked ? isCheckedColor : isNotCheckedColor}
-            onClick={onClickEventHandler}>
-            {getContent()}
+            onClick={onClickEventHandler}>{getContent()}
         </Button>
+    </OverlayTrigger>
     );
 };
 
