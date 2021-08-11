@@ -98,7 +98,7 @@ const DailyPlanner = () => {
                 changeHoursFunc: undefined,
                 changeEndHourFunc: undefined,
                 isDragDisabled: false,
-                isOnButton: false
+                state: "DRAG"
             }}>
             <Card style={{height: "100%"}}>
                 {showCleanDayAlert && cleanDayAlert()}

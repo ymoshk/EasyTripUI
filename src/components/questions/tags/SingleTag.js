@@ -1,59 +1,58 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "bootstrap/dist/css/bootstrap.css";
 import styles from './SingleTag.module.css'
 import Button from "react-bootstrap/Button";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
-
+import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
 const SingleTag = (props) => {
     const [isChecked, setIsChecked] = useState(false);
-    const title = props.title;
-    const onChecked = props.onChecked;
+    const [color, setColor] = useState("white");
     const id = props.id;
-    const isCheckedColor = props.isCheckedColor === undefined ? "primary" : props.isCheckedColor;
-    const isNotCheckedColor = props.isNotCheckedColor === undefined ? "outline-primary" : props.isNotCheckedColor;
 
-    function onClickEventHandler() {
-        onChecked(id);
+    useEffect(() => {
+        if (isChecked) {
+            setColor("#6c757d");
+        } else {
+            setColor("white");
+        }
+    }, [isChecked])
+
+    const onClickEventHandler = () => {
+        props.onChecked(id);
         setIsChecked(!isChecked);
     }
 
     const getContent = () => {
         let result = "";
-        if (props.src !== undefined) {
-            result = <img className={styles.img} src={props.src} width={100} height={100} alt={"None"}/>
+        if (props.src !== undefined && props.src !== "") {
+            result = <img className={styles.img} src={props.src} alt={"None"}/>
         } else if (props.text !== undefined) {
             result = <span>{props.text}</span>
-        }else if(props.innerComponent !== undefined){
+        } else if (props.innerComponent !== undefined) {
             result = props.innerComponent;
         }
 
         return result;
     }
 
-    const renderTooltip = (
-        <Tooltip>{props.name}</Tooltip>
-    );
+    const getToolTip = () => {
+        return <Tooltip id={'tooltip_' + id}>
+            {props.text}
+        </Tooltip>
+    }
 
     return (
-            // <Button
-            //     size="lg"
-            //     type="checkbox"
-            //     variant={isChecked ? isCheckedColor : isNotCheckedColor}
-            //     onClick={onClickEventHandler}>
-            //     {getContent()}
-            // </Button>
-
-    <OverlayTrigger placement="top" overlay={renderTooltip}>
-        <Button
-            size="lg"
-            type="checkbox"
-            variant={isChecked ? isCheckedColor : isNotCheckedColor}
-            onClick={onClickEventHandler}>{getContent()}
-        </Button>
-    </OverlayTrigger>
+        <OverlayTrigger placement="top" overlay={getToolTip()}>
+            <div className="d-grid gap-2">
+                <Button
+                    size="lg"
+                    type="checkbox"
+                    style={{backgroundColor: color, borderColor: "black", color: isChecked ? "white" : "black"}}
+                    onClick={onClickEventHandler}>
+                    {getContent()}
+                </Button>
+            </div>
+        </OverlayTrigger>
     );
 };
 

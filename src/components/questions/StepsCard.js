@@ -8,7 +8,6 @@ import PassengersCount from "./PassengersCount";
 import PriceRange from "./price_range/PriceRange";
 import TagsList from "./tags/TagsList";
 import useHttp from "../../hooks/UseHttp";
-import TagsListDup from "./tags/TagsListDup";
 import {ITINERARY_ID_STORAGE} from "../itinerary/Constants";
 import loaderContext from "../../components/utils/loader/LoaderContext"
 
@@ -20,9 +19,9 @@ const StepsCard = () => {
     const loader = useContext(loaderContext)
 
     const tripVibesTags = [
-        {id: 0, name: "Chill", src: ""},
-        {id: 1, name: "Tag2", src: ""},
-        {id: 2, name: "Tag3", src: ""}
+        {id: 0, name: "Chill", src: undefined},
+        {id: 1, name: "Tag2", src: undefined},
+        {id: 2, name: "Tag3", src: undefined}
     ]
 
     const favoriteAttractionTags = [
@@ -111,8 +110,8 @@ const StepsCard = () => {
                     stagesList[getStage()].data = {startDate: start, endDate: end}
                 }}
             />,
-            isValid: false,
-            defaultValid: false
+            isValid: true,
+            defaultValid: true
         },
         {
             key: 2,
@@ -144,7 +143,7 @@ const StepsCard = () => {
         {
             key: 4,
             header: "Favorite attractions",
-            content: <TagsList
+            content: <TagsList key={"step4"}
                 updateList={(value) => {
                     stagesList[getStage()].data = value
                 }}
@@ -156,12 +155,12 @@ const StepsCard = () => {
         {
             key: 5,
             header: "Trip Vibes",
-            content: <TagsList
+            content: <TagsList key={"step5"}
                 updateList={(value) => {
                     stagesList[getStage()].data = value
                 }}
                 tagsList={tripVibesTags}
-                imageTag={true}/>,
+                imageTag={false}/>,
             isValid: true,
             defaultValid: true,
         },
@@ -306,7 +305,6 @@ const StepsCard = () => {
                                         style={{cursor: previousState ? 'pointer' : 'not-allowed'}}
                                         className={previousState ? 'active' : 'disabled'}
                                         onClick={previousClick}
-                                        block={true}
                                         variant="outline-secondary">
                                         Previous
                                     </Button>{' '}
@@ -316,7 +314,6 @@ const StepsCard = () => {
                                 <div className="d-grid gap-2">
                                     <Button
                                         onClick={finishButton ? finish : nextClick}
-                                        block={true}
                                         variant={"outline-primary"}>
                                         {finishButton ? "Finish" : "Next"}
                                     </Button>{' '}

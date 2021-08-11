@@ -123,10 +123,10 @@ const CompactAttraction = (props) => {
                         </Col>
                         <Col
                             onMouseEnter={() => {
-                                context.isOnButton = true
+                                context.state = "BUTTON"
                             }}
                             onMouseLeave={() => {
-                                context.isOnButton = false
+                                context.state = "DRAG"
                             }}>
                             <Row>
                                 <OverlayTrigger

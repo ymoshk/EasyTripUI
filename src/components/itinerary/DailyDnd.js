@@ -12,11 +12,33 @@ const DailyDnd = () => {
     const dayIndex = useSelector(state => state.itineraryData.itinerary.currentDayIndex);
     const dayAttractions = useSelector(state => state.itineraryData.itinerary.itineraryDays[dayIndex].activities);
     const dispatch = useDispatch();
+    const helpersContext = useContext(HelpersContext);
+
+    const [mousePosition, setMousePosition] = useState(null);
+    const [draggedId, setDraggedId] = useState(null);
+    const [draggedStatPos, setDraggedStartPos] = useState(null);
+    const [pixelPerMinute, setPixelPerMinutes] = useState(-1);
+    const [minutesToAdd, setMinutesToAdd] = useState(0);
+
+    useEffect(() => {
+        const dailyPlannerContainer = document.querySelector('#DailyPlannerContainer')
+        setPixelPerMinutes(dailyPlannerContainer.clientHeight / (HOURS_PER_DAY * 60));
+    }, [])
+
+    useEffect(() => {
+        if (helpersContext.state === "DRAG") {
+            helpersContext.isDragDisabled = false;
+        } else if (helpersContext.state === "RESIZE") {
+            helpersContext.isDragDisabled = true;
+        } else if (helpersContext.state === "BUTTON") {
+            helpersContext.isDragDisabled = true;
+        }
+    }, [helpersContext.state])
 
     const mapComponent = (attractionNode, index) => {
         return (
             <Draggable key={"draggable_" + attractionNode.uniqueKey}
-                       isDragDisabled={helpersContext.isDragDisabled || helpersContext.isOnButton}
+                       isDragDisabled={helpersContext.isDragDisabled}
                        draggableId={index.toString()}
                        index={index}>
                 {provided => (
@@ -55,27 +77,22 @@ const DailyDnd = () => {
         // setOrder(newArray);
     }
 
-    const [mousePosition, setMousePosition] = useState(null);
-    const [draggedId, setDraggedId] = useState(null);
-    const [draggedStatPos, setDraggedStartPos] = useState(null);
-    const [pixelPerMinute, setPixelPerMinutes] = useState(-1);
-    const [minutesToAdd, setMinutesToAdd] = useState(0);
 
     const updateMousePosition = (e) => {
-        setMousePosition(e.pageY)
+        if (helpersContext.state !== "BUTTON") {
+            setMousePosition(e.pageY)
+        }
     }
 
-    const helpersContext = useContext(HelpersContext);
-
     const onDragStart = (index, e) => {
-        if (!helpersContext.isOnButton) {
+        if (helpersContext.state !== "BUTTON") {
             setDraggedId(index);
             setDraggedStartPos(e.pageY)
         }
     }
 
     const onStopDrag = () => {
-        if (!helpersContext.isOnButton) {
+        if (helpersContext.state !== "BUTTON") {
             if (draggedId !== undefined && draggedId !== null && minutesToAdd !== undefined) {
                 dispatch(itineraryActions.changeEndTime(
                     {
@@ -84,31 +101,30 @@ const DailyDnd = () => {
                     }
                 ));
             }
-
         }
+
         setDraggedId(null);
         setDraggedStartPos(null);
         setMinutesToAdd(null);
     }
 
     useEffect(() => {
-        if (draggedId !== null && !helpersContext.isOnButton) {
-            let diff = parseInt((mousePosition - draggedStatPos) / pixelPerMinute);
-            setMinutesToAdd(diff);
+        if (helpersContext.state !== "BUTTON") {
+            if (draggedId !== null) {
+                let diff = parseInt((mousePosition - draggedStatPos) / pixelPerMinute);
+                setMinutesToAdd(diff);
 
-            if (!helpersContext.isDragDisabled) {
-                helpersContext.changeHoursFunc(diff);
-            } else {
-                helpersContext.changeEndHourFunc(diff);
+                if (helpersContext.state === "DRAG") {
+                    console.log("drag");
+                    helpersContext.changeHoursFunc(diff);
+                } else if (helpersContext.state === "RESIZE") {
+                    console.log("resize");
+                    helpersContext.changeEndHourFunc(diff);
+                }
             }
         }
     }, [mousePosition])
 
-
-    useEffect(() => {
-        const dailyPlannerContainer = document.querySelector('#DailyPlannerContainer')
-        setPixelPerMinutes(dailyPlannerContainer.clientHeight / (HOURS_PER_DAY * 60));
-    }, [])
 
     return (
         <DragDropContext

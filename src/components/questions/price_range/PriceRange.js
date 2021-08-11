@@ -18,6 +18,7 @@ const PriceRange = (props) => {
 
     function tooltipLabelValue(currentVal) {
         let array = [<CurrencyDollar
+            key={0}
             size={15}
             strokeWidth={2}
             color={'white'}
@@ -25,6 +26,7 @@ const PriceRange = (props) => {
         let res = <div>{array}</div>;
         for (let i = 0; i < currentVal; i++) {
             array.push(<CurrencyDollar
+                key={i + 1}
                 size={15}
                 strokeWidth={2}
                 color={'white'}

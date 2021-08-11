@@ -13,6 +13,22 @@ const AttractionContainer = (props) => {
     const [calculatedStartTime, setCalculatedStartTime] = useState(props.attractionNode.startTime);
     const [calculatedEndTime, setCalculatedEndTime] = useState(props.attractionNode.endTime);
 
+    useEffect(() => {
+        const bottomBorder = document.querySelector(
+            "#dayContainer > div > div:nth-child(2) > div > div > div:nth-child(2) > div");
+
+        if (bottomBorder !== null) {
+            bottomBorder.addEventListener("mousedown", (e) => {
+                helpersContext.state = "RESIZE";
+            })
+
+            bottomBorder.addEventListener('mouseup', () => {
+                helpersContext.state = "DRAG";
+            })
+        }
+    }, [])
+
+
     const extractTime = () => {
         let startTime = new Date("01-01-2030 " + calculatedStartTime + ":00");
         let endTime = new Date("01-01-2030 " + calculatedEndTime + ":00");
@@ -55,12 +71,11 @@ const AttractionContainer = (props) => {
     }, [endHourChange])
 
     const onResizeStartHandler = () => {
-        helpersContext.isDragDisabled = true;
+        // helpersContext.isDragDisabled = true;
     }
     const onResizeEndHandler = () => {
-        helpersContext.isDragDisabled = false;
+        // helpersContext.isDragDisabled = false;
     }
-
 
     const getComponent = () => {
         if (props.attractionNode.type === "FREE_TIME") {

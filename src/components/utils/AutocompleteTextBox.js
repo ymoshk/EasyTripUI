@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Form, Button, InputGroup, FormControl, ListGroup, Col, Row, Alert} from 'react-bootstrap';
+import {Alert, Button, Col, FormControl, InputGroup, ListGroup, Row} from 'react-bootstrap';
 import "./AutocompleteTextBox.css";
 
 
@@ -42,8 +42,10 @@ const AutocompleteTextBox = (props) => {
             return null;
         }
         return (<div className="selection-area"><ListGroup>
-            {suggestions.map(value => <ListGroup.Item action
-                                                      onClick={() => onSelectSuggestionHandler(value)}>{value}</ListGroup.Item>)}
+            {suggestions.map((value, index) => <ListGroup.Item
+                action
+                key={index}
+                onClick={() => onSelectSuggestionHandler(value)}>{value}</ListGroup.Item>)}
         </ListGroup></div>);
     }
 
