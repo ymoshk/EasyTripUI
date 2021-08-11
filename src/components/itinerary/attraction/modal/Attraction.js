@@ -10,7 +10,7 @@ const Attraction = (props) => {
     let priceLevel = '$'.repeat(props.attraction.priceLevel + 1);
 
     return (
-        <Row style={{width: "55vw"}}>
+        <Row style={{width: "100%"}}>
             <Card className={styles.bd}>
                 <Card.Body>
                     <Row>

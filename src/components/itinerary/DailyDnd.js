@@ -27,27 +27,25 @@ const DailyDnd = () => {
 
     useEffect(() => {
         if (helpersContext.state === "DRAG") {
-            helpersContext.isDragDisabled = false;
         } else if (helpersContext.state === "RESIZE") {
-            helpersContext.isDragDisabled = true;
         } else if (helpersContext.state === "BUTTON") {
-            helpersContext.isDragDisabled = true;
         }
     }, [helpersContext.state])
 
     const mapComponent = (attractionNode, index) => {
         return (
             <Draggable key={"draggable_" + attractionNode.uniqueKey}
-                       isDragDisabled={helpersContext.isDragDisabled}
+                       isDragDisabled={false}
                        draggableId={index.toString()}
                        index={index}>
+
                 {provided => (
                     <div onMouseDown={(e) => onDragStart(index, e)}
                          {...provided.draggableProps}
-                         {...provided.dragHandleProps}
                          ref={provided.innerRef}
                     >
                         <AttractionContainer
+                            dragProps={provided.dragHandleProps}
                             index={index}
                             calcHeight={true}
                             attractionNode={attractionNode}/>
@@ -109,16 +107,14 @@ const DailyDnd = () => {
     }
 
     useEffect(() => {
-        if (helpersContext.state !== "BUTTON") {
+        if (helpersContext.state !== "NONE") {
             if (draggedId !== null) {
                 let diff = parseInt((mousePosition - draggedStatPos) / pixelPerMinute);
                 setMinutesToAdd(diff);
 
                 if (helpersContext.state === "DRAG") {
-                    console.log("drag");
                     helpersContext.changeHoursFunc(diff);
                 } else if (helpersContext.state === "RESIZE") {
-                    console.log("resize");
                     helpersContext.changeEndHourFunc(diff);
                 }
             }

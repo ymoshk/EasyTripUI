@@ -23,11 +23,10 @@ const AttractionContainer = (props) => {
             })
 
             bottomBorder.addEventListener('mouseup', () => {
-                helpersContext.state = "DRAG";
+                helpersContext.state = "NONE";
             })
         }
     }, [])
-
 
     const extractTime = () => {
         let startTime = new Date("01-01-2030 " + calculatedStartTime + ":00");
@@ -54,20 +53,24 @@ const AttractionContainer = (props) => {
     }
 
     useEffect(() => {
-        let startTime = new Date("01-01-2030 " + props.attractionNode.startTime + ":00");
-        let endTime = new Date("01-01-2030 " + props.attractionNode.endTime + ":00");
+        if (helpersContext.state === "DRAG") {
+            let startTime = new Date("01-01-2030 " + props.attractionNode.startTime + ":00");
+            let endTime = new Date("01-01-2030 " + props.attractionNode.endTime + ":00");
 
-        let newStartTime = addMinutes(startTime, hoursChange);
-        let newEndTime = addMinutes(endTime, hoursChange);
+            let newStartTime = addMinutes(startTime, hoursChange);
+            let newEndTime = addMinutes(endTime, hoursChange);
 
-        setCalculatedStartTime(formatDateToHours(newStartTime));
-        setCalculatedEndTime(formatDateToHours(newEndTime));
+            setCalculatedStartTime(formatDateToHours(newStartTime));
+            setCalculatedEndTime(formatDateToHours(newEndTime));
+        }
     }, [hoursChange])
 
     useEffect(() => {
-        let endTime = new Date("01-01-2030 " + props.attractionNode.endTime + ":00");
-        let newEndTime = addMinutes(endTime, endHourChange);
-        setCalculatedEndTime(formatDateToHours(newEndTime));
+        if (helpersContext.state === "RESIZE") {
+            let endTime = new Date("01-01-2030 " + props.attractionNode.endTime + ":00");
+            let newEndTime = addMinutes(endTime, endHourChange);
+            setCalculatedEndTime(formatDateToHours(newEndTime));
+        }
     }, [endHourChange])
 
     const onResizeStartHandler = () => {
@@ -100,6 +103,7 @@ const AttractionContainer = (props) => {
                 onResizeStop={onResizeEndHandler}
             >
                 <CompactAttraction
+                    dragProps={props.dragProps}
                     index={props.index}
                     calcHeight={true}
                     calculatedStartTime={calculatedStartTime}

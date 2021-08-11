@@ -9,7 +9,8 @@ import AttractionModal from "./modal/AttractionModal";
 import ONE_HOUR_HEIGHT from "../Constants";
 import useHttp from "../../../hooks/UseHttp";
 import ChangeHourContext from "../ChangeHourContext";
-
+import crossArrow from "./resource/cross-arrow.png"
+import styles from "./CompactAttraction.module.css"
 
 const CompactAttraction = (props) => {
     const dispatch = useDispatch();
@@ -126,7 +127,7 @@ const CompactAttraction = (props) => {
                                 context.state = "BUTTON"
                             }}
                             onMouseLeave={() => {
-                                context.state = "DRAG"
+                                context.state = "NONE"
                             }}>
                             <Row>
                                 <OverlayTrigger
@@ -167,7 +168,11 @@ const CompactAttraction = (props) => {
                     <Row>
                         <Col md={12}>
                             <Card.Subtitle>
-                                <h6>{props.attraction.address} | {props.attraction.internationalNumber}</h6>
+                                <h6>
+                                    {props.attraction.address}
+                                    {props.attraction.internationalNumber !== undefined && "|"}
+                                    {props.attraction.internationalNumber}
+                                </h6>
                             </Card.Subtitle>
                         </Col>
                     </Row>
@@ -181,6 +186,21 @@ const CompactAttraction = (props) => {
                         </Col>
                     </Row>
                 </Card.Body>
+                <div
+                    onMouseDown={() => {
+                        context.state = "DRAG"
+                    }}
+                    onMouseUp={() => {
+                        context.state = "NONE"
+                    }}
+                    {...props.dragProps}
+                    className={styles.wrapper}>
+                    <div>
+                        <div className={styles.float}>
+                            <Image style={{marginBottom: 10, marginLeft: 10, position: "absolute"}} src={crossArrow}/>
+                        </div>
+                    </div>
+                </div>
             </Card>
         </>
     )

@@ -27,6 +27,7 @@
     "react-rating-stars-component": "^2.2.0",
     "react-redux": "^7.2.4",
     "react-resize-detector": "^6.7.4",
+    "react-rnd": "^10.3.4",
     "react-router-dom": "^5.0.0",
     "react-scripts": "^2.0.3",
     "react-simple-maps": "^0.12.0",

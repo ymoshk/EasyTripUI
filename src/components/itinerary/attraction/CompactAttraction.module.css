@@ -5,3 +5,15 @@
 .image {
     height: 10vh;
 }
+
+.wrapper {
+    display: flex;
+}
+
+.float {
+    float: right;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    shape-outside: inset(calc(100% - 100px) 0 0);
+}
