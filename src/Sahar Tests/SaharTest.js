@@ -4,6 +4,9 @@ import louvre from "../images/louvre.jpg";
 import nortedame from "../images/nortedame.jpg";
 import DailyPlanner from "../components/itinerary/DailyPlanner";
 import ChangeHoursContext from "../components/itinerary/ChangeHourContext"
+import CheckoutAttraction from "./CheckoutAttraction";
+import DailyCheckout from "./DailyCheckout";
+import Checkout from "./Checkout";
 
 //TODO-Delete
 
@@ -150,23 +153,25 @@ const SaharTest = () => {
 
 
     return (
-        <ChangeHoursContext.Provider
-            value={{
-                changeHoursFunc: undefined,
-                changeEndHourFunc: undefined,
-                isDragDisabled: false
-            }}>
-            <div>
-                {/*<AttractionsSelectBox*/}
-                {/*    types={["Restaurants", "Test2"]}*/}
-                {/*    data={data}*/}
-                {/*/>*/}
-                {/*<FreeTime startTime={"11:00"} endTime={"12:00"}></FreeTime>*/}
-                {/*<Mobility/>*/}
-                {/*<DailyDnd/>*/}
-                {<DailyPlanner/>}
-            </div>
-        </ChangeHoursContext.Provider>
+        // <ChangeHoursContext.Provider
+        //     value={{
+        //         changeHoursFunc: undefined,
+        //         changeEndHourFunc: undefined,
+        //         isDragDisabled: false
+        //     }}>
+        //     <div>
+        //         {/*<AttractionsSelectBox*/}
+        //         {/*    types={["Restaurants", "Test2"]}*/}
+        //         {/*    data={data}*/}
+        //         {/*/>*/}
+        //         {/*<FreeTime startTime={"11:00"} endTime={"12:00"}></FreeTime>*/}
+        //         {/*<Mobility/>*/}
+        //         {/*<DailyDnd/>*/}
+        //         {<DailyPlanner/>}
+        //     </div>
+        // </ChangeHoursContext.Provider>
+        // <CheckoutAttraction startTime={"12:00"} endTime={"13:00"} name={"Some name "} height={"40vh"}/>
+        <Checkout/>
     )
 }
 
