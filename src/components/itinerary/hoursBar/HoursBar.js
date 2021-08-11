@@ -3,6 +3,7 @@ import SingleHour from "./SingleHour";
 import ONE_HOUR_HEIGHT from "../Constants"
 
 const HoursBar = (props) => {
+    const oneHourHeight = props.oneHourHeight === undefined ? ONE_HOUR_HEIGHT : props.oneHourHeight;
 
     const formatDate = (date) => {
         return new Intl.DateTimeFormat('he-IL', {
@@ -18,7 +19,7 @@ const HoursBar = (props) => {
 
         for (let i = 0; i < props.count; i++) {
             result.push(
-                <div key={i} style={{height: ONE_HOUR_HEIGHT.toString() + "vh"}}>
+                <div key={i} style={{height: oneHourHeight.toString() + "vh"}}>
                     <SingleHour hour={formatDate(current).toString()}/>
                 </div>
             )
