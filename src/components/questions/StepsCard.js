@@ -21,6 +21,7 @@ import nightlife from "../../images/stepsCard/tags/nightlife.png"
 import park from "../../images/stepsCard/tags/park.png"
 import shoppingMall from "../../images/stepsCard/tags/shoppingMall.png"
 import spa from "../../images/stepsCard/tags/spa.png"
+import SweetAlert from "react-bootstrap-sweetalert";
 
 
 const SESSION_STEP_CARD_MEM = "steps_card_memory";
@@ -91,15 +92,29 @@ const StepsCard = () => {
             name: "Spa",
             src: spa
         },
-        {id: 14,
+        {
+            id: 14,
             name: "Test",
-            src: "https://www.pro-sky.com/images/en/news/news_header_webseite_-49-_342_big.jpg"}
+            src: "https://www.pro-sky.com/images/en/news/news_header_webseite_-49-_342_big.jpg"
+        }
     ]
 
     const getStage = () => {
         return localStorage.getItem(SESSION_STEP_CARD_MEM);
     }
     const {isLoading, error, sendRequest: postData} = useHttp();
+
+    const [showSendError, setShowSendError] = useState(false)
+
+    useEffect(() => {
+        if (error !== null) {
+            setShowSendError(true);
+            setTimeout(() => setShowSendError(false), 2000);
+        } else {
+            setShowSendError(false)
+        }
+    }, [error])
+
     const [stage, setStage] = useState(0);
     const [stagesList, setStageList] = useState([
         {
@@ -161,11 +176,11 @@ const StepsCard = () => {
             key: 4,
             header: "Favorite attractions",
             content: <TagsList key={"step4"}
-                updateList={(value) => {
-                    stagesList[getStage()].data = value
-                }}
-                tagsList={favoriteAttractionTags}
-                imageTag={true}/>,
+                               updateList={(value) => {
+                                   stagesList[getStage()].data = value
+                               }}
+                               tagsList={favoriteAttractionTags}
+                               imageTag={true}/>,
             isValid: true,
             defaultValid: true,
         },
@@ -173,11 +188,11 @@ const StepsCard = () => {
             key: 5,
             header: "Trip Vibes",
             content: <TagsList key={"step5"}
-                updateList={(value) => {
-                    stagesList[getStage()].data = value
-                }}
-                tagsList={tripVibesTags}
-                imageTag={false}/>,
+                               updateList={(value) => {
+                                   stagesList[getStage()].data = value
+                               }}
+                               tagsList={tripVibesTags}
+                               imageTag={false}/>,
             isValid: true,
             defaultValid: true,
         },
@@ -262,16 +277,16 @@ const StepsCard = () => {
                 .map(tag => (
                     {
                         id: tag.id.toString(),
-                        name: tag.name,
-                        src: tag.src
+                        name: tag.name !== undefined ? tag.name : "",
+                        src: tag.src !== undefined ? tag.src : ""
                     }))) : JSON.stringify([]),
             tripVibes: stagesList[5].data !== undefined ? JSON.stringify(stagesList[5].data
                 .filter(tag => tag.status === true)
                 .map(tag => (
                     {
                         id: tag.id.toString(),
-                        name: tag.name,
-                        src: tag.src
+                        name: tag.name !== undefined ? tag.name : "",
+                        src: tag.src !== undefined ? tag.src : ""
                     }))) : JSON.stringify([])
         };
 
@@ -300,6 +315,18 @@ const StepsCard = () => {
 
     return (
         <Card>
+            {showSendError && <SweetAlert
+                danger
+                confirmBtnText="OK"
+                title="Error!"
+                focusCancelBtn
+                onConfirm={() => window.location = '/'}
+                onCancel={() => window.location = '/'}
+                timeout={2000}
+            >
+                {error}
+            </SweetAlert>
+            }
             <Card.Header>
                 <Card.Title>{header}</Card.Title>
             </Card.Header>

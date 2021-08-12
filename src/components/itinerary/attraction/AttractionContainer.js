@@ -2,31 +2,15 @@ import React, {useContext, useEffect, useState} from 'react';
 import ChangeHoursContext from "../ChangeHourContext";
 import ONE_HOUR_HEIGHT from "../Constants";
 import formatDateToHours from "../../utils/helpers/DateFormatter";
-import {Resizable} from "re-resizable";
 import CompactAttraction from "./CompactAttraction";
 import FreeTime from "./special/FreeTime";
 
 const AttractionContainer = (props) => {
     const helpersContext = useContext(ChangeHoursContext);
     const [hoursChange, setHoursChange] = useState(0);
-    const [endHourChange, setEndHourChange] = useState(0);
     const [calculatedStartTime, setCalculatedStartTime] = useState(props.attractionNode.startTime);
     const [calculatedEndTime, setCalculatedEndTime] = useState(props.attractionNode.endTime);
 
-    useEffect(() => {
-        const bottomBorder = document.querySelector(
-            "#dayContainer > div > div:nth-child(2) > div > div > div:nth-child(2) > div");
-
-        if (bottomBorder !== null) {
-            bottomBorder.addEventListener("mousedown", (e) => {
-                helpersContext.state = "RESIZE";
-            })
-
-            bottomBorder.addEventListener('mouseup', () => {
-                helpersContext.state = "NONE";
-            })
-        }
-    }, [])
 
     const extractTime = () => {
         let startTime = new Date("01-01-2030 " + calculatedStartTime + ":00");
@@ -45,7 +29,6 @@ const AttractionContainer = (props) => {
 
     const updateContext = () => {
         helpersContext.changeHoursFunc = setHoursChange;
-        helpersContext.changeEndHourFunc = setEndHourChange;
     }
 
     const addMinutes = (date, minutes) => {
@@ -53,31 +36,19 @@ const AttractionContainer = (props) => {
     }
 
     useEffect(() => {
-        if (helpersContext.state === "DRAG") {
-            let startTime = new Date("01-01-2030 " + props.attractionNode.startTime + ":00");
-            let endTime = new Date("01-01-2030 " + props.attractionNode.endTime + ":00");
+        let startTime = new Date("01-01-2030 " + props.attractionNode.startTime + ":00");
+        let endTime = new Date("01-01-2030 " + props.attractionNode.endTime + ":00");
 
-            let newStartTime = addMinutes(startTime, hoursChange);
-            let newEndTime = addMinutes(endTime, hoursChange);
+        let newStartTime = addMinutes(startTime, hoursChange);
+        let newEndTime = addMinutes(endTime, hoursChange);
 
-            setCalculatedStartTime(formatDateToHours(newStartTime));
-            setCalculatedEndTime(formatDateToHours(newEndTime));
-        }
+        setCalculatedStartTime(formatDateToHours(newStartTime));
+        setCalculatedEndTime(formatDateToHours(newEndTime));
     }, [hoursChange])
 
-    useEffect(() => {
-        if (helpersContext.state === "RESIZE") {
-            let endTime = new Date("01-01-2030 " + props.attractionNode.endTime + ":00");
-            let newEndTime = addMinutes(endTime, endHourChange);
-            setCalculatedEndTime(formatDateToHours(newEndTime));
-        }
-    }, [endHourChange])
 
-    const onResizeStartHandler = () => {
-        // helpersContext.isDragDisabled = true;
-    }
-    const onResizeEndHandler = () => {
-        // helpersContext.isDragDisabled = false;
+    const onUpdateDuration = (newDuration) => {
+        props.onChangeDuration(newDuration);
     }
 
     const getComponent = () => {
@@ -88,34 +59,21 @@ const AttractionContainer = (props) => {
                 calculatedEndTime={calculatedEndTime}
                 height={getHeight()}/>
         } else if (props.attractionNode.type === "ATTRACTION") {
-            return <Resizable
-                enable={{
-                    top: false,
-                    right: false,
-                    bottom: true,
-                    left: false,
-                    topRight: false,
-                    bottomRight: false,
-                    bottomLeft: false,
-                    topLeft: false
-                }}
-                onResizeStart={onResizeStartHandler}
-                onResizeStop={onResizeEndHandler}
-            >
-                <CompactAttraction
-                    dragProps={props.dragProps}
-                    index={props.index}
-                    calcHeight={true}
-                    calculatedStartTime={calculatedStartTime}
-                    calculatedEndTime={calculatedEndTime}
-                    attraction={props.attractionNode.attraction}
-                    height={getHeight()}/>
-            </Resizable>
+            return <CompactAttraction
+                resetDraggedId={props.resetDraggedId}
+                index={props.index}
+                calcHeight={true}
+                duration={extractTime()}
+                calculatedStartTime={calculatedStartTime}
+                calculatedEndTime={calculatedEndTime}
+                attraction={props.attractionNode.attraction}
+                height={getHeight()}
+                updateDuration={onUpdateDuration}/>
         }
     }
 
     return (
-        <div onMouseDown={updateContext}>
+        <div {...props.drag} onMouseDown={updateContext}>
             {getComponent()}
         </div>
     );

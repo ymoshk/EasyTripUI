@@ -14,6 +14,7 @@ import SweetAlert from "react-bootstrap-sweetalert";
 const DailyPlanner = () => {
     const dispatch = useDispatch();
     const myItinerary = useSelector(state => state.itineraryData.itinerary);
+    const [test, setTest] = useState(false);
 
     useEffect(() => {
         dispatch(fetchItineraryData());
@@ -96,9 +97,7 @@ const DailyPlanner = () => {
         <ChangeHoursContext.Provider
             value={{
                 changeHoursFunc: undefined,
-                changeEndHourFunc: undefined,
-                isDragDisabled: false,
-                state: "NONE",
+                isOnButton: false,
             }}>
             <Card style={{height: "100%"}}>
                 {showCleanDayAlert && cleanDayAlert()}
@@ -156,7 +155,7 @@ const DailyPlanner = () => {
                                         }}>
                                             <Col xs={{span: 11, offset: 1}}>
                                                 <div style={{marginLeft: 11, height: "100%", width: "100%"}}>
-                                                    <DailyDnd/>
+                                                    <DailyDnd isDragDisabled={test}/>
                                                 </div>
                                             </Col>
                                         </Row>

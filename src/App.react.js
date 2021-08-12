@@ -7,10 +7,10 @@ import MapWrapper from "./components/utils/MapWrapper";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "tabler-react/dist/Tabler.css";
 import YotamTest from "./YotamTests/YotamTest";
-import DailyPlanner from "./components/itinerary/DailyPlanner";
 import LoaderComponent from "./components/utils/loader/LoaderComponent";
 import LoaderContext from "./components/utils/loader/LoaderContext";
 import styles from "./App.module.css"
+import DailyPlanner from "./components/itinerary/DailyPlanner";
 
 function App() {
     const [showLoader, setShowLoader] = useState(false);

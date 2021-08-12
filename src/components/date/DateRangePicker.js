@@ -2,11 +2,15 @@ import DateRangePicker from 'react-bootstrap-daterangepicker'
 import 'bootstrap-daterangepicker/daterangepicker.css'
 
 //documentation - https://www.npmjs.com/package/react-bootstrap-daterangepicker
-import React from 'react';
+import React, {useEffect} from 'react';
 
 const DateRangeInput = (props) => {
 
     let startDate, endDate;
+
+    useEffect(() => {
+        props.setData(getDateAfter(1), getDateAfter(2))
+    }, [])
 
     const onCallbackEventHandler = (start, end) => {
         startDate = start;
@@ -14,7 +18,7 @@ const DateRangeInput = (props) => {
 
         props.setData(start, end);
         let temp = new Date();
-        temp.setHours(23,59,59,0);
+        temp.setHours(23, 59, 59, 0);
         props.setValidation(Date.parse(start) >= temp);
     }
 

@@ -2,19 +2,19 @@ import React, {useContext, useEffect, useState} from 'react';
 import {itineraryActions} from "../../../store/itinerary-slice";
 import {Button, Card, Col, Image, OverlayTrigger, Row, Tooltip} from 'react-bootstrap';
 import {useDispatch} from "react-redux";
-import {InfoSquare, Trash} from "tabler-icons-react";
+import {Clock, InfoSquare, Trash} from "tabler-icons-react";
 import RecommendedIcon from "./RecommendedIcon";
 import StarRating from "./StarRating";
 import AttractionModal from "./modal/AttractionModal";
 import ONE_HOUR_HEIGHT from "../Constants";
 import useHttp from "../../../hooks/UseHttp";
 import ChangeHourContext from "../ChangeHourContext";
-import crossArrow from "./resource/cross-arrow.png"
-import styles from "./CompactAttraction.module.css"
+import ChangeDurationModal from "./modal/ChangeDurationModal";
 
 const CompactAttraction = (props) => {
     const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
+    const [showDurationModal, setShowDurationModal] = useState(false);
     const [showImage, setShowImage] = useState(false);
     const [imageBase64, setImageBase64] = useState(null);
     const {isLoading, error, sendRequest: getImagePost} = useHttp();
@@ -24,6 +24,14 @@ const CompactAttraction = (props) => {
     // useEffect(() => {
     //     getImage();
     // }, []);
+
+    useEffect(() => {
+        if (showDurationModal) {
+            context.isOnButton = true;
+        } else {
+            context.isOnButton = false;
+        }
+    }, [showDurationModal])
 
     const getImage = () => {
         const data = {
@@ -73,12 +81,31 @@ const CompactAttraction = (props) => {
         return Number.parseInt(props.height.replace('vm', ''));
     }
 
+    const onChangeDurationHandler = (change) => {
+        props.updateDuration(change);
+    }
+
     return (
         <>
             <AttractionModal onClose={() => setShowModal(false)} show={showModal} imageBase64={imageBase64}
                              attraction={props.attraction}/>
+            <ChangeDurationModal
+                onClose={() => setShowDurationModal(false)}
+                maxHours={17} show={showDurationModal}
+                currentHours={Math.floor(props.duration)}
+                currentMinutes={(props.duration - Math.floor(props.duration)) * 60}
+                duration={props.duration}
+                onChangeHandler={onChangeDurationHandler}
+            />
             <Card style={{border: "solid 2px", marginBottom: 0, height: props.height}}>
-                <Card.Body>
+                <Card.Body as={"div"}
+                           onMouseDown={() => {
+                               context.state = "DRAG"
+                           }}
+                           onMouseUp={() => {
+                               context.state = "NONE"
+                           }}
+                >
                     <Row>
                         <Col md={11} xs={12}>
                             <Row>
@@ -90,6 +117,7 @@ const CompactAttraction = (props) => {
                                         <h6>{props.calculatedEndTime}</h6>
                                     </Row>
                                 </Col>
+
                                 <Col md={6}>
                                     <Row>
                                         {getName()}
@@ -124,11 +152,12 @@ const CompactAttraction = (props) => {
                         </Col>
                         <Col
                             onMouseEnter={() => {
-                                context.state = "BUTTON"
+                                context.isOnButton = true;
                             }}
                             onMouseLeave={() => {
-                                context.state = "NONE"
-                            }}>
+                                context.isOnButton = false;
+                            }}
+                        >
                             <Row>
                                 <OverlayTrigger
                                     key={'infoToolTip'}
@@ -163,6 +192,23 @@ const CompactAttraction = (props) => {
                                     </Button>
                                 </OverlayTrigger>
                             </Row>
+                            <Row style={{marginTop: 10}}>
+                                <OverlayTrigger
+                                    key={'infoToolTip'}
+                                    placement={'top'}
+                                    overlay={
+                                        <Tooltip id={'tooltip-info'}>
+                                            Change Duration
+                                        </Tooltip>
+                                    }>
+                                    <Button
+                                        onClick={() => setShowDurationModal(true)}
+                                        style={{backgroundColor: "transparent", border: "none"}}
+                                        size={"sm"}>
+                                        <Clock color={"black"} strokeWidth={2}/>
+                                    </Button>
+                                </OverlayTrigger>
+                            </Row>
                         </Col>
                     </Row>
                     <Row>
@@ -186,21 +232,6 @@ const CompactAttraction = (props) => {
                         </Col>
                     </Row>
                 </Card.Body>
-                <div
-                    onMouseDown={() => {
-                        context.state = "DRAG"
-                    }}
-                    onMouseUp={() => {
-                        context.state = "NONE"
-                    }}
-                    {...props.dragProps}
-                    className={styles.wrapper}>
-                    <div>
-                        <div className={styles.float}>
-                            <Image style={{marginBottom: 10, marginLeft: 10, position: "absolute"}} src={crossArrow}/>
-                        </div>
-                    </div>
-                </div>
             </Card>
         </>
     )

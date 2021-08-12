@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {cleanItinerary, updateItineraryDay} from "./itinerary-actions";
+import {cleanItinerary} from "./itinerary-actions";
 import formatDateToHours from "../components/utils/helpers/DateFormatter";
 import uuid from "uuid-random";
 
@@ -64,6 +64,13 @@ const removeAttractionByIndex = (dailyArray, index) => {
     return result;
 }
 
+const calcAttractionDuration = (attraction) => {
+    const startTime = new Date("01-01-2030 " + attraction.startTime + ":00");
+    const endTime = new Date("01-01-2030 " + attraction.endTime + ":00");
+
+    return (endTime.getTime() - startTime.getTime()) / (1000 * 60);
+}
+
 const addMinutesToHour = (hour, minutesCount) => {
     const newTime = new Date("01-01-2030 " + hour + ":00");
     newTime.setTime(newTime.getTime() + minutesCount * 1000 * 60);
@@ -74,8 +81,11 @@ const addMinutesToHour = (hour, minutesCount) => {
 const changeComponentEndTime = (state, index, minutesToAdd) => {
     const dayIndex = state.itinerary.currentDayIndex;
     const originAttraction = state.itinerary.itineraryDays[dayIndex].activities[index];
+    const padding = state.itinerary.itineraryDays[dayIndex].activities[index + 1];
     const firstSlice = state.itinerary.itineraryDays[dayIndex].activities.slice(0, index);
-    const secondSlice = state.itinerary.itineraryDays[dayIndex].activities.slice(index + 1);
+    const secondSlice = state.itinerary.itineraryDays[dayIndex].activities.slice(index + 2);
+    const paddingDuration = calcAttractionDuration(padding);
+    let minutes = minutesToAdd;
 
     firstSlice.push({
         ...originAttraction,
@@ -83,12 +93,85 @@ const changeComponentEndTime = (state, index, minutesToAdd) => {
         endTime: addMinutesToHour(originAttraction.endTime, minutesToAdd)
     })
 
+    if (paddingDuration >= minutesToAdd) {
+        minutes = 0;
+        firstSlice.push({
+            type: "FREE_TIME",
+            startTime: firstSlice[firstSlice.length - 1].endTime,
+            endTime: secondSlice[0].startTime,
+            uniqueKey: uuid()
+        })
+    } else {
+        firstSlice.push({
+            type: "FREE_TIME",
+            startTime: firstSlice[firstSlice.length - 1].endTime,
+            endTime: firstSlice[firstSlice.length - 1].endTime,
+            uniqueKey: uuid()
+        })
+        minutes = minutesToAdd - paddingDuration;
+    }
+
     secondSlice.forEach(node => firstSlice.push({
         ...node,
         uniqueKey: uuid(),
-        startTime: addMinutesToHour(node.startTime, minutesToAdd),
-        endTime: addMinutesToHour(node.endTime, minutesToAdd)
+        startTime: addMinutesToHour(node.startTime, minutes),
+        endTime: addMinutesToHour(node.endTime, minutes)
     }))
+
+    return firstSlice;
+}
+
+const moveAttractionHelper = (state, index, minutesToAdd) => {
+    const dayIndex = state.itinerary.currentDayIndex;
+    const originAttraction = state.itinerary.itineraryDays[dayIndex].activities[index];
+    const paddingBefore = state.itinerary.itineraryDays[dayIndex].activities[index - 1];
+    const paddingAfter = state.itinerary.itineraryDays[dayIndex].activities[index + 1];
+    const firstSlice = state.itinerary.itineraryDays[dayIndex].activities.slice(0, index - 1);
+    const secondSlice = state.itinerary.itineraryDays[dayIndex].activities.slice(index + 2);
+    let minutes = minutesToAdd;
+
+    if (minutesToAdd >= 0) {
+        firstSlice.push({
+            type: "FREE_TIME",
+            startTime: paddingBefore.startTime,
+            endTime: addMinutesToHour(paddingBefore.endTime, minutesToAdd),
+            uniqueKey: uuid()
+        })
+
+        firstSlice.push({
+            ...originAttraction,
+            startTime: addMinutesToHour(originAttraction.startTime, minutesToAdd),
+            endTime: addMinutesToHour(originAttraction.endTime, minutesToAdd),
+            uniqueKey: uuid()
+        })
+
+        if (calcAttractionDuration(paddingAfter) >= minutesToAdd) {
+            minutes = 0;
+            firstSlice.push({
+                type: "FREE_TIME",
+                startTime: firstSlice[firstSlice.length - 1].endTime,
+                endTime: secondSlice[0].startTime,
+                uniqueKey: uuid()
+            })
+        } else {
+            firstSlice.push({
+                type: "FREE_TIME",
+                startTime: firstSlice[firstSlice.length - 1].endTime,
+                endTime: firstSlice[firstSlice.length - 1].endTime,
+                uniqueKey: uuid()
+            })
+            minutes = minutesToAdd - calcAttractionDuration(paddingAfter);
+        }
+
+        secondSlice.forEach(node => firstSlice.push({
+            ...node,
+            uniqueKey: uuid(),
+            startTime: addMinutesToHour(node.startTime, minutes),
+            endTime: addMinutesToHour(node.endTime, minutes)
+        }))
+    } else {
+
+    }
 
     return firstSlice;
 }
@@ -156,15 +239,19 @@ const itinerarySlice = createSlice({
         changeEndTime(state, action) {
             const dayIndex = state.itinerary.currentDayIndex;
             const currentDay = state.itinerary.itineraryDays[dayIndex];
-            const id = state.itinerary.itineraryId;
 
             currentDay.activities = changeComponentEndTime(state,
                 action.payload.index, action.payload.minutesCount);
-
-            updateItineraryDay(id, currentDay, dayIndex);
         },
-        setDurations(state, action){
+        setDurations(state, action) {
             state.defaultDurations = action.payload;
+        },
+        moveAttraction(state, action) {
+            const dayIndex = state.itinerary.currentDayIndex;
+            const currentDay = state.itinerary.itineraryDays[dayIndex];
+
+            currentDay.activities = moveAttractionHelper(state,
+                action.payload.index, action.payload.minutesCount);
         }
     }
 })

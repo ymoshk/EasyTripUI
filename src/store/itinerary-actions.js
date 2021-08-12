@@ -30,13 +30,13 @@ export const fetchAttractionsDurations = () => {
     }
 }
 
-export const fetchItineraryData = () => {
+export const fetchItineraryData = (id) => {
     return async (dispatch) => {
         const fetchItinerary = async () => {
             const response = await fetch(urlGetItinerary,
                 {
                     method: 'POST',
-                    body: JSON.stringify({id: localStorage.getItem(ITINERARY_ID_STORAGE)})
+                    body: JSON.stringify({id: id === undefined ? localStorage.getItem(ITINERARY_ID_STORAGE) : id})
                 }
             );
 
