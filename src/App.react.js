@@ -9,6 +9,11 @@ import "tabler-react/dist/Tabler.css";
 import YotamTest from "./YotamTests/YotamTest";
 import LoaderComponent from "./components/utils/loader/LoaderComponent";
 import LoaderContext from "./components/utils/loader/LoaderContext";
+import DailyCheckout from "./Sahar Tests/DailyCheckout";
+import DailyDnd from "./components/itinerary/DailyDnd";
+import Checkout from "./Sahar Tests/Checkout";
+import CheckoutAttraction from "./Sahar Tests/CheckoutAttraction";
+import SaharTest from "./Sahar Tests/SaharTest";
 import styles from "./App.module.css"
 import DailyPlanner from "./components/itinerary/DailyPlanner";
 
@@ -36,6 +41,8 @@ function App() {
                             <Route exact path="/itinerary" component={DailyPlanner}/>
                             <Route exact path="/map" component={MapWrapper}/>
                             <Route exact path="/loader" component={LoaderComponent}/>
+                            <Route exact path="/sahar" component={DailyCheckout}/>
+                            <Route exact path="/saharTest" component={SaharTest}/>
                             <Route component={Error404}/>
                         </Switch>
                     </Router>

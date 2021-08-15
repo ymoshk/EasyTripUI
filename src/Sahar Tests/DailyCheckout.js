@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import AttractionContainer from "../components/itinerary/attraction/AttractionContainer";
 import {Card, Col, Row} from "react-bootstrap";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
@@ -9,13 +9,14 @@ import CompactAttraction from "../components/itinerary/attraction/CompactAttract
 import ONE_HOUR_HEIGHT, {ONE_HOUR_HEIGHT_CHECKOUT} from "../components/itinerary/Constants";
 import CheckoutAttraction from "./CheckoutAttraction";
 
+
 const DailyCheckout = (props) => {
 
     const HOURS_PER_DAY = 17;
     const dayIndex = useSelector(state => state.itineraryData.itinerary.currentDayIndex);
-    // const dayAttractions = props.activities;
+    // const dayAttractions = props.activities
     const dayAttractions = useSelector(state => state.itineraryData.itinerary.itineraryDays[dayIndex].activities);
-
+    const dayAttractionsAsComponents = dayAttractions.map((attractionNode, index) => mapComponent(attractionNode, index));
 
     const extractTime = () => {
         let startTime = new Date("01-01-2030 " + props.attractionNode.startTime + ":00");
@@ -28,7 +29,7 @@ const DailyCheckout = (props) => {
         if (props.calcHeight) {
             return (ONE_HOUR_HEIGHT_CHECKOUT * extractTime()).toString() + "vh"
         } else {
-            return "auto"
+            return "auto";
         }
     }
 
@@ -59,7 +60,7 @@ const DailyCheckout = (props) => {
                     <div style={{marginLeft: 11, height: "100%", width: "100%"}}>
                         <Row style={{height: "100%"}}>
                             <Col>
-                                {dayAttractions.map((attractionNode, index) => mapComponent(attractionNode, index))}
+                                {dayAttractionsAsComponents}
                             </Col>
                         </Row>
                     </div>

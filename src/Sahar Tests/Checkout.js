@@ -1,5 +1,5 @@
-import React from 'react';
-import {Card, Col, Row} from "react-bootstrap";
+import React, {useRef} from 'react';
+import {Card, Col, Row, Button} from "react-bootstrap";
 import DailyDnd from "../components/itinerary/DailyDnd";
 import DailyCheckout from "./DailyCheckout";
 import {Car} from "tabler-icons-react";
@@ -7,14 +7,23 @@ import DayPicker from "../components/itinerary/dayPicker/DayPicker";
 import {itineraryActions} from "../store/itinerary-slice";
 import {useDispatch, useSelector} from "react-redux";
 import DaysPicker from "./DaysPicker";
+import {useReactToPrint} from "react-to-print";
 
-const Checkout = () => {
+const Checkout = (props) => {
+
+    const itineraryId = props.itineraryId;
+    const itinerary = [];
+    //TODO - get the itinerary from server
 
     const MAX_DAYS = 5;
+    const myRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => myRef.current,
+    });
 
     const dayChangedHandler = (index) => {
         // dispatch(itineraryActions.updateDay(index));
-        alert("day changed")
+        alert("day changed");
     }
 
     function getContent() {
@@ -28,7 +37,7 @@ const Checkout = () => {
                                 Day {i+1}
                             </h4>
                         </div>
-                        <DailyCheckout/>
+                        <DailyCheckout dailyItinirary={itinerary[i]}/>
                     </div>
                 </Col>
             )
@@ -49,12 +58,12 @@ const Checkout = () => {
                         <DaysPicker onDayChange={dayChangedHandler}/>
                     </Col>
                 </Row>
-                <Row>
+                <Row ref={myRef}>
                     {getContent()}
                 </Row>
             </Card.Body>
             <Card.Footer>
-                footer
+                <Button onClick={handlePrint} variant={"primary"}>Export to PDF</Button>
             </Card.Footer>
 
         </Card>
