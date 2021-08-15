@@ -10,6 +10,7 @@ import ONE_HOUR_HEIGHT from "../Constants";
 import useHttp from "../../../hooks/UseHttp";
 import ChangeHourContext from "../ChangeHourContext";
 import ChangeDurationModal from "./modal/ChangeDurationModal";
+import styles from "./CompactAttraction.module.css"
 
 const CompactAttraction = (props) => {
     const dispatch = useDispatch();
@@ -97,7 +98,7 @@ const CompactAttraction = (props) => {
                 duration={props.duration}
                 onChangeHandler={onChangeDurationHandler}
             />
-            <Card style={{border: "solid 2px", marginBottom: 0, height: props.height}}>
+            <Card className={props.redBackground ? styles.myCardError : styles.myCard} style={{height: props.height}}>
                 <Card.Body as={"div"}
                            onMouseDown={() => {
                                context.state = "DRAG"
@@ -107,7 +108,7 @@ const CompactAttraction = (props) => {
                            }}
                 >
                     <Row>
-                        <Col md={11} xs={12}>
+                        <Col md={11} xs={10}>
                             <Row>
                                 <Col md={2}>
                                     <Row>
@@ -118,7 +119,7 @@ const CompactAttraction = (props) => {
                                     </Row>
                                 </Col>
 
-                                <Col md={6}>
+                                <Col md={7}>
                                     <Row>
                                         {getName()}
                                     </Row>
@@ -137,8 +138,7 @@ const CompactAttraction = (props) => {
                                         </Col>
                                     </Row>
                                 </Col>
-                                <Col md={4}>
-
+                                <Col md={3}>
                                     <Row>
                                         <h4>Raters No. <span
                                             style={{fontSize: 15, color: 'grey'}}>{props.attraction.userTotalRating}
@@ -150,13 +150,13 @@ const CompactAttraction = (props) => {
                                 </Col>
                             </Row>
                         </Col>
-                        <Col
-                            onMouseEnter={() => {
-                                context.isOnButton = true;
-                            }}
-                            onMouseLeave={() => {
-                                context.isOnButton = false;
-                            }}
+                        <Col md={1}
+                             onMouseEnter={() => {
+                                 context.isOnButton = true;
+                             }}
+                             onMouseLeave={() => {
+                                 context.isOnButton = false;
+                             }}
                         >
                             <Row>
                                 <OverlayTrigger
@@ -175,7 +175,7 @@ const CompactAttraction = (props) => {
                                     </Button>
                                 </OverlayTrigger>
                             </Row>
-                            <Row style={{marginTop: 10}}>
+                            <Row>
                                 <OverlayTrigger
                                     key={'infoToolTip'}
                                     placement={'top'}
@@ -192,7 +192,7 @@ const CompactAttraction = (props) => {
                                     </Button>
                                 </OverlayTrigger>
                             </Row>
-                            <Row style={{marginTop: 10}}>
+                            <Row>
                                 <OverlayTrigger
                                     key={'infoToolTip'}
                                     placement={'top'}
@@ -210,26 +210,26 @@ const CompactAttraction = (props) => {
                                 </OverlayTrigger>
                             </Row>
                         </Col>
-                    </Row>
-                    <Row>
-                        <Col md={12}>
-                            <Card.Subtitle>
-                                <h6>
-                                    {props.attraction.address}
-                                    {props.attraction.internationalNumber !== undefined && "|"}
-                                    {props.attraction.internationalNumber}
-                                </h6>
-                            </Card.Subtitle>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col style={{textAlign: "center"}}>
-                            {showImage && <Image style={{
-                                width: "auto", height: (ONE_HOUR_HEIGHT).toString() + "vh",
-                                maxHeight: "50vh"
-                            }}
-                                                 src={`data:image/jpeg;base64,${imageBase64}`}/>}
-                        </Col>
+                        <Row>
+                            <Col md={12}>
+                                <Card.Subtitle>
+                                    <h6>
+                                        {props.attraction.address}
+                                        {props.attraction.internationalNumber !== undefined && "|"}
+                                        {props.attraction.internationalNumber}
+                                    </h6>
+                                </Card.Subtitle>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col style={{textAlign: "center"}}>
+                                {showImage && <Image style={{
+                                    width: "auto", height: (ONE_HOUR_HEIGHT).toString() + "vh",
+                                    maxHeight: "50vh"
+                                }}
+                                                     src={`data:image/jpeg;base64,${imageBase64}`}/>}
+                            </Col>
+                        </Row>
                     </Row>
                 </Card.Body>
             </Card>

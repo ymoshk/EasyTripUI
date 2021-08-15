@@ -7,11 +7,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {itineraryActions} from "../../store/itinerary-slice";
 
 
-const DailyDnd = (props) => {
+const DailyDnd = () => {
     const HOURS_PER_DAY = 17;
     const dayIndex = useSelector(state => state.itineraryData.itinerary.currentDayIndex);
     const itinerary = useSelector(state => state.itineraryData.itinerary);
-    const lastActionResult = useSelector(state => state.itineraryData.lastActionResult);
     const dayAttractions = itinerary.itineraryDays[dayIndex].activities
     const dispatch = useDispatch();
     const helpersContext = useContext(HelpersContext);
@@ -30,7 +29,7 @@ const DailyDnd = (props) => {
 
     const onChangeDurationEventHandler = (change) => {
         if (draggedId !== undefined && draggedId !== null) {
-            dispatch(itineraryActions.changeEndTime( //TODO change to both hours change
+            dispatch(itineraryActions.changeEndTime(
                 {
                     index: draggedId,
                     minutesCount: change
@@ -39,17 +38,30 @@ const DailyDnd = (props) => {
         }
     }
 
+    const getStyle = (style, snapshot) => {
+        if (!snapshot.isDropAnimating) {
+            return style;
+        }
+        return {
+            ...style,
+            // cannot be 0, but make it super tiny
+            transitionDuration: `0.001s`,
+
+        };
+    }
+
     const mapComponent = (attractionNode, index) => {
         return (
             <Draggable key={"draggable_" + attractionNode.uniqueKey}
-                       isDragDisabled={props.isDragDisabled}
+                       isDragDisabled={false}
                        draggableId={index.toString()}
                        index={index}>
 
-                {provided => (
+                {(provided, snapshot) => (
                     <div onMouseDown={(e) => onDragStart(index, e)}
                          {...provided.draggableProps}
                          ref={provided.innerRef}
+                         style={getStyle(provided.draggableProps.style, snapshot)}
                     >
                         <AttractionContainer
                             resetDraggedId={setDraggedId}
@@ -63,6 +75,7 @@ const DailyDnd = (props) => {
             </Draggable>
         );
     }
+
 
     const onDragEndEventHandler = () => {
         if (!helpersContext.isOnButton) {

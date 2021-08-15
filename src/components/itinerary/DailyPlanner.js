@@ -1,20 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Card, Col, Row} from "react-bootstrap";
-import AttractionsSelectBox from "./attraction/menu/selectBox/AttractionsSelectBox";
-import styles from "./DailyPlanner.module.css";
-import DailyDnd from "./DailyDnd";
-import HoursBar from "./hoursBar/HoursBar";
 import ChangeHoursContext from "./ChangeHourContext";
-import DayPicker from "./dayPicker/DayPicker";
 import {itineraryActions} from "../../store/itinerary-slice";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchAttractionsDurations, fetchItineraryData, updateItineraryDay} from "../../store/itinerary-actions";
 import SweetAlert from "react-bootstrap-sweetalert";
+import {Card, Col, Row} from "react-bootstrap";
+import AttractionsSelectBox from "./attraction/menu/selectBox/AttractionsSelectBox";
+import DayPicker from "./dayPicker/DayPicker";
+import Button from "react-bootstrap/Button";
+import HoursBar from "./hoursBar/HoursBar";
+import DailyDnd from "./DailyDnd";
+import styles from "./DailyPlanner.module.css"
 
 const DailyPlanner = () => {
     const dispatch = useDispatch();
     const myItinerary = useSelector(state => state.itineraryData.itinerary);
-    const [test, setTest] = useState(false);
+    const error = useSelector(state => state.itineraryData.error);
+    const [showErrorMsg, setShowErrorMsg] = useState(false);
 
     useEffect(() => {
         dispatch(fetchItineraryData());
@@ -32,6 +34,12 @@ const DailyPlanner = () => {
         const currentDay = myItinerary.itineraryDays[index];
         updateItineraryDay(id, currentDay, index);
     }, [myItinerary])
+
+    useEffect(() => {
+        if (error) {
+            setShowErrorMsg(error);
+        }
+    }, [error])
 
 
     const [showCleanDayAlert, setShowCleanDayAlert] = useState(false);
@@ -92,6 +100,20 @@ const DailyPlanner = () => {
         </SweetAlert>
     }
 
+    const actionFailedAlert = () => {
+        return <SweetAlert
+            warning
+            title="Action Failed"
+            timeout={2000}
+            onConfirm={() => {
+                dispatch(itineraryActions.resetError());
+                setShowErrorMsg(false);
+            }}
+        >
+            The last operation failed because it exceeds the specified time.
+        </SweetAlert>
+    }
+
     return (
         // <SiteWrapper>
         <ChangeHoursContext.Provider
@@ -100,6 +122,7 @@ const DailyPlanner = () => {
                 isOnButton: false,
             }}>
             <Card style={{height: "100%"}}>
+                {showErrorMsg && actionFailedAlert()}
                 {showCleanDayAlert && cleanDayAlert()}
                 {showStartOverAlert && startOverAlert()}
                 {showSuccessAlert && finishItineraryAlert()}
@@ -155,7 +178,7 @@ const DailyPlanner = () => {
                                         }}>
                                             <Col xs={{span: 11, offset: 1}}>
                                                 <div style={{marginLeft: 11, height: "100%", width: "100%"}}>
-                                                    <DailyDnd isDragDisabled={test}/>
+                                                    <DailyDnd/>
                                                 </div>
                                             </Col>
                                         </Row>

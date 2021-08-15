@@ -10,7 +10,7 @@ const AttractionContainer = (props) => {
     const [hoursChange, setHoursChange] = useState(0);
     const [calculatedStartTime, setCalculatedStartTime] = useState(props.attractionNode.startTime);
     const [calculatedEndTime, setCalculatedEndTime] = useState(props.attractionNode.endTime);
-
+    const [redBackground, setRedBackGround] = useState(false);
 
     const extractTime = () => {
         let startTime = new Date("01-01-2030 " + calculatedStartTime + ":00");
@@ -35,12 +35,40 @@ const AttractionContainer = (props) => {
         return new Date(date.getTime() + minutes * 60000);
     }
 
+    const addMinutesToHour = (hour, minutesCount) => {
+        let result = new Date();
+        result.setTime(hour.getTime() + minutesCount * 1000 * 60);
+
+        return result;
+    }
+
     useEffect(() => {
         let startTime = new Date("01-01-2030 " + props.attractionNode.startTime + ":00");
         let endTime = new Date("01-01-2030 " + props.attractionNode.endTime + ":00");
 
         let newStartTime = addMinutes(startTime, hoursChange);
         let newEndTime = addMinutes(endTime, hoursChange);
+
+        let durationMinutes = (newEndTime.getTime() - newStartTime.getTime()) / (1000 * 60);
+
+        let minStart = new Date("01-01-2030 08:00:00");
+        let minEnd = addMinutesToHour(minStart, durationMinutes);
+
+        let maxEnd = new Date("01-01-2030 23:59:00");
+        let maxStart = addMinutesToHour(maxEnd, -durationMinutes);
+
+
+        if (newStartTime.getTime() < minStart.getTime()) {
+            newStartTime = minStart;
+            newEndTime = minEnd;
+            setRedBackGround(true);
+        } else if (newEndTime.getTime() > maxEnd.getTime()) {
+            newEndTime = maxEnd;
+            newStartTime = maxStart;
+            setRedBackGround(true);
+        } else {
+            setRedBackGround(false);
+        }
 
         setCalculatedStartTime(formatDateToHours(newStartTime));
         setCalculatedEndTime(formatDateToHours(newEndTime));
@@ -60,6 +88,7 @@ const AttractionContainer = (props) => {
                 height={getHeight()}/>
         } else if (props.attractionNode.type === "ATTRACTION") {
             return <CompactAttraction
+                redBackground={redBackground}
                 resetDraggedId={props.resetDraggedId}
                 index={props.index}
                 calcHeight={true}
