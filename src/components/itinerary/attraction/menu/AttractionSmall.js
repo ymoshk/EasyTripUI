@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-
 import {Button, Card, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap';
-import StarRating from "../StarRating";
-import RecommendedIcon from "../RecommendedIcon";
-
 import {itineraryActions} from "../../../../store/itinerary-slice";
 import {CirclePlus, InfoSquare} from "tabler-icons-react";
+
+import StarRating from "../StarRating";
+import RecommendedIcon from "../RecommendedIcon";
 import AttractionModal from "../modal/AttractionModal";
+import {useDispatch} from "react-redux";
+
 
 const AttractionSmall = (props) => {
     const dispatch = useDispatch();

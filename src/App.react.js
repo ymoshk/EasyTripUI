@@ -1,21 +1,22 @@
 import * as React from "react";
 import {useState} from "react";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {Error404} from "./pages";
 import HomePage from "./HomePage.react";
 import MapWrapper from "./components/utils/MapWrapper";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "tabler-react/dist/Tabler.css";
-import YotamTest from "./YotamTests/YotamTest";
 import LoaderComponent from "./components/utils/loader/LoaderComponent";
 import LoaderContext from "./components/utils/loader/LoaderContext";
 import DailyCheckout from "./Sahar Tests/DailyCheckout";
-import DailyDnd from "./components/itinerary/DailyDnd";
-import Checkout from "./Sahar Tests/Checkout";
-import CheckoutAttraction from "./Sahar Tests/CheckoutAttraction";
 import SaharTest from "./Sahar Tests/SaharTest";
 import styles from "./App.module.css"
 import DailyPlanner from "./components/itinerary/DailyPlanner";
+import StepsCard from "./components/questions/StepsCard";
+import Favicon from "react-favicon";
+import icon from "./images/logo/favicon.ico"
+import LayoutRoute from "./layout/LayoutRoute";
+
 
 function App() {
     const [showLoader, setShowLoader] = useState(false);
@@ -31,21 +32,22 @@ function App() {
                 }
             }>
             <LoaderComponent/>
-            <div className={showLoader ? styles.fade : styles.regular}>
+            <div className={[styles.pageMain, showLoader ? styles.fade : styles.regular]}>
+                <Favicon url={icon}/>
                 <React.StrictMode>
-                    <Router>
+                    <BrowserRouter>
                         <Switch>
-                            <Route exact path="/" component={HomePage}/>
+                            <LayoutRoute exact path="/" component={HomePage}/>
+                            <LayoutRoute exact path="/start-itinerary" component={StepsCard}/>
+                            <LayoutRoute exact path="/itinerary" component={DailyPlanner}/>
+                            <LayoutRoute exact path="/map" component={MapWrapper}/>
+                            <LayoutRoute exact path="/loader" component={LoaderComponent}/>
+                            <LayoutRoute exact path="/sahar" component={DailyCheckout}/>
+                            <LayoutRoute exact path="/saharTest" component={SaharTest}/>
                             <Route exact path="/404" component={Error404}/>
-                            <Route exact path="/yotam" component={YotamTest}/>
-                            <Route exact path="/itinerary" component={DailyPlanner}/>
-                            <Route exact path="/map" component={MapWrapper}/>
-                            <Route exact path="/loader" component={LoaderComponent}/>
-                            <Route exact path="/sahar" component={DailyCheckout}/>
-                            <Route exact path="/saharTest" component={SaharTest}/>
                             <Route component={Error404}/>
                         </Switch>
-                    </Router>
+                    </BrowserRouter>
                 </React.StrictMode>
             </div>
         </LoaderContext.Provider>

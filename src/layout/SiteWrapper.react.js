@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import {NavLink, withRouter} from "react-router-dom";
-import outlineLogo from "./images/logo/logo-outline.png"
+import outlineLogo from "../images/logo/logo-outline.png"
 
 import {
     Site,
@@ -193,7 +193,7 @@ class SiteWrapper extends React.Component<Props, State> {
                 headerProps={{
                     href: "/",
                     alt: "Easy Trip",
-                    imageURL: outlineLogo,
+                    // imageURL: outlineLogo,
                     notificationsTray: {
                         notificationsObjects,
                         markAllAsRead: () =>

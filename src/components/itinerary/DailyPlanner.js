@@ -115,7 +115,6 @@ const DailyPlanner = () => {
     }
 
     return (
-        // <SiteWrapper>
         <ChangeHoursContext.Provider
             value={{
                 changeHoursFunc: undefined,
@@ -190,7 +189,6 @@ const DailyPlanner = () => {
                 </Card.Body>
             </Card>
         </ChangeHoursContext.Provider>
-        // </SiteWrapper>
     );
 };
 
