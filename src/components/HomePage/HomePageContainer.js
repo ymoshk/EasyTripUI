@@ -1,5 +1,6 @@
 import React from 'react';
 import backGround from "../../images/siteBackground/maldivs.jpg";
+import planner from "../../images/siteBackground/Planner.jpg";
 import {Card, Col, Container, Row} from "react-bootstrap";
 import {Button} from "tabler-react";
 import RecommendedDestination from "./RecommendedDestination";
@@ -19,7 +20,10 @@ const HomePageContainer = () => {
         <>
             <Container fluid style={{
                 backgroundImage: 'url("' + backGround + '")',
-                backgroundRepeat: "no-repeat", width: "100%", height: "100vh"
+                height:"100vh",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover"
             }}>
                 <Row style={{width: "100%"}}>
                     <Col></Col>
@@ -66,7 +70,7 @@ const HomePageContainer = () => {
                             </Col>
                             <Col/>
                         </Row>
-                        <Row>
+                        <Row style={{marginTop: "20px"}}>
                             <Col/>
                             <Col>
                                 <RecommendedDestination
@@ -84,6 +88,14 @@ const HomePageContainer = () => {
                         </Row>
                     </Card.Body>
                 </Card>
+            </Container>
+            <Container fluid style={{
+                backgroundImage: 'url("' + planner + '")',
+                height:"100vh",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover"
+            }}>
             </Container>
         </>
     );
