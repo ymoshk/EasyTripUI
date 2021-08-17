@@ -12,6 +12,8 @@ import HoursBar from "./hoursBar/HoursBar";
 import DailyDnd from "./DailyDnd";
 import styles from "./DailyPlanner.module.css"
 
+//TODO handle empty itinerary scenario
+
 const DailyPlanner = () => {
     const dispatch = useDispatch();
     const myItinerary = useSelector(state => state.itineraryData.itinerary);

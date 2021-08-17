@@ -1,12 +1,8 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import EiffelTour from "../images/EiffelTour.jpg";
 import louvre from "../images/louvre.jpg";
 import nortedame from "../images/nortedame.jpg";
-import DailyPlanner from "../components/itinerary/DailyPlanner";
-import ChangeHoursContext from "../components/itinerary/ChangeHourContext"
-import CheckoutAttraction from "./CheckoutAttraction";
-import DailyCheckout from "./DailyCheckout";
-import Checkout from "./Checkout";
+import StaticItinerary from "../components/itinerary/static/StaticItinerary";
 
 //TODO-Delete
 
@@ -171,7 +167,8 @@ const SaharTest = () => {
         //     </div>
         // </ChangeHoursContext.Provider>
         // <CheckoutAttraction startTime={"12:00"} endTime={"13:00"} name={"Some name "} height={"40vh"}/>
-        <Checkout/>
+        // <Checkout/>
+        <StaticItinerary itineraryId="e24536fd-0714-4b93-9c36-4650b69e2a77"/>
     )
 }
 

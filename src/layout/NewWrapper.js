@@ -1,8 +1,8 @@
 import React from 'react';
-import {Card, Form, FormControl, Image, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {Card, Image, Nav, Navbar} from "react-bootstrap";
 import logo from "../images/logo/logo-outline-horizontal.png"
 import {Link} from "react-router-dom";
-import { House } from 'react-bootstrap-icons';
+import {House} from 'react-bootstrap-icons';
 import NavBarLink from "./NavBarLink";
 
 const SiteWrapperReact = (props) => {
@@ -15,20 +15,13 @@ const SiteWrapperReact = (props) => {
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
                         className="mr-auto my-2 my-lg-0"
-                        style={{maxHeight: '100px'}}
+                        style={{ maxHeight: '100px'}}
                         navbarScroll
                     >
                         <NavBarLink icon={<House size={15}/>} text={"Home"} href="/"/>
-                        <Nav.Link href="action2">Link</Nav.Link>
-                        <NavDropdown title="Link" id="navbarScrollingDropdown">
-                            <NavDropdown.Item><Link to={'/itinerary'}>Action</Link></NavDropdown.Item>
-                            <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
-                            <NavDropdown.Divider/>
-                            <NavDropdown.Item href="#action5">Something else here</NavDropdown.Item>
-                        </NavDropdown>
-                        <Nav.Link href="#" disabled>
-                            Link
-                        </Nav.Link>
+                        <NavBarLink icon={<House size={15}/>} text={"Home"} href="/"/>
+                        <NavBarLink icon={<House size={15}/>} text={"Home"} href="/"/>
+                        <NavBarLink icon={<House size={15}/>} text={"Home"} href="/"/>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -43,3 +36,18 @@ const SiteWrapperReact = (props) => {
 };
 
 export default SiteWrapperReact;
+
+//TODO delete if no needed
+
+{/*<NavDropdown title="Link" id="navbarScrollingDropdown">*/
+}
+{/*    <NavDropdown.Item><Link to={'/itinerary'}>Action</Link></NavDropdown.Item>*/
+}
+{/*    <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>*/
+}
+{/*    <NavDropdown.Divider/>*/
+}
+{/*    <NavDropdown.Item href="#action5">Something else here</NavDropdown.Item>*/
+}
+{/*</NavDropdown>*/
+}

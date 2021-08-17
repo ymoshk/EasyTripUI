@@ -6,7 +6,6 @@ import "./AutocompleteTextBox.css";
 const AutocompleteTextBox = (props) => {
     const [searchBar, setSearchBar] = useState({suggestions: [], text: ""});
     const [isValidSearch, setIsValidSearch] = useState(true);
-    const [show, setShow] = useState(false);
 
     const onChangeHandler = (event) => {
         const value = event.target.value;

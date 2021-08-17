@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from "react";
-import HomePageContainer from "./components/HomePage/HomePageContainer";
+import HomePageContainer from "./pages/homePage/HomePageContainer";
 
 function Home() {
 

@@ -6,15 +6,11 @@ import React, {useEffect} from 'react';
 
 const DateRangeInput = (props) => {
 
-    let startDate, endDate;
-
     useEffect(() => {
         props.setData(getDateAfter(1), getDateAfter(2))
     }, [])
 
     const onCallbackEventHandler = (start, end) => {
-        startDate = start;
-        endDate = end;
 
         props.setData(start, end);
         let temp = new Date();

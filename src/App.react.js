@@ -16,6 +16,7 @@ import StepsCard from "./components/questions/StepsCard";
 import Favicon from "react-favicon";
 import icon from "./images/logo/favicon.ico"
 import LayoutRoute from "./layout/LayoutRoute";
+import StaticItinerary from "./components/itinerary/static/StaticItinerary";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
                             <LayoutRoute exact path="/map" component={MapWrapper}/>
                             <LayoutRoute exact path="/loader" component={LoaderComponent}/>
                             <LayoutRoute exact path="/sahar" component={DailyCheckout}/>
+                            <LayoutRoute exact path="/test" component={SaharTest}/>
                             <LayoutRoute exact path="/saharTest" component={SaharTest}/>
                             <Route exact path="/404" component={Error404}/>
                             <Route component={Error404}/>
