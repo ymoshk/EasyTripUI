@@ -10,7 +10,7 @@ const initialState = {
         attraction: {},
         itineraryDays: [
             {
-                date: new Date(),
+                date: undefined,
                 activities: []
             }],
         questionsData: {},

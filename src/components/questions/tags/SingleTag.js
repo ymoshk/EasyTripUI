@@ -3,11 +3,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './SingleTag.module.css'
 import Button from "react-bootstrap/Button";
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {questionnaireActions} from "../../../store/questionnaire-slice";
 
 const SingleTag = (props) => {
-    const [isChecked, setIsChecked] = useState(false);
+    const dispatch = useDispatch();
+    const myself = useSelector(state => state.questionnaireData
+        .questionnaire.stages[props.stageIndex].data[props.id])
+
+    const [isChecked, setIsChecked] = useState(myself.status);
     const [color, setColor] = useState("white");
-    const id = props.id;
 
     useEffect(() => {
         if (isChecked) {
@@ -18,26 +23,24 @@ const SingleTag = (props) => {
     }, [isChecked])
 
     const onClickEventHandler = () => {
-        props.onChecked(id);
+        dispatch(questionnaireActions.contTagsStatus(props.id));
         setIsChecked(!isChecked);
     }
 
     const getContent = () => {
         let result = "";
-        if (props.src !== undefined && props.src !== "") {
-            result = <img className={styles.img} src={props.src} alt={"None"}/>
-        } else if (props.text !== undefined) {
-            result = <span>{props.text}</span>
-        } else if (props.innerComponent !== undefined) {
-            result = props.innerComponent;
+        if (myself.src !== undefined && myself.src !== "") {
+            result = <img className={styles.img} src={myself.src} alt={"None"}/>
+        } else if (myself.name !== undefined) {
+            result = <span>{myself.name}</span>
         }
 
         return result;
     }
 
     const getToolTip = () => {
-        return <Tooltip id={'tooltip_' + id}>
-            {props.text}
+        return <Tooltip id={'tooltip_' + props.id}>
+            {myself.name}
         </Tooltip>
     }
 

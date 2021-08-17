@@ -15,7 +15,3 @@
     transition: opacity 400ms ease-in;
     pointer-events: all;
 }
-
-.page-main{
-    background-color: white;
-}

@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
-import AutocompleteTextBox from "../../utils/AutocompleteTextBox";
-import useHttp from "../../../hooks/UseHttp";
-import LoaderContext from "../../utils/loader/LoaderContext";
+import AutocompleteTextBox from "../../../utils/AutocompleteTextBox";
+import useHttp from "../../../../hooks/UseHttp";
+import LoaderContext from "../../../utils/loader/LoaderContext";
 
 
 const SearchDestination = (props) => {
@@ -11,7 +11,7 @@ const SearchDestination = (props) => {
     const loader = useContext(LoaderContext);
 
     useEffect(() => {
-        if(isLoading){
+        if (isLoading) {
             loader.setShow(true)
         } else {
             loader.setShow(false);
@@ -42,7 +42,8 @@ const SearchDestination = (props) => {
                                 onChangeHandler={props.onChangeHandler}
                                 cleanOnSubmit={props.cleanOnSubmit}
                                 size={"md"}
-                                showButton={props.showButton}/>;
+                                showButton={props.showButton}
+                                value={props.value}/>;
 }
 
 export default SearchDestination;

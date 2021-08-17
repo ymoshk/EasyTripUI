@@ -12,11 +12,10 @@ import DailyCheckout from "./Sahar Tests/DailyCheckout";
 import SaharTest from "./Sahar Tests/SaharTest";
 import styles from "./App.module.css"
 import DailyPlanner from "./components/itinerary/DailyPlanner";
-import StepsCard from "./components/questions/StepsCard";
+import Questionnaire from "./components/questions/Questionnaire";
 import Favicon from "react-favicon";
 import icon from "./images/logo/favicon.ico"
 import LayoutRoute from "./layout/LayoutRoute";
-import StaticItinerary from "./components/itinerary/static/StaticItinerary";
 
 
 function App() {
@@ -33,13 +32,13 @@ function App() {
                 }
             }>
             <LoaderComponent/>
-            <div className={[styles.pageMain, showLoader ? styles.fade : styles.regular]}>
+            <div style={{backgroundColor: "white"}} className={showLoader ? styles.fade : styles.regular}>
                 <Favicon url={icon}/>
                 <React.StrictMode>
                     <BrowserRouter>
                         <Switch>
                             <LayoutRoute exact path="/" component={HomePage}/>
-                            <LayoutRoute exact path="/start-itinerary" component={StepsCard}/>
+                            <LayoutRoute exact path="/questionnaire" component={Questionnaire}/>
                             <LayoutRoute exact path="/itinerary" component={DailyPlanner}/>
                             <LayoutRoute exact path="/map" component={MapWrapper}/>
                             <LayoutRoute exact path="/loader" component={LoaderComponent}/>

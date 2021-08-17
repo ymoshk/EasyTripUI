@@ -3,19 +3,32 @@ import 'bootstrap-daterangepicker/daterangepicker.css'
 
 //documentation - https://www.npmjs.com/package/react-bootstrap-daterangepicker
 import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {questionnaireActions} from "../../store/questionnaire-slice";
 
-const DateRangeInput = (props) => {
+const DateRangeInput = () => {
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        props.setData(getDateAfter(1), getDateAfter(2))
+        dispatch(questionnaireActions.setCurrentData(
+            {
+                startDate: getDateAfter(1).getTime(),
+                endDate: getDateAfter(2).getTime()
+            }));
     }, [])
 
     const onCallbackEventHandler = (start, end) => {
-
-        props.setData(start, end);
+        dispatch(questionnaireActions.setCurrentData(
+            {
+                startDate: start.toDate().getTime(),
+                endDate: end.toDate().getTime()
+            }));
         let temp = new Date();
         temp.setHours(23, 59, 59, 0);
-        props.setValidation(Date.parse(start) >= temp);
+
+        dispatch(questionnaireActions.setIsValid(Date.parse(start) >= temp));
+        dispatch(questionnaireActions.setErrorMsg("The trip must be at least one day long and cannot " +
+            "start from a date that has already passed"))
     }
 
     const getDateAfter = (daysCount) => {

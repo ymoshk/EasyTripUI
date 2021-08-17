@@ -30,6 +30,16 @@ const DailyPlanner = () => {
         dispatch(itineraryActions.updateDay(index));
     }
 
+    const getDates = () => {
+        const formatDate = (date) => {
+            if (date !== undefined) {
+                return date.year + '-' + date.month + '-' + date.day;
+            }
+        }
+
+        return myItinerary.itineraryDays.map(day => formatDate(day.date))
+    }
+
     useEffect(() => {
         const id = myItinerary.itineraryId;
         const index = myItinerary.currentDayIndex;
@@ -138,7 +148,7 @@ const DailyPlanner = () => {
                             <Col md={8}>
                                 <Row>
                                     <Col>
-                                        <DayPicker onDayChange={dayChangedHandler}/>
+                                        <DayPicker dates={getDates()} onDayChange={dayChangedHandler}/>
                                     </Col>
                                 </Row>
                                 <Row>

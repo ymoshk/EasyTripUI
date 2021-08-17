@@ -1,10 +1,32 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, Button, Col, FormControl, InputGroup, ListGroup, Row} from 'react-bootstrap';
 import "./AutocompleteTextBox.css";
 
 
 const AutocompleteTextBox = (props) => {
-    const [searchBar, setSearchBar] = useState({suggestions: [], text: ""});
+
+    const getDefaultValue = () => {
+        if (props.value !== undefined) {
+            if (props.value !== null) {
+                return props.value;
+            }
+        }
+
+        return "";
+    }
+
+    useEffect(() => {
+        setSearchBar({
+            suggestions: [],
+            text: getDefaultValue()
+        })
+    },[props.value])
+
+    const [searchBar, setSearchBar] = useState(
+        {
+            suggestions: [],
+            text: getDefaultValue()
+        });
     const [isValidSearch, setIsValidSearch] = useState(true);
 
     const onChangeHandler = (event) => {

@@ -58,7 +58,7 @@ const DailyDnd = () => {
                        index={index}>
 
                 {(provided, snapshot) => (
-                    <div onMouseDown={(e) => onDragStart(index, e)}
+                    <div onMouseUp={onDragEndEventHandler} onMouseDown={(e) => onDragStart(index, e)}
                          {...provided.draggableProps}
                          ref={provided.innerRef}
                          style={getStyle(provided.draggableProps.style, snapshot)}
@@ -124,21 +124,6 @@ const DailyDnd = () => {
     return (
         <DragDropContext
             onDragEnd={onDragEndEventHandler}>
-            {/*{!lastActionResult && <SweetAlert*/}
-            {/*    warning*/}
-            {/*    confirmBtnText="OK"*/}
-            {/*    title="Action Failed!"*/}
-            {/*    focusCancelBtn*/}
-            {/*    timeout={2000}*/}
-            {/*    onConfirm={() => {*/}
-            {/*        dispatch(itineraryActions.resetLastActionResult())*/}
-            {/*    }}*/}
-            {/*    onCancel={() => {*/}
-            {/*        dispatch(itineraryActions.resetLastActionResult())*/}
-            {/*    }}*/}
-            {/*>*/}
-            {/*    You're trying to take action that will result in a time exceed.*/}
-            {/*</SweetAlert>}*/}
             <Row style={{height: "100%"}} id={"dayContainer"} onMouseMove={updateMousePosition}>
                 <Droppable droppableId={"day_" + dayIndex}>
                     {(provided) => (

@@ -2,18 +2,22 @@ import React, {useState} from 'react';
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 import RangeSlider from 'react-bootstrap-range-slider';
 import {CurrencyDollar} from "tabler-icons-react";
+import {useDispatch, useSelector} from "react-redux";
+import {questionnaireActions} from "../../../../store/questionnaire-slice";
 
 
 const PriceRange = (props) => {
-    const [value, setValue] = useState(0);
-    const onAfterChange = props.onAfterChange;
+    const dispatch = useDispatch()
+    const data = useSelector(state => state.questionnaireData.questionnaire.stages[props.stageIndex].data)
+
+    const [value, setValue] = useState(data.priceRange !== undefined ? data.priceRange : 0);
 
     function onChangeEventHandler(e) {
         setValue(e.target.value);
     }
 
     function onAfterChangeEventHandler(e) {
-        onAfterChange(value);
+        dispatch(questionnaireActions.setCurrentData({priceRange: value}));
     }
 
     function tooltipLabelValue(currentVal) {

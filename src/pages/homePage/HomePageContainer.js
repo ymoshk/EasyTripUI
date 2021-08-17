@@ -13,7 +13,7 @@ import {Car} from "tabler-icons-react";
 const HomePageContainer = () => {
 
     let onClickEventHandler = () => {
-        window.location = '/questions'
+        window.location = '/questionnaire'
     }
 
     return (
@@ -26,8 +26,7 @@ const HomePageContainer = () => {
                 backgroundSize: "cover"
             }}>
                 <Row style={{width: "100%"}}>
-                    <Col></Col>
-                    <Col md={8} xs={12}>
+                    <Col md={{span: 8, offset: 2}} xs={{span: 12, offset: 0}}>
                         <Card style={{marginTop: "200px", backgroundColor: "rgb(255,255,255,.7)"}}>
                             <Card.Body>
                                 <Row>
