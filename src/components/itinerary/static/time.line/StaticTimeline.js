@@ -26,7 +26,7 @@ import DayPicker from "../../dayPicker/DayPicker";
 
 // https://www.npmjs.com/package/react-vertical-timeline-component
 
-const StaticTimeLine = (props) => {
+const StaticTimeline = (props) => {
 
         const itineraryDays = props.itinerary.itineraryDays;
         const [currentDay, setCurrentDay] = useState(itineraryDays[0]);
@@ -70,7 +70,8 @@ const StaticTimeLine = (props) => {
             return map[type] !== undefined ? map[type] : <FaRegLaughBeam/>;
         }
 
-        const mapAttractions = (activity, index) => {
+
+        const mapAttraction = (activity, index) => {
             let innerComponent;
             let icon = <Caravan color={'white'}/>;
 
@@ -88,13 +89,14 @@ const StaticTimeLine = (props) => {
                     key={index}
                     className="vertical-timeline-element--work"
                     date={activity.startTime + " - " + activity.endTime}
-                    iconStyle={{background: 'rgb(33, 150, 243)', color: '#fff'}}
+                    iconStyle={{background: '#467fcf', color: '#fff'}}
                     icon={icon}
                 >
                     {innerComponent}
                 </VerticalTimelineElement>
             )
         };
+
 
         return (
             <>
@@ -107,7 +109,7 @@ const StaticTimeLine = (props) => {
                 </Row>
                 <Row>
                     <VerticalTimeline>
-                        {currentDay.activities.map((activity, index) => mapAttractions(activity, index))}
+                        {currentDay.activities.map((activity, index) => mapAttraction(activity, index))}
                     </VerticalTimeline>
                 </Row>
             </>
@@ -115,4 +117,4 @@ const StaticTimeLine = (props) => {
     }
 ;
 
-export default StaticTimeLine;
+export default StaticTimeline;

@@ -43,7 +43,6 @@ function App() {
                             <LayoutRoute exact path="/map" component={MapWrapper}/>
                             <LayoutRoute exact path="/loader" component={LoaderComponent}/>
                             <LayoutRoute exact path="/sahar" component={DailyCheckout}/>
-                            <LayoutRoute exact path="/test" component={SaharTest}/>
                             <LayoutRoute exact path="/saharTest" component={SaharTest}/>
                             <Route exact path="/404" component={Error404}/>
                             <Route component={Error404}/>

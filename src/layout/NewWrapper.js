@@ -16,7 +16,7 @@ const SiteWrapperReact = (props) => {
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
                         className="mr-auto my-2 my-lg-0"
-                        style={{ maxHeight: '100px'}}
+                        style={{maxHeight: '100px'}}
                         navbarScroll
                     >
                         <NavBarLink icon={<House size={15}/>} text={"Home"} href="/"/>
@@ -24,7 +24,9 @@ const SiteWrapperReact = (props) => {
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-            {props.children}
+            <div style={{marginTop: 20}}>
+                {props.children}
+            </div>
             <Card.Footer>
                 <React.Fragment>
                     Copyright © 2021 EasyTrip All rights reserved.

@@ -2,9 +2,10 @@ import React, {useContext, useEffect, useState} from 'react';
 import useHttp from "../../../hooks/UseHttp";
 import LoaderContext from "../../utils/loader/LoaderContext";
 import SweetAlert from "react-bootstrap-sweetalert";
-import StaticTimeLine from "./time.line/StaticTimeLine";
+import StaticTimeline from "./time.line/StaticTimeline";
 import Checkout from "../../../Sahar Tests/Checkout";
-import styles from "./StaticItinerary.module.css"
+import ViewSelection from "./ViewSelection";
+import styles from "./StaticItinerary.module.css";
 
 const StaticItinerary = (props) => {
 
@@ -13,6 +14,7 @@ const StaticItinerary = (props) => {
     const loader = useContext(LoaderContext);
     const url = process.env.REACT_APP_SERVER_URL.concat('/getItinerary');
     const [showErrorAlert, setShowErrorAlert] = useState(false);
+    const [viewType, setViewType] = useState(0);
 
     useEffect(() => {
         if (error !== null) {
@@ -41,6 +43,16 @@ const StaticItinerary = (props) => {
             }).then();
     }, [getItinerary])
 
+    const getViewType = () => {
+        switch (viewType) {
+            case 0:
+                return <StaticTimeline itinerary={itinerary}/>;
+            case 1:
+                return <Checkout itinerary={itinerary}/>;
+            default:
+                return "";
+        }
+    }
 
 
     return (
@@ -59,10 +71,9 @@ const StaticItinerary = (props) => {
                 title={"Error!"}>
                 We couldn't load the requested itinerary.
             </SweetAlert>}
+            <ViewSelection onChangeViewHandlder={setViewType}/>
             <div className={styles.grayBackground}>
-                {itinerary && <StaticTimeLine itinerary={itinerary}/>}
-                {/*{itinerary && <Checkout itinerary={itinerary}/>}*/}
-
+                {itinerary && getViewType()}
             </div>
         </>
     );
