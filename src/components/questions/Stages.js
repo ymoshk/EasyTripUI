@@ -31,7 +31,7 @@ export const questionnaireStages = [
         header: "Budget Selection",
         validatable: false,
         isValid: true,
-        data: {}
+        data: {priceRange: 0}
     }, {
         key: 4,
         header: "Favorite attractions",
