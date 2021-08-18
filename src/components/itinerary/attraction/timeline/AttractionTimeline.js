@@ -1,11 +1,10 @@
-import React from 'react';
-import {Card, Col, Row} from 'react-bootstrap';
+import React, {Fragment} from 'react';
+import {Button, Card, Col, Row} from 'react-bootstrap';
 import StarRating from "../StarRating";
 import RecommendedIcon from "../RecommendedIcon";
 
 
 const AttractionTimeline = (props) => {
-    let priceLevel = '$'.repeat(props.attraction.priceLevel + 1);
 
     const getName = () => {
         if (props.attraction.website !== undefined && props.attraction.website !== "") {
@@ -31,16 +30,11 @@ const AttractionTimeline = (props) => {
                     </Row>
                 </Col>
                 <Col md={5}>
-                        <Row style={{marginTop:15}}>
-                            <Card.Subtitle>
-                                <StarRating value={props.attraction.rating}/>
-                            </Card.Subtitle>
-                        </Row>
-                        {/*<Row>*/}
-                        {/*    <h4>Raters No. <span*/}
-                        {/*        style={{fontSize: 15, color: 'grey'}}> ({props.attraction.userTotalRating})*/}
-                        {/*            </span></h4>*/}
-                        {/*</Row>*/}
+                    <Row style={{marginTop: 15}}>
+                        <Card.Subtitle>
+                            <StarRating value={props.attraction.rating}/>
+                        </Card.Subtitle>
+                    </Row>
                 </Col>
             </Row>
             <Row>
@@ -53,6 +47,27 @@ const AttractionTimeline = (props) => {
                             {props.attraction.internationalNumber}
                         </h6>
                     </Card.Subtitle>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <h4>Raters No. <span
+                        style={{fontSize: 15, color: 'grey'}}> ({props.attraction.userTotalRating})
+                                    </span>
+                    </h4>
+                </Col>
+                <Col>
+                    {props.attraction.website &&
+                    <Fragment>
+                        <Row>
+                            <Button
+                                href={props.attraction.website}
+                                target={"_blank"}
+                                variant={"outline-primary"}>
+                                Visit Website
+                            </Button>{' '}
+                        </Row>
+                    </Fragment>}
                 </Col>
             </Row>
         </Row>

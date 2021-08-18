@@ -34,7 +34,6 @@ const StaticTimeLine = (props) => {
         const getDates = () => {
             const formatDate = (date) => {
                 if (date !== undefined) {
-                    console.log(date);
                     return date.year + '-' + date.month + '-' + date.day;
                 }
             }
@@ -109,25 +108,6 @@ const StaticTimeLine = (props) => {
                 <Row>
                     <VerticalTimeline>
                         {currentDay.activities.map((activity, index) => mapAttractions(activity, index))}
-
-                        {/*/!*more examples:*!/*/}
-                        {/*<VerticalTimelineElement*/}
-                        {/*    className="vertical-timeline-element--education"*/}
-                        {/*    date="2002 - 2006"*/}
-                        {/*    iconStyle={{background: 'rgb(233, 30, 99)', color: '#fff'}}*/}
-                        {/*    icon={undefined}*/}
-                        {/*>*/}
-                        {/*    <h3 className="vertical-timeline-element-title">Bachelor of Science in Interactive Digital Media*/}
-                        {/*        Visual Imaging</h3>*/}
-                        {/*    <h4 className="vertical-timeline-element-subtitle">Bachelor Degree</h4>*/}
-                        {/*    <p>*/}
-                        {/*        Creative Direction, Visual Design*/}
-                        {/*    </p>*/}
-                        {/*</VerticalTimelineElement>*/}
-                        {/*<VerticalTimelineElement*/}
-                        {/*    iconStyle={{background: 'rgb(16, 204, 82)', color: '#fff'}}*/}
-                        {/*    icon={undefined}*/}
-                        {/*/>*/}
                     </VerticalTimeline>
                 </Row>
             </>
