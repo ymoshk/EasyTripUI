@@ -3,7 +3,6 @@ import 'react-vertical-timeline-component/style.min.css';
 import {VerticalTimeline, VerticalTimelineElement} from 'react-vertical-timeline-component';
 import {Caravan} from "tabler-icons-react";
 import {Col, Row} from "react-bootstrap";
-import styles from "./StaticTimeLine.module.css";
 
 import {
     BiHotel,
@@ -23,21 +22,25 @@ import {
     RiGalleryLine
 } from "react-icons/all";
 import AttractionTimeline from "../../attraction/timeline/AttractionTimeline";
+import DayPicker from "../../dayPicker/DayPicker";
 
 // https://www.npmjs.com/package/react-vertical-timeline-component
 
 const StaticTimeLine = (props) => {
 
-        const itinerary = props.itinerary;
         const itineraryDays = props.itinerary.itineraryDays;
         const [currentDay, setCurrentDay] = useState(itineraryDays[0]);
 
-        const formatDate = (dateObj) => {
-            return new Date(dateObj.year, dateObj.month - 1, dateObj.day);
+        const getDates = () => {
+            const formatDate = (date) => {
+                if (date !== undefined) {
+                    console.log(date);
+                    return date.year + '-' + date.month + '-' + date.day;
+                }
+            }
+
+            return itineraryDays.map(day => formatDate(day.date))
         }
-
-        const datesList = itineraryDays.map(day => formatDate(day.date));
-
 
         let dayChangedHandler = (index) => {
             setCurrentDay(itineraryDays[index]);
@@ -68,7 +71,7 @@ const StaticTimeLine = (props) => {
             return map[type] !== undefined ? map[type] : <FaRegLaughBeam/>;
         }
 
-        const mapAttractions = (activity) => {
+        const mapAttractions = (activity, index) => {
             let innerComponent;
             let icon = <Caravan color={'white'}/>;
 
@@ -83,6 +86,7 @@ const StaticTimeLine = (props) => {
 
             return (
                 <VerticalTimelineElement
+                    key={index}
                     className="vertical-timeline-element--work"
                     date={activity.startTime + " - " + activity.endTime}
                     iconStyle={{background: 'rgb(33, 150, 243)', color: '#fff'}}
@@ -98,13 +102,13 @@ const StaticTimeLine = (props) => {
                 <Row>
                     <Col/>
                     <Col md={10}>
-                        {/*<DayPicker onDayChange={dayChangedHandler} datesList={datesList}/>*/}
+                        <DayPicker onDayChange={dayChangedHandler} dates={getDates()}/>
                     </Col>
                     <Col/>
                 </Row>
                 <Row>
                     <VerticalTimeline>
-                        {currentDay.activities.map(activity => mapAttractions(activity))}
+                        {currentDay.activities.map((activity, index) => mapAttractions(activity, index))}
 
                         {/*/!*more examples:*!/*/}
                         {/*<VerticalTimelineElement*/}

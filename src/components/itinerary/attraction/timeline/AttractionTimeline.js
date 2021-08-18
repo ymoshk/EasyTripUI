@@ -20,7 +20,7 @@ const AttractionTimeline = (props) => {
     return (
         <Row>
             <Row>
-                <Col md={6}>
+                <Col md={7}>
                     <Row>
                         {getName()}
                     </Row>
@@ -30,12 +30,17 @@ const AttractionTimeline = (props) => {
                         </Card.Subtitle>
                     </Row>
                 </Col>
-                <Col md={6}>
-                    <Row>
-                        <StarRating value={props.attraction.rating}/><h4><span
-                            style={{fontSize: 15, color: 'grey'}}> ({props.attraction.userTotalRating})
-                                    </span></h4>
-                    </Row>
+                <Col md={5}>
+                        <Row style={{marginTop:15}}>
+                            <Card.Subtitle>
+                                <StarRating value={props.attraction.rating}/>
+                            </Card.Subtitle>
+                        </Row>
+                        {/*<Row>*/}
+                        {/*    <h4>Raters No. <span*/}
+                        {/*        style={{fontSize: 15, color: 'grey'}}> ({props.attraction.userTotalRating})*/}
+                        {/*            </span></h4>*/}
+                        {/*</Row>*/}
                 </Col>
             </Row>
             <Row>

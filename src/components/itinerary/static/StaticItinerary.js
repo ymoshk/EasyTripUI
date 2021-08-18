@@ -4,6 +4,7 @@ import LoaderContext from "../../utils/loader/LoaderContext";
 import SweetAlert from "react-bootstrap-sweetalert";
 import StaticTimeLine from "./time.line/StaticTimeLine";
 import Checkout from "../../../Sahar Tests/Checkout";
+import styles from "./StaticItinerary.module.css"
 
 const StaticItinerary = (props) => {
 
@@ -58,7 +59,7 @@ const StaticItinerary = (props) => {
                 title={"Error!"}>
                 We couldn't load the requested itinerary.
             </SweetAlert>}
-            <div>
+            <div className={styles.grayBackground}>
                 {itinerary && <StaticTimeLine itinerary={itinerary}/>}
                 {/*{itinerary && <Checkout itinerary={itinerary}/>}*/}
 
