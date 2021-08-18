@@ -59,8 +59,8 @@ const StaticItinerary = (props) => {
                 We couldn't load the requested itinerary.
             </SweetAlert>}
             <div>
-                {/*{itinerary && <StaticTimeLine itinerary={itinerary}/>}*/}
-                {itinerary && <Checkout itinerary={itinerary}/>}
+                {itinerary && <StaticTimeLine itinerary={itinerary}/>}
+                {/*{itinerary && <Checkout itinerary={itinerary}/>}*/}
 
             </div>
         </>

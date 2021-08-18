@@ -31,9 +31,9 @@ const HomePageContainer = () => {
                             <Card.Body>
                                 <Row>
                                     <Col></Col>
-                                    <Col md={6} xs={12}>
-                                        <div className={"d-grid gap-1"} style={{textAlign: "center"}}>
-                                            <h3>Planning a trip has never been easier</h3>
+                                    <Col md={8} xs={12}>
+                                        <div style={{textAlign: "center"}}>
+                                            <h1>Planning A Trip Has Never Been Easier</h1>
                                             <Button onClick={onClickEventHandler} size={"lg"} color={"primary"}>Get
                                                 Started</Button>
                                         </div>

@@ -1,23 +1,28 @@
 import React, {useState} from 'react';
 import 'react-vertical-timeline-component/style.min.css';
 import {VerticalTimeline, VerticalTimelineElement} from 'react-vertical-timeline-component';
-import {Car, Caravan, CarCrane} from "tabler-icons-react";
-import DayPicker from "../../dayPicker/DayPicker";
-import {useSelector} from "react-redux";
-import {Col, Image, Row} from "react-bootstrap";
-import Attraction from "../../attraction/modal/Attraction";
-import AttractionSmall from "../../attraction/menu/AttractionSmall";
-import eifel from "../../../../images/EiffelTour.jpg"
+import {Caravan} from "tabler-icons-react";
+import {Col, Row} from "react-bootstrap";
+import styles from "./StaticTimeLine.module.css";
+
 import {
-    BiHotel, FaMapMarkedAlt,
+    BiHotel,
+    FaMapMarkedAlt,
     FaRegLaughBeam,
-    FaUmbrellaBeach, FiShoppingCart,
-    GiAquarium, GiBinoculars, GiMartini,
-    GiPokerHand, GiShoppingCart,
+    FaUmbrellaBeach,
+    FiShoppingCart,
+    GiAquarium,
+    GiBinoculars,
+    GiMartini,
+    GiPokerHand,
+    GiShoppingCart,
     IoBeer,
     IoCafeOutline,
-    IoFastFoodOutline, MdPets, RiGalleryLine
+    IoFastFoodOutline,
+    MdPets,
+    RiGalleryLine
 } from "react-icons/all";
+import AttractionTimeline from "../../attraction/timeline/AttractionTimeline";
 
 // https://www.npmjs.com/package/react-vertical-timeline-component
 
@@ -68,7 +73,7 @@ const StaticTimeLine = (props) => {
             let icon = <Caravan color={'white'}/>;
 
             if (activity.type === "ATTRACTION") {
-                innerComponent = <Attraction attraction={activity.attraction}/>
+                innerComponent = <AttractionTimeline attraction={activity.attraction}/>
                 icon = getAttractionIcon(activity.attraction.type)
             } else if (activity.type === "MOBILITY") {
                 //TODO - handle mobility
@@ -93,7 +98,7 @@ const StaticTimeLine = (props) => {
                 <Row>
                     <Col/>
                     <Col md={10}>
-                        <DayPicker onDayChange={dayChangedHandler} datesList={datesList}/>
+                        {/*<DayPicker onDayChange={dayChangedHandler} datesList={datesList}/>*/}
                     </Col>
                     <Col/>
                 </Row>
@@ -101,7 +106,7 @@ const StaticTimeLine = (props) => {
                     <VerticalTimeline>
                         {currentDay.activities.map(activity => mapAttractions(activity))}
 
-                        {/*more examples:*/}
+                        {/*/!*more examples:*!/*/}
                         {/*<VerticalTimelineElement*/}
                         {/*    className="vertical-timeline-element--education"*/}
                         {/*    date="2002 - 2006"*/}
