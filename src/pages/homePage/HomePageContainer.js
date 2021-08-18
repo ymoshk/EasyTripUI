@@ -20,7 +20,7 @@ const HomePageContainer = () => {
         <>
             <Container fluid style={{
                 backgroundImage: 'url("' + backGround + '")',
-                height:"100vh",
+                height: "100vh",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover"
@@ -33,7 +33,7 @@ const HomePageContainer = () => {
                                     <Col></Col>
                                     <Col md={6} xs={12}>
                                         <div className={"d-grid gap-1"} style={{textAlign: "center"}}>
-                                            <h3>Today Plan A Trip Is Much Easier...</h3>
+                                            <h3>Planning a trip has never been easier</h3>
                                             <Button onClick={onClickEventHandler} size={"lg"} color={"primary"}>Get
                                                 Started</Button>
                                         </div>
@@ -46,8 +46,8 @@ const HomePageContainer = () => {
                     <Col></Col>
                 </Row>
             </Container>
-            <Container fluid style={{width:"100%", padding:"0"}}>
-                <Card style={{marginBottom: "0", width:"100%"}}>
+            <Container fluid style={{width: "100%", padding: "0"}}>
+                <Card style={{marginBottom: "0", width: "100%"}}>
                     <Card.Body>
                         <Row>
                             <h3>Author Recommendations</h3>
@@ -90,7 +90,7 @@ const HomePageContainer = () => {
             </Container>
             <Container fluid style={{
                 backgroundImage: 'url("' + planner + '")',
-                height:"100vh",
+                height: "100vh",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover"

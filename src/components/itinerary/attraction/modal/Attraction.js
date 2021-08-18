@@ -71,9 +71,9 @@ const Attraction = (props) => {
                                         </Row>
                                     </Fragment>}
                                     <Row>
-                                        {!props.attraction.closedTemporarily &&
-                                        <span style={{paddingLeft: 10}}><OpenHours
-                                            hours={props.attraction.openingHoursText}/></span>}
+                                        {/*{!props.attraction.closedTemporarily &&*/}
+                                        {/*<span style={{paddingLeft: 10}}><OpenHours*/}
+                                        {/*    hours={props.attraction.openingHoursText}/></span>}*/}
                                     </Row>
                                 </Col>
                             </Row>

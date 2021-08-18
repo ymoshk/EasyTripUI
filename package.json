@@ -30,6 +30,7 @@
     "react-favicon": "0.0.23",
     "react-google-maps": "^9.4.5",
     "react-horizontal-timeline": "^1.5.3",
+    "react-icons": "^4.2.0",
     "react-loader-spinner": "^4.0.0",
     "react-rating-stars-component": "^2.2.0",
     "react-redux": "^7.2.4",

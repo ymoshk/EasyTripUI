@@ -3,11 +3,12 @@ import useHttp from "../../../hooks/UseHttp";
 import LoaderContext from "../../utils/loader/LoaderContext";
 import SweetAlert from "react-bootstrap-sweetalert";
 import StaticTimeLine from "./time.line/StaticTimeLine";
+import Checkout from "../../../Sahar Tests/Checkout";
 
 const StaticItinerary = (props) => {
 
     const {isLoading, error, sendRequest: getItinerary} = useHttp();
-    let itinerary = null;
+    const [itinerary, setItinerary] = useState();
     const loader = useContext(LoaderContext);
     const url = process.env.REACT_APP_SERVER_URL.concat('/getItinerary');
     const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -35,9 +36,10 @@ const StaticItinerary = (props) => {
                 body: {id: props.itineraryId}
             },
             (result) => {
-                itinerary = result
+                setItinerary(result);
             }).then();
     }, [getItinerary])
+
 
 
     return (
@@ -57,7 +59,9 @@ const StaticItinerary = (props) => {
                 We couldn't load the requested itinerary.
             </SweetAlert>}
             <div>
-                <StaticTimeLine itinerary={itinerary}/>
+                {/*{itinerary && <StaticTimeLine itinerary={itinerary}/>}*/}
+                {itinerary && <Checkout itinerary={itinerary}/>}
+
             </div>
         </>
     );
