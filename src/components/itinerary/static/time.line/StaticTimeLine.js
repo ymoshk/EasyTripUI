@@ -11,15 +11,15 @@ import {
     FaUmbrellaBeach,
     FiShoppingCart,
     GiAquarium,
-    GiBinoculars,
-    GiMartini,
+    GiBinoculars, GiCandleLight,
+    GiMartini, GiMeal, GiMonaLisa,
     GiPokerHand,
     GiShoppingCart,
     IoBeer,
     IoCafeOutline,
     IoFastFoodOutline,
     MdPets,
-    RiGalleryLine
+    RiGalleryLine, RiMickeyLine, TiTree
 } from "react-icons/all";
 import AttractionTimeline from "../../attraction/timeline/AttractionTimeline";
 import DayPicker from "../../dayPicker/DayPicker";
@@ -51,7 +51,7 @@ const StaticTimeLine = (props) => {
 
             let map = {
                 Bar: <IoBeer/>,
-                Restaurant: <IoFastFoodOutline/>,
+                Restaurant: <GiMeal/>,
                 Aquarium: <GiAquarium/>,
                 Cafe: <IoCafeOutline/>,
                 Beach: <FaUmbrellaBeach/>,
@@ -59,12 +59,15 @@ const StaticTimeLine = (props) => {
                 ArtGallery: <RiGalleryLine/>,
                 Hotel: <BiHotel/>,
                 Market: <FiShoppingCart/>,
-                Museum: <RiGalleryLine/>,
+                Museum: <GiMonaLisa/>,
                 NightClub: <GiMartini/>,
                 ShoppingMall: <GiShoppingCart/>,
                 TopSights: <GiBinoculars/>,
                 TouristAttraction: <FaMapMarkedAlt/>,
-                Zoo: <MdPets/>
+                Zoo: <MdPets/>,
+                AmusementPark:<RiMickeyLine/>,
+                Park:<TiTree/>,
+                Spa:<GiCandleLight/>
             };
 
             return map[type] !== undefined ? map[type] : <FaRegLaughBeam/>;

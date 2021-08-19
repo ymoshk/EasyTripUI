@@ -60,8 +60,8 @@ const StaticItinerary = (props) => {
                 We couldn't load the requested itinerary.
             </SweetAlert>}
             <div className={styles.grayBackground}>
-                {itinerary && <StaticTimeLine itinerary={itinerary}/>}
-                {/*{itinerary && <Checkout itinerary={itinerary}/>}*/}
+                {/*{itinerary && <StaticTimeLine itinerary={itinerary}/>}*/}
+                {itinerary && <Checkout itinerary={itinerary}/>}
 
             </div>
         </>
