@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import {Button, Card, Col, Row} from 'react-bootstrap';
 import StarRating from "../StarRating";
 import RecommendedIcon from "../RecommendedIcon";
+import styles from "./AttractionTimeline.module.css"
 
 
 const AttractionTimeline = (props) => {
@@ -17,7 +18,7 @@ const AttractionTimeline = (props) => {
     }
 
     return (
-        <Row>
+        <div>
             <Row>
                 <Col md={7}>
                     <Row>
@@ -70,7 +71,7 @@ const AttractionTimeline = (props) => {
                     </Fragment>}
                 </Col>
             </Row>
-        </Row>
+        </div>
     )
 }
 

@@ -168,7 +168,7 @@ const SaharTest = () => {
         // </ChangeHoursContext.Provider>
         // <CheckoutAttraction startTime={"12:00"} endTime={"13:00"} name={"Some name "} height={"40vh"}/>
         // <Checkout/>
-        <StaticItinerary itineraryId="b3897345-6bd8-4dbc-9382-ea2284951556"/>
+        <StaticItinerary itineraryId="a98936ed-5e18-4e1d-b5fc-fc85d690e6fa"/>
     )
 }
 

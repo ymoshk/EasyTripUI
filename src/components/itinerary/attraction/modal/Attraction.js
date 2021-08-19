@@ -11,8 +11,8 @@ const Attraction = (props) => {
 
     return (
         <Row style={{width: "100%"}}>
-            <Card className={styles.bd}>
-                <Card.Body>
+            {/*<Card className={styles.bd}>*/}
+                {/*<Card.Body>*/}
                     <Row>
                         <Col md={{span: 6, offset: 0}} xs={{span: 9, offset: 0}}>
                             <Card.Title>
@@ -79,8 +79,8 @@ const Attraction = (props) => {
                             </Row>
                         </Col>
                     </Row>
-                </Card.Body>
-            </Card>
+                {/*</Card.Body>*/}
+            {/*// </Card>*/}
         </Row>
     )
 }

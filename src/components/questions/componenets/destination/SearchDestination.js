@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import AutocompleteTextBox from "../../../utils/AutocompleteTextBox";
+import AutocompleteTextBox from "../../../utils/autoCompleteTextBox/AutocompleteTextBox";
 import useHttp from "../../../../hooks/UseHttp";
 import LoaderContext from "../../../utils/loader/LoaderContext";
 
