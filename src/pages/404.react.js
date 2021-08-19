@@ -2,8 +2,10 @@ import * as React from "react";
 
 import {Error404Page} from "tabler-react";
 
-function Error404() {
-    return <Error404Page/>;
+const Error404 = () => {
+    return <div style={{height: "100%"}}><Error404Page/>
+    </div>;
+
 }
 
 export default Error404;

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import 'react-vertical-timeline-component/style.min.css';
 import {VerticalTimeline, VerticalTimelineElement} from 'react-vertical-timeline-component';
-import {Caravan} from "tabler-icons-react";
 import {Col, Row} from "react-bootstrap";
 
 import {
@@ -26,7 +25,7 @@ import DayPicker from "../../dayPicker/DayPicker";
 
 // https://www.npmjs.com/package/react-vertical-timeline-component
 
-const StaticTimeline = (props) => {
+const TimelineView = (props) => {
 
         const itineraryDays = props.itinerary.itineraryDays;
         const [currentDay, setCurrentDay] = useState(itineraryDays[0]);
@@ -73,7 +72,9 @@ const StaticTimeline = (props) => {
 
         const mapAttraction = (activity, index) => {
             let innerComponent;
-            let icon = <Caravan color={'white'}/>;
+            let icon;
+
+            console.log(activity);
 
             if (activity.type === "ATTRACTION") {
                 innerComponent = <AttractionTimeline attraction={activity.attraction}/>
@@ -117,4 +118,4 @@ const StaticTimeline = (props) => {
     }
 ;
 
-export default StaticTimeline;
+export default TimelineView;

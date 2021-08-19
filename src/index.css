@@ -9,3 +9,11 @@ body {
   border-top: 3px solid #467fcf;
   /*border-top: 3px solid #2196f3;*/
 }
+
+/*body > #root > div {*/
+/*  height: 100vh;*/
+/*}*/
+
+.navbar{
+  box-shadow: 0 8px 8px -5px rgba(0,0,0,.3);
+}

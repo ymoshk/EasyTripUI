@@ -384,21 +384,23 @@ const itinerarySlice = createSlice({
         },
         moveAttraction(state, action) {
             updateMemory(state);
+
             const dayIndex = state.itinerary.currentDayIndex;
             const currentDay = state.itinerary.itineraryDays[dayIndex];
 
-            const res = moveAttractionHelper(state,
-                action.payload.index, action.payload.minutesCount);
+            if(currentDay.activities[action.payload.index].type === "ATTRACTION") {
 
+                const res = moveAttractionHelper(state,
+                    action.payload.index, action.payload.minutesCount);
 
-            if (res !== null) {
-                currentDay.activities = res;
-                validate(state);
-            } else {
-                state.error = true;
-                rollBack(state);
+                if (res !== null) {
+                    currentDay.activities = res;
+                    validate(state);
+                } else {
+                    state.error = true;
+                    rollBack(state);
+                }
             }
-
         },
         resetError(state, action) {
             state.error = false;

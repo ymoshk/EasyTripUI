@@ -1,7 +1,6 @@
 import * as React from "react";
 import {useState} from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {Error404} from "./pages";
 import HomePage from "./HomePage.react";
 import MapWrapper from "./components/utils/MapWrapper";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,6 +15,7 @@ import Questionnaire from "./components/questions/Questionnaire";
 import Favicon from "react-favicon";
 import icon from "./images/logo/favicon.ico"
 import LayoutRoute from "./layout/LayoutRoute";
+import Error404 from "./pages/404.react";
 
 
 function App() {
@@ -32,7 +32,8 @@ function App() {
                 }
             }>
             <LoaderComponent/>
-            <div style={{backgroundColor: "white"}} className={showLoader ? styles.fade : styles.regular}>
+            <div style={{height: "100%", backgroundColor: "white"}}
+                 className={showLoader ? styles.fade : styles.regular}>
                 <Favicon url={icon}/>
                 <React.StrictMode>
                     <BrowserRouter>

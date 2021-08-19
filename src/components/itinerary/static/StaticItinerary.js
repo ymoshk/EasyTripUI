@@ -2,10 +2,12 @@ import React, {useContext, useEffect, useState} from 'react';
 import useHttp from "../../../hooks/UseHttp";
 import LoaderContext from "../../utils/loader/LoaderContext";
 import SweetAlert from "react-bootstrap-sweetalert";
-import StaticTimeline from "./time.line/StaticTimeline";
+import TimelineView from "./time.line/TimelineView";
 import Checkout from "../../../Sahar Tests/Checkout";
 import ViewSelection from "./ViewSelection";
 import styles from "./StaticItinerary.module.css";
+import MapView from "./map.view/MapView";
+import ErrorSweetAlert from "../../utils/ErrorSweetAlert";
 
 const StaticItinerary = (props) => {
 
@@ -46,14 +48,15 @@ const StaticItinerary = (props) => {
     const getViewType = () => {
         switch (viewType) {
             case 0:
-                return <StaticTimeline itinerary={itinerary}/>;
+                return <TimelineView itinerary={itinerary}/>;
             case 1:
                 return <Checkout itinerary={itinerary}/>;
+            case 2:
+                return <MapView itinerary={itinerary}/>
             default:
-                return "";
+                return <ErrorSweetAlert/>
         }
     }
-
 
     return (
         <>

@@ -82,6 +82,7 @@ const AttractionContainer = (props) => {
     const getComponent = () => {
         if (props.attractionNode.type === "FREE_TIME") {
             return <FreeTime
+                transportation={true} // TODO
                 calcHeight={true}
                 calculatedStartTime={calculatedStartTime}
                 calculatedEndTime={calculatedEndTime}

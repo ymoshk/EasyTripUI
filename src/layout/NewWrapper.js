@@ -24,7 +24,7 @@ const SiteWrapperReact = (props) => {
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-            <div style={{marginTop: 20}}>
+            <div>
                 {props.children}
             </div>
             <Card.Footer>
