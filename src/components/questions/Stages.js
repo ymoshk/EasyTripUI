@@ -53,5 +53,5 @@ export const questionnaireComponents = [
     <PassengersCount stageIndex={2}/>,
     <Col md={{offset: 2, span: 8}}><PriceRange stageIndex={3}/></Col>,
     <TagsList key={"step4"} count={favoriteAttractionTags.length} stageIndex={4} imageTag={true}/>,
-    <TagsList key={"step5"} count={tripVibesTags.length} stageIndex={5} imageTag={false}/>
+    <TagsList key={"step5"} count={tripVibesTags.length} stageIndex={5} imageTag={true}/>
 ]
