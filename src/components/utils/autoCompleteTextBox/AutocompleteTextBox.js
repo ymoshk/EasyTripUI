@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Button, Col, FormControl, InputGroup, ListGroup, Row} from 'react-bootstrap';
+import {Alert, Button, Card, Col, FormControl, InputGroup, ListGroup, Row} from 'react-bootstrap';
 import "./AutocompleteTextBox.css";
 
 
@@ -62,7 +62,7 @@ const AutocompleteTextBox = (props) => {
         if (suggestions.length === 0) {
             return null;
         }
-        return (<div className="selection-area"><ListGroup>
+        return (<div style={{height: "30vh", overflowY: "scroll"}} className="selection-area"><ListGroup>
             {suggestions.map((value, index) => <ListGroup.Item
                 action
                 key={index}

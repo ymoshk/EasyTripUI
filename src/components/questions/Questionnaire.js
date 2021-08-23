@@ -8,13 +8,13 @@ import {questionnaireActions} from "../../store/questionnaire-slice";
 import SweetAlert from "react-bootstrap-sweetalert";
 import useHttp from "../../hooks/UseHttp";
 import {questionnaireComponents} from "./Stages";
-import {ITINERARY_ID_STORAGE} from "../itinerary/Constants";
+import {ITINERARY_ID_STORAGE, QUESTIONNAIRE_STORAGE} from "../itinerary/Constants";
 
 
 const Questionnaire = () => {
     const MANUAL_TOOL_TIP = "Move to the manual trip builder to complete planning your trip.";
     const AUTO_TOOL_TIP = "Let us build the trip for you, check the building progress via \"my trips\" page.";
-    const LOCAL_KEY = "QUESTIONNAIRE"
+    const LOCAL_KEY = QUESTIONNAIRE_STORAGE;
     const questionnaire = useSelector(state => state.questionnaireData.questionnaire);
     const stages = useSelector(state => state.questionnaireData.questionnaire.stages)
     const step = useSelector(state => state.questionnaireData.questionnaire.stage)
@@ -41,6 +41,7 @@ const Questionnaire = () => {
 
     const {isLoading, httpError, sendRequest: postData} = useHttp();
     const [showSendError, setShowSendError] = useState(false)
+
 
     useEffect(() => {
         if (httpError !== null && httpError !== undefined) {
