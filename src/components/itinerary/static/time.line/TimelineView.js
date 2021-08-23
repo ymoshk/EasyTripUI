@@ -17,7 +17,7 @@ import {
     IoBeer,
     IoCafeOutline,
     IoFastFoodOutline,
-    MdPets,
+    MdPets, MdSpa,
     RiGalleryLine, RiMickeyLine, TiTree
 } from "react-icons/all";
 import AttractionTimeline from "../../attraction/timeline/AttractionTimeline";
@@ -66,7 +66,7 @@ const TimelineView = (props) => {
                 Zoo: <MdPets/>,
                 AmusementPark:<RiMickeyLine/>,
                 Park:<TiTree/>,
-                Spa:<GiCandleLight/>
+                Spa:<MdSpa/>
             };
 
             return map[type] !== undefined ? map[type] : <FaRegLaughBeam/>;
