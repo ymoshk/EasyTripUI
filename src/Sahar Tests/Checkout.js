@@ -1,25 +1,27 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Card, Col, Row, Button, Form} from "react-bootstrap";
 import DailyDnd from "../components/itinerary/DailyDnd";
 import DailyCheckout from "./DailyCheckout";
-import {Car} from "tabler-icons-react";
+import {ArrowNarrowLeft, ArrowNarrowRight, Car} from "tabler-icons-react";
 import DayPicker from "../components/itinerary/dayPicker/DayPicker";
 import {itineraryActions} from "../store/itinerary-slice";
 import {useDispatch, useSelector} from "react-redux";
 import DaysPicker from "./DaysPicker";
 import {useReactToPrint} from "react-to-print";
+import {GrLinkNext} from "react-icons/all";
+import {offset} from "dom-helpers";
 
 const Checkout = (props) => {
 
-    const MAX_DAYS = 5;
+    const MAX_DAYS = 4;
     const itinerary = props.itinerary;
     const itineraryDays = props.itinerary.itineraryDays;
+    const daysCount = itineraryDays.length;
+    const sectionsNumber = itineraryDays.length % MAX_DAYS === 0 ?
+        parseInt(daysCount / MAX_DAYS, 10) : parseInt(daysCount / MAX_DAYS, 10) + 1;
 
     function splitItineraryDays() {
         let res = [];
-        const sectionsNumber = itineraryDays.length % MAX_DAYS === 0 ?
-            parseInt(daysCount / MAX_DAYS, 10) : parseInt(daysCount / MAX_DAYS, 10) + 1;
-
         let i;
 
         for (i = 0; i < sectionsNumber - 1; i++) {
@@ -28,32 +30,26 @@ const Checkout = (props) => {
 
         res.push(itineraryDays.slice(i * MAX_DAYS, itineraryDays.length));
 
-        console.log(res)
         return res;
     }
 
     const splittedItineraryDays = splitItineraryDays(itinerary);
-    const daysCount = itineraryDays.length;
 
+
+    const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
     const [currentSection, setCurrentSection] = useState(splittedItineraryDays[0]);
 
-    const formatDate = (dateObj) => {
-        return new Date(dateObj.year, dateObj.month - 1, dateObj.day);
-
-    }
-
-    const datesList = itineraryDays.map(day => formatDate(day.date));
-
-    let dayChangedHandler = (index) => {
-        setCurrentSection(splittedItineraryDays[index]);
-    };
+    useEffect(() => {
+            setCurrentSectionIndex(splittedItineraryDays.findIndex(section => section[0].date === currentSection[0].date))
+        }
+        , [currentSection])
 
     const myRef = useRef();
     const handlePrint = useReactToPrint({
         content: () => myRef.current,
     });
 
-    function getDateAsString(date){
+    function getDateAsString(date) {
         return date.day + "." + date.month + "." + date.year;
     }
 
@@ -79,33 +75,70 @@ const Checkout = (props) => {
     }
 
 
-    return (
-        <Card>
-            <Card.Header as={"h3"}>
-                Checkout
-            </Card.Header>
-            <Card.Body>
-                <Row>
-                    <Col/>
-                    <Col md={10}>
-                        <Form.Select aria-label="Default select example">
-                            <option disabled>Select Section</option>
-                            <option value="0">One</option>
-                            <option value="1">Two</option>
-                            <option value="2">Three</option>
-                        </Form.Select>
-                    </Col>
-                    <Col/>
-                </Row>
-                <Row ref={myRef} style={{marginTop: "20px"}}>
-                    {getContent()}
-                </Row>
-            </Card.Body>
-            <Card.Footer>
-                <Button onClick={handlePrint} variant={"primary"}>Export to PDF</Button>
-            </Card.Footer>
+    function nextBtnEventHandler() {
+        setCurrentSection(splittedItineraryDays[currentSectionIndex + 1]);
+    }
 
-        </Card>
+    function getNextBtn() {
+        let res = [];
+
+        if (currentSectionIndex !== (sectionsNumber - 1)) {
+            res.push(
+                <Button size={"lg"} onClick={nextBtnEventHandler}>
+                    <ArrowNarrowRight
+                        size={30}
+                        strokeWidth={1.5}
+                        color={'#FFFFFF'}
+                    />
+                </Button>);
+        }
+
+        return res;
+    }
+
+    function prevBtnEventHandler() {
+        setCurrentSection(splittedItineraryDays[currentSectionIndex - 1]);
+    }
+
+    function getPrevBtn() {
+        let res = [];
+
+        if (currentSectionIndex !== 0) {
+            res.push(
+                <Button size={"lg"} onClick={prevBtnEventHandler}>
+                    <ArrowNarrowLeft
+                        size={30}
+                        strokeWidth={1.5}
+                        color={'#FFFFFF'}
+                    />
+                </Button>);
+        }
+
+        return res;
+    }
+
+    return (
+        <div style={{padding:"10px"}}>
+            <Row>
+                <Col>
+                    {getPrevBtn()}
+                </Col>
+                <Col md={10}/>
+                <Col style={{textAlign:"right"}}>
+                    {getNextBtn()}
+                </Col>
+            </Row>
+            <Row ref={myRef} style={{marginTop: "20px"}}>
+                {getContent()}
+            </Row>
+            <Row>
+                <Col md={2}>
+                    <Button onClick={handlePrint} variant={"primary"}>Export to PDF</Button>
+                </Col>
+                <Col/>
+                <Col/>
+            </Row>
+        </div>
     );
 };
 

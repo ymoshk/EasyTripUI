@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Card, Col, Row, ToggleButton} from "react-bootstrap";
-import {Bike, Car, Walk} from "tabler-icons-react";
+import Button from "react-bootstrap/Button";
+import {Bike, Bus, Car, Walk} from "tabler-icons-react";
+import SingleTag from "../../../questions/tags/SingleTag";
 
 const Mobility = () => {
 
@@ -61,7 +63,7 @@ const Mobility = () => {
                                         value="2"
                                         onChange={(e) => onCheckedEventHandler(e, 1)}
                                     >
-                                        {<Bike
+                                        {<Bus
                                             strokeWidth={2}
                                             color={checkedStatus[1] ? isCheckedIconColor : grey}
                                         />}

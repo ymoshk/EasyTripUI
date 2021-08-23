@@ -2,31 +2,52 @@ import amusementPark from "../../images/stepsCard/tags/amusementPark.png";
 import aquarium from "../../images/stepsCard/tags/aquarium.png";
 import zoo from "../../images/stepsCard/tags/zoo.png";
 import artGallery from "../../images/stepsCard/tags/artGallery.png";
-import campground from "../../images/stepsCard/tags/campground.png";
+import market from "../../images/stepsCard/tags/markets.jpg";
 import casino from "../../images/stepsCard/tags/casino.png";
 import museum from "../../images/stepsCard/tags/museum.png";
 import nightlife from "../../images/stepsCard/tags/nightlife.png";
 import park from "../../images/stepsCard/tags/park.png";
 import shoppingMall from "../../images/stepsCard/tags/shoppingMall.png";
 import spa from "../../images/stepsCard/tags/spa.png";
+import beach from "../../images/stepsCard/tags/Beach.jpg"
+import chill from "../../images/stepsCard/tags/chill.gif"
+import fastPaced from "../../images/stepsCard/tags/fast paced.gif"
 
 export const tripVibesTags = [
     {
         id: 0,
         name: "Chill",
-        src: undefined,
+        src: chill,
         status: false
     },
     {
         id: 1,
-        name: "Tag2",
-        src: undefined,
+        name: "Moderate paced",
+        src: fastPaced,
         status: false
     },
     {
         id: 2,
-        name: "Tag3",
-        src: undefined,
+        name: "Fast paced",
+        src: chill,
+        status: false
+    },
+    {
+        id: 3,
+        name: "Street food",
+        src: chill,
+        status: false
+    },
+    {
+        id: 4,
+        name: "Moderate Restaurants",
+        src: fastPaced,
+        status: false
+    },
+    {
+        id: 5,
+        name: "Foody",
+        src: fastPaced,
         status: false
     }
 ]
@@ -58,8 +79,8 @@ export const favoriteAttractionTags = [
     },
     {
         id: 4,
-        name: "Camp Ground",
-        src: campground,
+        name: "Market",
+        src: market,
         status: false
     },
     {
@@ -100,8 +121,8 @@ export const favoriteAttractionTags = [
     },
     {
         id: 11,
-        name: "Test",
-        src: "https://www.pro-sky.com/images/en/news/news_header_webseite_-49-_342_big.jpg",
+        name: "beach",
+        src: beach,
         status: false
     }
 ]

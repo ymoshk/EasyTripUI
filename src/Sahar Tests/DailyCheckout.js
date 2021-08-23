@@ -35,23 +35,27 @@ const DailyCheckout = (props) => {
 
     const mapComponent = (attractionNode, index) => {
         let res;
-        console.log(attractionNode);
 
         if (attractionNode.type === "ATTRACTION") {
             res =
-                <div>
-                    <CheckoutAttraction
-                        // index={index}
-                        startTime={attractionNode.startTime}
-                        endTime={attractionNode.endTime}
-                        name={attractionNode.attraction.name}
-                        height={getHeight(attractionNode)}/>
+                <div key={index} style={{textAlign: "center"}}>
+                    <Row>
+                        <Col md={1}/>
+                        <Col>
+                            <CheckoutAttraction
+                                startTime={attractionNode.startTime}
+                                endTime={attractionNode.endTime}
+                                name={attractionNode.attraction.name}
+                                height={getHeight(attractionNode)}/>
+                        </Col>
+                        <Col md={1}/>
+                    </Row>
                 </div>
         } else if (attractionNode.type === "MOBILITY") {
             //TODO - handle mobility
         } else if (attractionNode.type === "FREE_TIME") {
             res =
-                <div>
+                <div key={index}>
                     <FreeTime
                         calcHeight={true}
                         calculatedStartTime={attractionNode.startTime}
