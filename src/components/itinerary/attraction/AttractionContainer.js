@@ -109,11 +109,13 @@ const AttractionContainer = (props) => {
                 calculatedStartTime={calculatedStartTime}
                 calculatedEndTime={calculatedEndTime}
                 height={getHeight()}
+                duration={extractTime()}
                 calcHeight={true}
                 index={props.index}
                 initType={props.attractionNode.type}
                 redBackground={redBackground}
                 resetDraggedId={props.resetDraggedId}
+                transDuration={props.attractionNode.transDuration}
             />
         }
     }

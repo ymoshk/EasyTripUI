@@ -1,91 +1,125 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Card, Col, Row, ToggleButton} from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import {Bike, Bus, Car, Walk} from "tabler-icons-react";
-import SingleTag from "../../../questions/tags/SingleTag";
+import {Bus, Car, Walk} from "tabler-icons-react";
+import styles from "../CompactAttraction.module.css";
+import ChangeHourContext from "../../ChangeHourContext";
+import {useDispatch} from "react-redux";
+import {itineraryActions} from "../../../../store/itinerary-slice";
 
-const Mobility = () => {
-
-    const [checkedStatus, setCheckedStatus] = useState([false, false, false]);
-    const title = "Mobility"
-    const subTitle = "How would you like to get there?";
+const Mobility = (props) => {
+    const initType = props.initType;
+    const itineraryContext = useContext(ChangeHourContext);
+    const [checkedStatus, setCheckedStatus] = useState(
+        [initType === "CAR", initType === "TRANSIT", initType === "WALK"]);
+    const dispatch = useDispatch();
+    const [type, setType] = useState(props.initType);
     const isCheckedIconColor = '#FFFFFF';
     const grey = '#656D77';
 
-    function onCheckedEventHandler(e, index) {
+    const onCheckedEventHandler = (e, index) => {
         let newCheckedStatus = [false, false, false];
         newCheckedStatus[index] = e.currentTarget.checked;
-
         setCheckedStatus(newCheckedStatus);
+
+        if (index === 0) {
+            setType("CAR");
+            dispatch(itineraryActions.changeTransportationMethod(createMethodObject("CAR")));
+        } else if (index === 1) {
+            setType("TRANSIT");
+            dispatch(itineraryActions.changeTransportationMethod(createMethodObject("TRANSIT")));
+        } else {
+            setType("WALK")
+            dispatch(itineraryActions.changeTransportationMethod(createMethodObject("WALK")));
+        }
     }
 
+    const createMethodObject = (method) => {
+        return {
+            index: props.index,
+            newMethod: method,
+            data: props.transDuration
+        }
+    }
 
     return (
-        <Card>
-            <Card.Body>
-                <Row>
-                    <Col md={{span: 1, offset: 0}} xs={{span: 3, offset: 0}}>
+        <Card className={props.redBackground ? styles.myCardError : styles.myCard} style={{height: props.height}}>
+            <Card.Body as={"div"} style={{paddingTop: 3, paddingBottom: 3}}
+                       onMouseDown={() => {
+                           itineraryContext.state = "DRAG"
+                       }}
+                       onMouseUp={() => {
+                           itineraryContext.state = "NONE"
+                       }}
+            >
+                <Row className={"d-flex align-items-center"} style={{height: "100%"}}>
+                    <Col md={{span: 4, offset: 2}} xs={{span: 3, offset: 0}}>
                         <Row>
-                            <h5>{"start time"}</h5>
-                        </Row>
-                        <Row>
-                            <h5>{"end time"}</h5>
+                            {props.duration * 60 <= 10 &&
+                            <h4>{props.transDuration[type]} minutes
+                                by {type.toLowerCase() === "transit" ? "public transport" : type.toLowerCase()}</h4>}
+                            {props.duration * 60 > 10 &&
+                            <h3>{props.transDuration[type]} minutes
+                                by {type.toLowerCase() === "transit" ? "public transport" : type.toLowerCase()}</h3>}
                         </Row>
                     </Col>
-                    <Col md={{span: 11, offset: 0}} xs={{span: 9, offset: 0}}>
-                        <Card.Title>
-                            <h3>{title}</h3>
-                        </Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted"><h4>{subTitle}</h4></Card.Subtitle>
-                        <Card.Text>
-                            {<Row>
-                                <Col>
-                                    <ToggleButton
-                                        id="toggle-check"
-                                        type="checkbox"
-                                        variant="secondary"
-                                        checked={checkedStatus[0]}
-                                        value="1"
-                                        onChange={(e) => onCheckedEventHandler(e, 0)}
-                                    >
-                                        {<Car
-                                            strokeWidth={2}
-                                            color={checkedStatus[0] ? isCheckedIconColor : grey}
-                                        />}
-                                    </ToggleButton>
-                                </Col>
-                                <Col>
-                                    <ToggleButton
-                                        id="toggle-check2"
-                                        type="checkbox"
-                                        variant="secondary"
-                                        checked={checkedStatus[1]}
-                                        value="2"
-                                        onChange={(e) => onCheckedEventHandler(e, 1)}
-                                    >
-                                        {<Bus
-                                            strokeWidth={2}
-                                            color={checkedStatus[1] ? isCheckedIconColor : grey}
-                                        />}
-                                    </ToggleButton>
-                                </Col>
-                                <Col>
-                                    <ToggleButton
-                                        id="toggle-check3"
-                                        type="checkbox"
-                                        variant="secondary"
-                                        checked={checkedStatus[2]}
-                                        value="3"
-                                        onChange={(e) => onCheckedEventHandler(e, 2)}
-                                    >
-                                        {<Walk
-                                            strokeWidth={2}
-                                            color={checkedStatus[2] ? isCheckedIconColor : grey}
-                                        />}
-                                    </ToggleButton>
-                                </Col>
-                            </Row>}
-                        </Card.Text>
+                    <Col md={{span: 4, offset: 0}} xs={{span: 9, offset: 0}}>
+                        <Row onMouseEnter={() => {
+                            itineraryContext.isOnButton = true;
+                        }} onMouseLeave={() => {
+                            itineraryContext.isOnButton = false;
+                        }}>
+                            <Col>
+                                <ToggleButton
+                                    id="toggle-check"
+                                    size={"sm"}
+                                    type="checkbox"
+                                    variant="secondary"
+                                    checked={checkedStatus[0]}
+                                    value="1"
+                                    onChange={(e) => onCheckedEventHandler(e, 0)}
+                                >
+                                    {<Car
+                                        size={props.duration * 60 <= 10 ? 20 : 30}
+                                        strokeWidth={2}
+                                        color={checkedStatus[0] ? isCheckedIconColor : grey}
+                                    />}
+                                </ToggleButton>
+                            </Col>
+                            <Col>
+                                <ToggleButton
+                                    id="toggle-check2"
+                                    size={"sm"}
+                                    type="checkbox"
+                                    variant="secondary"
+                                    checked={checkedStatus[1]}
+                                    value="2"
+                                    onChange={(e) => onCheckedEventHandler(e, 1)}
+                                >
+                                    {<Bus
+                                        size={props.duration * 60 <= 10 ? 20 : 30}
+                                        strokeWidth={2}
+                                        color={checkedStatus[1] ? isCheckedIconColor : grey}
+                                    />}
+                                </ToggleButton>
+                            </Col>
+                            <Col>
+                                <ToggleButton
+                                    id="toggle-check3"
+                                    size={"sm"}
+                                    type="checkbox"
+                                    variant="secondary"
+                                    checked={checkedStatus[2]}
+                                    value="3"
+                                    onChange={(e) => onCheckedEventHandler(e, 2)}
+                                >
+                                    {<Walk
+                                        size={props.duration * 60 <= 10 ? 20 : 30}
+                                        strokeWidth={2}
+                                        color={checkedStatus[2] ? isCheckedIconColor : grey}
+                                    />}
+                                </ToggleButton>
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
             </Card.Body>
