@@ -11,43 +11,47 @@ import shoppingMall from "../../images/stepsCard/tags/shoppingMall.png";
 import spa from "../../images/stepsCard/tags/spa.png";
 import beach from "../../images/stepsCard/tags/Beach.jpg"
 import chill from "../../images/stepsCard/tags/chill.gif"
-import fastPaced from "../../images/stepsCard/tags/fast paced.gif"
+import moderatePaced from "../../images/stepsCard/tags/moderate paced.gif"
+import fastPaced from "../../images/stepsCard/tags/chita.gif"
+import streetFood from "../../images/stepsCard/tags/street food.gif"
+import inexpensiveRestaurant from "../../images/stepsCard/tags/Inexpensive Restaurant.gif"
+import foody from "../../images/stepsCard/tags/foody.gif"
 
 export const tripVibesTags = [
-    {
-        id: 0,
-        name: "Chill",
-        src: chill,
-        status: false
-    },
-    {
-        id: 1,
-        name: "Moderate paced",
-        src: fastPaced,
-        status: false
-    },
-    {
-        id: 2,
-        name: "Fast paced",
-        src: chill,
-        status: false
-    },
+    // {
+    //     id: 0,
+    //     name: "Chill",
+    //     src: chill,
+    //     status: false
+    // },
+    // {
+    //     id: 1,
+    //     name: "Moderate paced",
+    //     src: moderatePaced,
+    //     status: false
+    // },
+    // {
+    //     id: 2,
+    //     name: "Fast paced",
+    //     src: fastPaced,
+    //     status: false
+    // },
     {
         id: 3,
-        name: "Street food",
-        src: chill,
+        name: "Street Food",
+        src: streetFood,
         status: false
     },
     {
         id: 4,
-        name: "Moderate Restaurants",
-        src: fastPaced,
+        name: "Inexpensive Restaurants",
+        src: inexpensiveRestaurant,
         status: false
     },
     {
         id: 5,
         name: "Foody",
-        src: fastPaced,
+        src: foody,
         status: false
     }
 ]
