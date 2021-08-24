@@ -2,9 +2,12 @@ import React, {useState} from 'react';
 import EiffelTour from "../images/EiffelTour.jpg";
 import louvre from "../images/louvre.jpg";
 import nortedame from "../images/nortedame.jpg";
+import Mobility from "../components/itinerary/attraction/special/Mobility";
 import StaticItinerary from "../components/itinerary/static/StaticItinerary";
+import SingleItinerary from "../pages/myItineraries/SingleItinerary";
 
 //TODO-Delete
+
 
 const SaharTest = () => {
     const tags = ["https://media.istockphoto.com/photos/dog-travel-by-car-picture-id1155030342?s=612x612",
@@ -135,6 +138,62 @@ const SaharTest = () => {
                 }]
     }
 
+    const questionsData = {
+        country: 'Israel',
+        city: 'Tel Aviv-Yafo',
+        adultsCount: 3,
+        childrenCount: 2,
+        priceRange: {
+            min: 'FREE',
+            max: 'EXPENSIVE'
+        },
+        startDate: {
+            date: {
+                year: 2021,
+                month: 9,
+                day: 5
+            },
+            time: {
+                hour: 8,
+                minute: 0,
+                second: 0,
+                nano: 0
+            }
+        },
+        endDate: {
+            date: {
+                year: 2021,
+                month: 9,
+                day: 14
+            },
+            time: {
+                hour: 23,
+                minute: 59,
+                second: 59,
+                nano: 0
+            }
+        },
+        favoriteAttractions: [
+            {
+                id: 1,
+                tagName: 'Aquarium',
+                imgSource: '/static/media/aquarium.41deeb1d.png'
+            },
+            {
+                id: 2,
+                tagName: 'Zoo',
+                imgSource: '/static/media/zoo.5d1688d8.png'
+            }
+        ],
+        tripVibes: [
+            {
+                id: 5,
+                tagName: 'Foody',
+                imgSource: '/static/media/foody.bbc2529f.gif'
+            }
+        ]
+    };
+
 
     function onDragEndEventHandler() {
         //TODO
@@ -168,7 +227,14 @@ const SaharTest = () => {
         // </ChangeHoursContext.Provider>
         // <CheckoutAttraction startTime={"12:00"} endTime={"13:00"} name={"Some name "} height={"40vh"}/>
         // <Checkout/>
-        <StaticItinerary itineraryId="a98936ed-5e18-4e1d-b5fc-fc85d690e6fa"/>
+        // <StaticItinerary itineraryId="a98936ed-5e18-4e1d-b5fc-fc85d690e6fa"/>
+        // <Mobility/>
+        <SingleItinerary
+            itiniraryId={"1234"}
+            index={1}
+            questionsData={questionsData}
+            status={"EDIT"}
+        />
     )
 }
 
