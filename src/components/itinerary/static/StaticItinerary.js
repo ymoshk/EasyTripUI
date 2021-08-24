@@ -3,11 +3,11 @@ import useHttp from "../../../hooks/UseHttp";
 import LoaderContext from "../../utils/loader/LoaderContext";
 import SweetAlert from "react-bootstrap-sweetalert";
 import TimelineView from "./time.line/TimelineView";
-import Checkout from "../../../Sahar Tests/Checkout";
 import ViewSelection from "./ViewSelection";
 import styles from "./StaticItinerary.module.css";
 import MapView from "./map.view/MapView";
 import ErrorSweetAlert from "../../utils/ErrorSweetAlert";
+import Checkout from "./checkout/Checkout";
 
 const StaticItinerary = (props) => {
 

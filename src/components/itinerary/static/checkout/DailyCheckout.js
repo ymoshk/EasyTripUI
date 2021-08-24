@@ -1,15 +1,10 @@
 import React, {useRef} from 'react';
-import AttractionContainer from "../components/itinerary/attraction/AttractionContainer";
 import {Card, Col, Row} from "react-bootstrap";
-import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {useSelector} from "react-redux";
-import DailyDnd from "../components/itinerary/DailyDnd";
-import HoursBar from "../components/itinerary/hoursBar/HoursBar";
-import CompactAttraction from "../components/itinerary/attraction/CompactAttraction";
-import ONE_HOUR_HEIGHT, {ONE_HOUR_HEIGHT_CHECKOUT} from "../components/itinerary/Constants";
+import HoursBar from "../../hoursBar/HoursBar";
+import {ONE_HOUR_HEIGHT_CHECKOUT} from "../../Constants";
+import FreeTime from "../../attraction/special/FreeTime";
 import CheckoutAttraction from "./CheckoutAttraction";
-import Attraction from "../components/itinerary/attraction/modal/Attraction";
-import FreeTime from "../components/itinerary/attraction/special/FreeTime";
 
 
 const DailyCheckout = (props) => {

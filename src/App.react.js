@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "tabler-react/dist/Tabler.css";
 import LoaderComponent from "./components/utils/loader/LoaderComponent";
 import LoaderContext from "./components/utils/loader/LoaderContext";
-import DailyCheckout from "./Sahar Tests/DailyCheckout";
 import SaharTest from "./Sahar Tests/SaharTest";
 import styles from "./App.module.css"
 import DailyPlanner from "./components/itinerary/DailyPlanner";
@@ -16,6 +15,7 @@ import Favicon from "react-favicon";
 import icon from "./images/logo/favicon.ico"
 import LayoutRoute from "./layout/LayoutRoute";
 import Error404 from "./pages/404.react";
+import DailyCheckout from "./components/itinerary/static/checkout/DailyCheckout";
 
 
 function App() {

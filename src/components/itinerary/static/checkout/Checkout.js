@@ -1,15 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Card, Col, Row, Button, Form} from "react-bootstrap";
-import DailyDnd from "../components/itinerary/DailyDnd";
-import DailyCheckout from "./DailyCheckout";
 import {ArrowNarrowLeft, ArrowNarrowRight, Car} from "tabler-icons-react";
-import DayPicker from "../components/itinerary/dayPicker/DayPicker";
-import {itineraryActions} from "../store/itinerary-slice";
-import {useDispatch, useSelector} from "react-redux";
-import DaysPicker from "./DaysPicker";
 import {useReactToPrint} from "react-to-print";
-import {GrLinkNext} from "react-icons/all";
-import {offset} from "dom-helpers";
+import DailyCheckout from "./DailyCheckout";
+
 
 const Checkout = (props) => {
 
