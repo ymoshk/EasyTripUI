@@ -8,11 +8,12 @@ import rome from "../../images/recomendedDestinations/Coloseum.jpg"
 import paris from "../../images/recomendedDestinations/Paris.jpg"
 import telAviv from "../../images/recomendedDestinations/Tel Aviv.jpg"
 import london from "../../images/recomendedDestinations/London.jpg"
-import {Car} from "tabler-icons-react";
+import {QUESTIONNAIRE_STORAGE} from "../../components/itinerary/Constants";
 
-const HomePageContainer = () => {
+const HomePage = () => {
 
     let onClickEventHandler = () => {
+        localStorage.removeItem(QUESTIONNAIRE_STORAGE);
         window.location = '/questionnaire'
     }
 
@@ -33,7 +34,7 @@ const HomePageContainer = () => {
                                     <Col></Col>
                                     <Col md={8} xs={12}>
                                         <div style={{textAlign: "center"}}>
-                                            <h1>Planning A Trip Has Never Been Easier</h1>
+                                            <h2>Planning A Trip Has Never Been Easier</h2>
                                             <Button onClick={onClickEventHandler} size={"lg"} color={"primary"}>Get
                                                 Started</Button>
                                         </div>
@@ -100,4 +101,4 @@ const HomePageContainer = () => {
     );
 };
 
-export default HomePageContainer;
+export default HomePage;

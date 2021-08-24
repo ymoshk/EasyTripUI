@@ -32,7 +32,33 @@ const hourStringToDate = (hour) => {
     return new Date("01-01-2030 " + hour + ":00");
 }
 
+const fixDuplicateFreeTime = (state) => {
+    const index = state.itinerary.currentDayIndex;
+    let dayAttractions = state.itinerary.itineraryDays[index].activities;
+
+    for (let i = 0; i < dayAttractions.length - 1; i++) {
+        if (dayAttractions[i].type === "FREE_TIME" && dayAttractions[i + 1].type === "FREE_TIME") {
+            const newFreeTime = {
+                ...dayAttractions[i],
+                startTime: dayAttractions[i].startTime,
+                endTime: dayAttractions[i + 1].endTime
+            }
+
+            const slice = dayAttractions.slice(0, i);
+            const sliceTwo = dayAttractions.slice(i + 2);
+            slice.push(newFreeTime);
+            slice.push(sliceTwo);
+
+            dayAttractions = slice;
+            i--;
+        }
+    }
+
+    state.itinerary.itineraryDays[index].activities = dayAttractions;
+}
+
 const validate = (state) => {
+    fixDuplicateFreeTime(state);
     const index = state.itinerary.currentDayIndex;
     const dayAttractions = state.itinerary.itineraryDays[index];
 
@@ -202,7 +228,7 @@ const moveAttractionHelper = (state, index, minutesToAdd) => {
 
         firstSlice.push(changedAttraction);
 
-        if (calcAttractionDuration(paddingAfter) >= minutesToAdd) {
+        if (secondSlice[0] !== undefined && calcAttractionDuration(paddingAfter) >= minutesToAdd) {
             minutes = 0;
             firstSlice.push({
                 type: "FREE_TIME",
@@ -296,6 +322,61 @@ const rollBack = (state) => {
     state.itinerary.itineraryDays[index].activities = list;
 }
 
+const fixDailyTransportation = (state, day) => {
+    const clone = [];
+
+    for (let i = 0; i < day.length; i++) {
+        if (i === 0) {
+            clone.push({
+                ...day[i],
+                transportation: false,
+                myIndex: 0,
+                uniqueKey: uuid()
+            })
+        } else if (i === day.length - 1) {
+            clone.push({
+                ...day[i],
+                transportation: false,
+                myIndex: i,
+                uniqueKey: uuid()
+            })
+        } else if (i > 0 && i < day.length - 1) {
+            if (day[i].type === "FREE_TIME") {
+                if (day[i - 1].type === "ATTRACTION" &&
+                    day[i + 1].type === "ATTRACTION") {
+                    clone.push({
+                        ...day[i],
+                        transportation: true,
+                        myIndex: i,
+                        srcLocation: getAttractionLocation(day[i - 1]),
+                        destLocation: getAttractionLocation(day[i + 1]),
+                        uniqueKey: uuid()
+                    });
+                } else {
+                    clone.push({
+                        ...day[i],
+                        transportation: false,
+                        myIndex: i,
+                        uniqueKey: uuid()
+                    });
+                }
+            } else {
+                clone.push({
+                    ...day[i]
+                })
+            }
+        }
+    }
+
+    return clone;
+}
+
+const getAttractionLocation = (data) => {
+    return {
+        lng: data.attraction.lng,
+        lat: data.attraction.lat,
+    }
+}
 
 const addAttractionHelper = (state, attraction, type, duration) => {
     const index = state.itinerary.currentDayIndex;
@@ -325,6 +406,111 @@ const addAttractionHelper = (state, attraction, type, duration) => {
         endTime: newEndTime,
         uniqueKey: uuid(),
     })
+
+    state.itinerary.itineraryDays[index].activities = fixDailyTransportation(state, currentDay.activities);
+}
+
+const addTransportationUtil = (state, index, data, method) => {
+    const currentDay = state.itinerary.currentDayIndex;
+    const activities = state.itinerary.itineraryDays[currentDay].activities;
+    const thisFreeTime = activities[index];
+    let thisFreeTimeDuration = calcAttractionDuration(thisFreeTime);
+    const driving = parseInt(data.CAR);
+    const walking = parseInt(data.WALK);
+    const transit = parseInt(data.TRANSIT);
+    let realDuration;
+
+    if (method === undefined) {
+        method = "CAR"
+    }
+
+    if (method === "CAR") {
+        realDuration = driving;
+    } else if (method === "TRANSIT") {
+        realDuration = transit;
+    } else {
+        realDuration = walking;
+    }
+
+    let fixedActivities = activities;
+
+    if (realDuration > thisFreeTimeDuration) {
+        const extraTime = realDuration - thisFreeTimeDuration;
+
+        fixedActivities = fixDailyTransportation(state,
+            changeComponentEndTime(state, index, extraTime));
+
+        thisFreeTimeDuration += extraTime;
+    }
+
+    const attBefore = fixedActivities[index - 1];
+    const attAfter = fixedActivities[index + 1];
+    const firstSlice = fixedActivities.slice(0, index);
+    const secondSlice = fixedActivities.slice(index + 1);
+
+    firstSlice.push({
+        attraction: null,
+        type: "FREE_TIME",
+        startTime: attBefore.endTime,
+        endTime: attBefore.endTime,
+        uniqueKey: uuid(),
+    })
+
+    const transEndTime = addMinutesToHour(attBefore.endTime, realDuration);
+    const transportationNode = {
+        attraction: null,
+        type: method,
+        startTime: attBefore.endTime,
+        endTime: transEndTime,
+        uniqueKey: uuid(),
+        transDuration: {
+            CAR: driving,
+            WALK: walking,
+            TRANSIT: transit,
+        }
+    }
+
+    firstSlice.push(transportationNode);
+    const diff = thisFreeTimeDuration - calcAttractionDuration(transportationNode);
+
+    const afterFreeStartTime = addMinutesToHour(attAfter.startTime, -diff);
+
+    firstSlice.push({
+        attraction: null,
+        type: "FREE_TIME",
+        startTime: afterFreeStartTime,
+        endTime: attAfter.startTime,
+        uniqueKey: uuid(),
+    })
+
+    state.itinerary.itineraryDays[currentDay].activities = firstSlice.concat(secondSlice);
+}
+
+const fixTransportationInLoadedItinerary = (state, itinerary) => {
+    for (let i = 0; i < itinerary.itineraryDays.length; i++) {
+        const day = itinerary.itineraryDays[i];
+        day.activities = fixDailyTransportation(state, day.activities);
+    }
+
+    return itinerary;
+}
+
+const changeTransportationMethodUtil = (index, data, method) => {
+
+}
+
+const removeTransportationUtil = (state, index, currentDay) => {
+    let slice = currentDay.slice(0, index - 1);
+    const freeTimeBefore = currentDay[index - 1];
+    const freeTimeAfter = currentDay[index + 1];
+
+    slice.push({
+        ...freeTimeBefore,
+        endTime: freeTimeAfter.endTime,
+        uniqueKey: uuid()
+    })
+
+    return slice.concat(currentDay.slice(index + 2));
 }
 
 const itinerarySlice = createSlice({
@@ -333,7 +519,7 @@ const itinerarySlice = createSlice({
     reducers: {
         set(state, action) {
             updateMemory(state);
-            state.itinerary = action.payload;
+            state.itinerary = fixTransportationInLoadedItinerary(state, action.payload);
         },
         updateDay(state, action) {
             updateMemory(state);
@@ -352,20 +538,21 @@ const itinerarySlice = createSlice({
             const arrayIndex = action.payload;
             const dayIndex = state.itinerary.currentDayIndex;
             const currentDay = state.itinerary.itineraryDays[dayIndex];
-            currentDay.activities = removeAttractionByIndex(currentDay.activities, arrayIndex);
+            currentDay.activities = fixDailyTransportation(state, removeAttractionByIndex(currentDay.activities, arrayIndex));
+
         },
         cleanDay(state, action) {
             updateMemory(state);
             const dayIndex = state.itinerary.currentDayIndex;
             const currentDay = state.itinerary.itineraryDays[dayIndex];
-            currentDay.activities = [initialFreeTime]
+            currentDay.activities = fixDailyTransportation(state, [initialFreeTime]);
             state.error = false;
         },
         startOver(state, action) {
             updateMemory(state, {});
             const id = state.itinerary.itineraryId;
             state.itinerary.itineraryDays.forEach(day => {
-                day.activities = [initialFreeTime]
+                day.activities = fixDailyTransportation(state, [initialFreeTime])
             })
             state.error = false;
             cleanItinerary(id);
@@ -375,8 +562,8 @@ const itinerarySlice = createSlice({
             const dayIndex = state.itinerary.currentDayIndex;
             const currentDay = state.itinerary.itineraryDays[dayIndex];
 
-            currentDay.activities = changeComponentEndTime(state,
-                action.payload.index, action.payload.minutesCount);
+            currentDay.activities = fixDailyTransportation(state, changeComponentEndTime(state,
+                action.payload.index, action.payload.minutesCount));
             validate(state);
         },
         setDurations(state, action) {
@@ -388,10 +575,10 @@ const itinerarySlice = createSlice({
             const dayIndex = state.itinerary.currentDayIndex;
             const currentDay = state.itinerary.itineraryDays[dayIndex];
 
-            if(currentDay.activities[action.payload.index].type === "ATTRACTION") {
+            if (currentDay.activities[action.payload.index].type === "ATTRACTION") {
 
-                const res = moveAttractionHelper(state,
-                    action.payload.index, action.payload.minutesCount);
+                const res = fixDailyTransportation(state, moveAttractionHelper(state,
+                    action.payload.index, action.payload.minutesCount));
 
                 if (res !== null) {
                     currentDay.activities = res;
@@ -404,6 +591,33 @@ const itinerarySlice = createSlice({
         },
         resetError(state, action) {
             state.error = false;
+        },
+        addTransportation(state, action) {
+            updateMemory(state);
+            const index = action.payload.index;
+            const data = action.payload.locationData;
+            addTransportationUtil(state, index, data);
+            validate(state);
+        },
+        changeTransportationMethod(state, action) {
+            updateMemory(state);
+            const index = action.payload.index;
+            const method = action.payload.newMethod;
+            const data = action.payload.data;
+            const dayIndex = state.itinerary.currentDayIndex;
+            const currentDay = state.itinerary.itineraryDays[dayIndex];
+
+            currentDay.activities = removeTransportationUtil(state, index, currentDay.activities);
+            addTransportationUtil(state, index, data, method);
+            validate(state);
+        },
+        removeTransportation(state, action) {
+            updateMemory(state);
+            const index = action.payload.index;
+            const dayIndex = state.itinerary.currentDayIndex;
+            const currentDay = state.itinerary.itineraryDays[dayIndex];
+            currentDay.activities = removeTransportationUtil(state, index, currentDay.activities);
+            validate(state);
         }
     }
 })

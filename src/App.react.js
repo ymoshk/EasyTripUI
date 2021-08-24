@@ -1,7 +1,6 @@
 import * as React from "react";
 import {useState} from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import HomePage from "./HomePage.react";
 import MapWrapper from "./components/utils/MapWrapper";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "tabler-react/dist/Tabler.css";
@@ -16,6 +15,7 @@ import icon from "./images/logo/favicon.ico"
 import LayoutRoute from "./layout/LayoutRoute";
 import Error404 from "./pages/404.react";
 import DailyCheckout from "./components/itinerary/static/checkout/DailyCheckout";
+import HomePage from "./pages/homePage/HomePage";
 
 
 function App() {
