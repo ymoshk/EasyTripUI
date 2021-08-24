@@ -54,7 +54,7 @@ const DailyDnd = () => {
         return (
             <Draggable key={"draggable_" + attractionNode.uniqueKey}
                        isDragDisabled={false}
-                       draggableId={index.toString()}
+                       draggableId={attractionNode.uniqueKey}
                        index={index}>
 
                 {(provided, snapshot) => (

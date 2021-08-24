@@ -52,6 +52,14 @@ const Mobility = (props) => {
                        }}
             >
                 <Row className={"d-flex align-items-center"} style={{height: "100%"}}>
+                    <Col md={2}>
+                        <Row>
+                            <h6>{props.calculatedStartTime}</h6>
+                        </Row>
+                        <Row>
+                            <h6>{props.calculatedEndTime}</h6>
+                        </Row>
+                    </Col>
                     <Col md={{span: 4, offset: 2}} xs={{span: 3, offset: 0}}>
                         <Row>
                             {props.duration * 60 <= 10 &&

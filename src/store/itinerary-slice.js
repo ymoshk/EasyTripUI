@@ -207,8 +207,8 @@ const moveAttractionHelper = (state, index, minutesToAdd) => {
     const originAttraction = state.itinerary.itineraryDays[dayIndex].activities[index];
     const paddingBefore = state.itinerary.itineraryDays[dayIndex].activities[index - 1];
     const paddingAfter = state.itinerary.itineraryDays[dayIndex].activities[index + 1];
-    const firstSlice = state.itinerary.itineraryDays[dayIndex].activities.slice(0, index - 1);
     const secondSlice = state.itinerary.itineraryDays[dayIndex].activities.slice(index + 2);
+    let firstSlice = state.itinerary.itineraryDays[dayIndex].activities.slice(0, index - 1);
     let minutes = minutesToAdd;
 
     const changedAttraction = {
@@ -217,6 +217,7 @@ const moveAttractionHelper = (state, index, minutesToAdd) => {
         endTime: addMinutesToHour(originAttraction.endTime, minutesToAdd),
         uniqueKey: uuid()
     }
+
 
     if (minutesToAdd >= 0) {
         firstSlice.push({
@@ -228,22 +229,29 @@ const moveAttractionHelper = (state, index, minutesToAdd) => {
 
         firstSlice.push(changedAttraction);
 
-        if (secondSlice[0] !== undefined && calcAttractionDuration(paddingAfter) >= minutesToAdd) {
+        if (secondSlice.length === 0) {
+            firstSlice.push({
+                type: "FREE_TIME",
+                startTime: changedAttraction.endTime,
+                endTime: changedAttraction.endTime,
+                uniqueKey: uuid()
+            })
+        } else if (calcAttractionDuration(paddingAfter) >= minutesToAdd) {
             minutes = 0;
             firstSlice.push({
                 type: "FREE_TIME",
-                startTime: firstSlice[firstSlice.length - 1].endTime,
+                startTime: changedAttraction.endTime,
                 endTime: secondSlice[0].startTime,
                 uniqueKey: uuid()
             })
         } else {
             firstSlice.push({
                 type: "FREE_TIME",
-                startTime: firstSlice[firstSlice.length - 1].endTime,
-                endTime: firstSlice[firstSlice.length - 1].endTime,
+                startTime: changedAttraction.endTime,
+                endTime: changedAttraction.endTime,
                 uniqueKey: uuid()
             })
-            minutes = minutesToAdd - calcAttractionDuration(paddingAfter);
+            minutes = Math.abs(minutesToAdd - calcAttractionDuration(paddingAfter));
         }
 
         secondSlice.forEach(node => firstSlice.push({
@@ -266,18 +274,26 @@ const moveAttractionHelper = (state, index, minutesToAdd) => {
 
             firstSlice.push({
                 ...paddingAfter,
-                endTime: secondSlice.length === 0 ? addMinutesToHour(paddingAfter.startTime, minutesToAdd) :
-                    paddingAfter.endTime,
-                startTime: addMinutesToHour(paddingAfter.startTime, minutesToAdd),
+                endTime: paddingAfter.endTime,
+                startTime: changedAttraction.endTime,
                 uniqueKey: uuid()
             })
 
-            secondSlice.forEach(node => firstSlice.push({
-                ...node,
-                uniqueKey: uuid(),
-                startTime: addMinutesToHour(node.startTime, minutes),
-                endTime: addMinutesToHour(node.endTime, minutes)
-            }))
+            firstSlice = firstSlice.concat(secondSlice);
+            // firstSlice.push({
+            //     ...paddingAfter,
+            //     endTime: secondSlice.length === 0 ? addMinutesToHour(paddingAfter.startTime, minutesToAdd) :
+            //         paddingAfter.endTime,
+            //     startTime: addMinutesToHour(paddingAfter.startTime, minutesToAdd),
+            //     uniqueKey: uuid()
+            // })
+
+            // secondSlice.forEach(node => firstSlice.push({
+            //     ...node,
+            //     uniqueKey: uuid(),
+            //     startTime: addMinutesToHour(node.startTime, minutes),
+            //     endTime: addMinutesToHour(node.endTime, minutes)
+            // }))
         } else {
             return null;
         }
@@ -368,7 +384,58 @@ const fixDailyTransportation = (state, day) => {
         }
     }
 
-    return clone;
+    return removeUnnecessaryTransportation(clone);
+}
+
+const removeUnnecessaryTransportation = (data) => {
+    let result = data;
+
+    const isTransportation = (attractions, index) => {
+        return attractions[index].type !== "FREE_TIME" && attractions[index].type !== "ATTRACTION"
+    }
+
+    if (result.length >= 3) {
+        if (result[0].type === "FREE_TIME" && isTransportation(result, 1) && result[2].type === "FREE_TIME") {
+            const clone = [];
+            clone.push({
+                ...initialFreeTime,
+                uniqueKey: uuid(),
+                endTime: result[2].endTime
+            })
+
+            result = clone.concat(result.slice(3))
+        }
+
+        const resLen = result.length;
+
+        if (result[resLen - 1].type === "FREE_TIME" &&
+            result[resLen - 3].type === "FREE_TIME" &&
+            isTransportation(result, resLen - 2)
+        ) {
+            const clone = result.slice(0, resLen - 3)
+
+            clone.push({
+                ...initialFreeTime,
+                uniqueKey: uuid(),
+                startTime: clone[clone.length - 1].endTime,
+                endTime: clone[clone.length - 1].endTime
+            })
+
+            result = clone;
+        }
+    }
+
+    for (let i = 0; i < result.length; i++) {
+        if (!isTransportation(result, i)) {
+            continue;
+        }
+
+        if (i === 0) {
+
+        }
+    }
+
+    return result;
 }
 
 const getAttractionLocation = (data) => {
@@ -495,9 +562,6 @@ const fixTransportationInLoadedItinerary = (state, itinerary) => {
     return itinerary;
 }
 
-const changeTransportationMethodUtil = (index, data, method) => {
-
-}
 
 const removeTransportationUtil = (state, index, currentDay) => {
     let slice = currentDay.slice(0, index - 1);
@@ -549,7 +613,7 @@ const itinerarySlice = createSlice({
             state.error = false;
         },
         startOver(state, action) {
-            updateMemory(state, {});
+            updateMemory(state, []);
             const id = state.itinerary.itineraryId;
             state.itinerary.itineraryDays.forEach(day => {
                 day.activities = fixDailyTransportation(state, [initialFreeTime])
@@ -574,14 +638,13 @@ const itinerarySlice = createSlice({
 
             const dayIndex = state.itinerary.currentDayIndex;
             const currentDay = state.itinerary.itineraryDays[dayIndex];
+            const type = currentDay.activities[action.payload.index].type
 
-            if (currentDay.activities[action.payload.index].type === "ATTRACTION") {
-
-                const res = fixDailyTransportation(state, moveAttractionHelper(state,
-                    action.payload.index, action.payload.minutesCount));
+            if (type !== "FREE_TIME") {
+                const res = moveAttractionHelper(state, action.payload.index, action.payload.minutesCount);
 
                 if (res !== null) {
-                    currentDay.activities = res;
+                    currentDay.activities = fixDailyTransportation(state, res);
                     validate(state);
                 } else {
                     state.error = true;
@@ -608,7 +671,7 @@ const itinerarySlice = createSlice({
             const currentDay = state.itinerary.itineraryDays[dayIndex];
 
             currentDay.activities = removeTransportationUtil(state, index, currentDay.activities);
-            addTransportationUtil(state, index, data, method);
+            addTransportationUtil(state, index - 1, data, method); // minus one because the previous transportation removed.
             validate(state);
         },
         removeTransportation(state, action) {
