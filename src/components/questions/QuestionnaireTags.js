@@ -26,32 +26,45 @@ export const tripVibesTags = [
     },
     {
         id: 1,
-        name: "Moderate paced",
-        src: moderatePaced,
-        status: false
-    },
-    {
-        id: 2,
         name: "Fast paced",
         src: fastPaced,
         status: false
     },
     {
-        id: 3,
+        id: 2,
         name: "Street Food",
         src: streetFood,
         status: false
     },
     {
+        id: 3,
+        name: "Foody",
+        src: foody,
+        status: false
+    },
+    {
         id: 4,
-        name: "Inexpensive Restaurants",
-        src: inexpensiveRestaurant,
+        name: "Night owl",
+        src: streetFood,
         status: false
     },
     {
         id: 5,
-        name: "Foody",
+        name: "Early bird",
         src: foody,
+        status: false
+    }
+]
+
+export const transportationTags = [
+    {
+        id: 0,
+        name: "Car",
+        status: false
+    },
+    {
+        id: 1,
+        name: "Transit",
         status: false
     }
 ]
@@ -77,8 +90,8 @@ export const favoriteAttractionTags = [
     },
     {
         id: 3,
-        name: "Art Gallery",
-        src: artGallery,
+        name: "Bar",
+        src: nightlife,
         status: false
     },
     {
@@ -95,13 +108,13 @@ export const favoriteAttractionTags = [
     },
     {
         id: 6,
-        name: "Museum",
+        name: "Art",
         src: museum,
         status: false
     },
     {
         id: 7,
-        name: "Night Life",
+        name: "Night club",
         src: nightlife,
         status: false
     },

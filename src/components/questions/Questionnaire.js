@@ -109,7 +109,14 @@ const Questionnaire = () => {
             endDate: endDateObject,
             adultsCount: stages[2].data.adultsCount.toString(),
             childrenCount: stages[2].data.childrenCount.toString(),
-            budget: stages[3].data.priceRange.toString(),
+            transportation: stages[3].data !== undefined ? JSON.stringify(stages[3].data
+                .filter(tag => tag.status === true)
+                .map(tag => (
+                    {
+                        id: tag.id.toString(),
+                        name: tag.name !== undefined ? tag.name : "",
+                        src: tag.src !== undefined ? tag.src : ""
+                    }))) : JSON.stringify([]),
             favoriteAttraction: stages[4].data !== undefined ? JSON.stringify(stages[4].data
                 .filter(tag => tag.status === true)
                 .map(tag => (
