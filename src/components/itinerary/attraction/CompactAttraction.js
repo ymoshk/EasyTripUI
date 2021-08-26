@@ -52,7 +52,14 @@ const CompactAttraction = (props) => {
     }
 
 
-    let priceLevel = '$'.repeat(props.attraction.priceLevel + 1);
+    let priceLevel;
+    const type = props.attraction.type;
+    if(type === "Restaurant" || type === "Bar" || type === "Cafe"){
+        priceLevel = '$'.repeat(props.attraction.priceLevel);
+    }
+    else{
+        priceLevel = '$'.repeat(props.attraction.priceLevel + 1);
+    }
 
     useEffect(() => {
         if (!isLoading && extractHeight(props.height) >= ONE_HOUR_HEIGHT * 1.5) {
@@ -145,9 +152,9 @@ const CompactAttraction = (props) => {
                                             style={{fontSize: 15, color: 'grey'}}>{props.attraction.userTotalRating}
                                     </span></h4>
                                     </Row>
-                                    <Row>
+                                    {priceLevel && <Row>
                                         <h4>Price Range <span style={{color: 'green'}}>{priceLevel}</span></h4>
-                                    </Row>
+                                    </Row>}
                                 </Col>
                             </Row>
                         </Col>

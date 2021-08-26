@@ -6,7 +6,14 @@ import StarRating from "../StarRating";
 
 
 const Attraction = (props) => {
-    let priceLevel = '$'.repeat(props.attraction.priceLevel + 1);
+    let priceLevel;
+    const type = props.attraction.type;
+    if(type === "Restaurant" || type === "Bar" || type === "Cafe"){
+        priceLevel = '$'.repeat(props.attraction.priceLevel);
+    }
+    else{
+        priceLevel = '$'.repeat(props.attraction.priceLevel + 1);
+    }
 
     return (
         <Row style={{width: "100%"}}>
@@ -28,8 +35,9 @@ const Attraction = (props) => {
                             <Col md={{span: 12, offset: 0}} xs={{span: 12, offset: 0}}>
                                 <Row><StarRating value={props.attraction.rating}/></Row>
                                 <Row><h4>Raters No. </h4></Row>
-                                <Row><span
-                                    style={{color: 'grey'}}><h5>{props.attraction.userTotalRating}</h5></span></Row>
+                                {priceLevel && <Row><span
+                                    style={{color: 'grey'}}><h5>{props.attraction.userTotalRating}</h5></span>
+                                </Row>}
                                 <Row><h4>Price Range </h4></Row>
                                 <Row><h5 style={{color: 'green'}}>{priceLevel}</h5></Row>
                                 <Row>

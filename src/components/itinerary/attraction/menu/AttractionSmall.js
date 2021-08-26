@@ -13,8 +13,14 @@ const AttractionSmall = (props) => {
     const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
 
-    let priceLevel = '$'.repeat(props.attraction.priceLevel + 1);
-
+    let priceLevel;
+    const type = props.attraction.type;
+    if(type === "Restaurant" || type === "Bar" || type === "Cafe"){
+        priceLevel = '$'.repeat(props.attraction.priceLevel);
+    }
+    else{
+        priceLevel = '$'.repeat(props.attraction.priceLevel + 1);
+    }
 
     const onAddHandler = () => {
 
@@ -84,8 +90,9 @@ const AttractionSmall = (props) => {
                                 <Row><h5>Raters No. - <span
                                     style={{color: 'grey'}}>{props.attraction.userTotalRating}</span>
                                 </h5></Row>
-                                <Row><h5>Price Range - <span style={{color: 'green'}}>{priceLevel}</span></h5>
-                                </Row>
+                                {priceLevel && <Row>
+                                    <h5>Price Range - <span style={{color: 'green'}}>{priceLevel}</span></h5>
+                                </Row>}
                                 <Row>{props.attraction.closedTemporarily &&
                                 <b style={{color: 'red'}}>Temporarily closed</b>}
                                     {!props.attraction.closedTemporarily &&
