@@ -4,7 +4,7 @@ import PassengersCount from "./componenets/PassengersCount";
 import {Col} from "react-bootstrap";
 import PriceRange from "./componenets/price_range/PriceRange";
 import TagsList from "./tags/TagsList";
-import {favoriteAttractionTags, tripVibesTags} from "./QuestionnaireTags";
+import {favoriteAttractionTags, transportationTags, tripVibesTags} from "./QuestionnaireTags";
 import React from "react";
 
 export const questionnaireStages = [
@@ -28,10 +28,10 @@ export const questionnaireStages = [
         data: {adultsCount: 1, childrenCount: 0},
     }, {
         key: 3,
-        header: "Budget Selection",
+        header: "Transportation",
         validatable: false,
         isValid: true,
-        data: {priceRange: 0}
+        data: transportationTags
     }, {
         key: 4,
         header: "Favorite attractions",
@@ -51,7 +51,8 @@ export const questionnaireComponents = [
     <PlaceSelection stageIndex={0}/>,
     <DateRangePicker stageIndex={1}/>,
     <PassengersCount stageIndex={2}/>,
-    <Col md={{offset: 2, span: 8}}><PriceRange stageIndex={3}/></Col>,
-    <TagsList key={"step4"} count={favoriteAttractionTags.length} stageIndex={4} imageTag={true}/>,
-    <TagsList key={"step5"} count={tripVibesTags.length} stageIndex={5} imageTag={true}/>
+    // <Col md={{offset: 2, span: 8}}><PriceRange stageIndex={3}/></Col>,
+    <TagsList key={"step3"} count={transportationTags.length} stageIndex={3} imageTag={false} numberPerRow={2}/>,
+    <TagsList key={"step4"} count={favoriteAttractionTags.length} stageIndex={4} imageTag={true} numberPerRow={4}/>,
+    <TagsList key={"step5"} count={tripVibesTags.length} stageIndex={5} imageTag={true} numberPerRow={2}/>
 ]
