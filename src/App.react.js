@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import MapWrapper from "./components/utils/MapWrapper";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,10 +16,23 @@ import LayoutRoute from "./layout/LayoutRoute";
 import Error404 from "./pages/404.react";
 import DailyCheckout from "./components/itinerary/static/checkout/DailyCheckout";
 import HomePage from "./pages/homePage/HomePage";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchLoggedInUser} from "./store/auth-actions";
+import Login from "./pages/auth/Login";
+import Registration from "./pages/auth/Registration";
+import Logout from "./pages/auth/Logout";
 
 
 function App() {
     const [showLoader, setShowLoader] = useState(false);
+    const dispatch = useDispatch();
+    const loggedInUserData = useSelector(state => state.authData.auth)
+
+    useEffect(() => {
+        if (loggedInUserData === undefined) {
+            dispatch(fetchLoggedInUser());
+        }
+    }, [loggedInUserData])
 
     return (
         <LoaderContext.Provider
@@ -45,6 +58,8 @@ function App() {
                             <LayoutRoute exact path="/loader" component={LoaderComponent}/>
                             <LayoutRoute exact path="/sahar" component={DailyCheckout}/>
                             <LayoutRoute exact path="/saharTest" component={SaharTest}/>
+                            <LayoutRoute exact path="/login" component={Login}/>
+                            <LayoutRoute exact path="/registration" component={Registration}/>
                             <Route exact path="/404" component={Error404}/>
                             <Route component={Error404}/>
                         </Switch>

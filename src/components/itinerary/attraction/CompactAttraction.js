@@ -46,6 +46,7 @@ const CompactAttraction = (props) => {
         getImagePost({
             url: process.env.REACT_APP_SERVER_URL + "/getAttractionImage",
             method: "POST",
+            credentials: 'include',
             body: data
         }, handlePhoto).then();
     }

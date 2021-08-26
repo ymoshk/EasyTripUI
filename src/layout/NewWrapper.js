@@ -5,12 +5,14 @@ import {Link} from "react-router-dom";
 import {House} from 'react-bootstrap-icons';
 
 import NavBarLink from "./NavBarLink";
+import {useSelector} from "react-redux";
+import UserData from "./UserData";
 
-const SiteWrapperReact = (props) => {
+const NewWrapper = (props) => {
 
     return (
         <div>
-            <Navbar bg="light" expand="lg">
+            <Navbar style={{paddingBottom: 0, paddingTop: 0}} bg="light" expand="lg">
                 <Navbar.Brand><Link to={'/'}><Image src={logo}/></Link></Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll"/>
                 <Navbar.Collapse id="navbarScroll">
@@ -22,6 +24,7 @@ const SiteWrapperReact = (props) => {
                         <NavBarLink icon={<House size={15}/>} text={"Home"} href="/"/>
                         <NavBarLink icon={<House size={15}/>} text={"Home"} href="/"/>
                     </Nav>
+                    <UserData/>
                 </Navbar.Collapse>
             </Navbar>
             <div>
@@ -36,19 +39,4 @@ const SiteWrapperReact = (props) => {
     );
 };
 
-export default SiteWrapperReact;
-
-//TODO delete if no needed
-
-{/*<NavDropdown title="Link" id="navbarScrollingDropdown">*/
-}
-{/*    <NavDropdown.Item><Link to={'/itinerary'}>Action</Link></NavDropdown.Item>*/
-}
-{/*    <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>*/
-}
-{/*    <NavDropdown.Divider/>*/
-}
-{/*    <NavDropdown.Item href="#action5">Something else here</NavDropdown.Item>*/
-}
-{/*</NavDropdown>*/
-}
+export default NewWrapper;

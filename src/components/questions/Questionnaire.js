@@ -83,6 +83,7 @@ const Questionnaire = () => {
         postData({
             url: process.env.REACT_APP_SERVER_URL + "/completeQuestions",
             method: "POST",
+            credentials: 'include',
             body: data
         }, setItinerary).then();
     }
@@ -135,6 +136,7 @@ const Questionnaire = () => {
         postData({
             url: process.env.REACT_APP_SERVER_URL + "/completeQuestionsAuto",
             method: "POST",
+            credentials: 'include',
             body: data
         }, setItinerary).then();
     }

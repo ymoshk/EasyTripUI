@@ -1,0 +1,7 @@
+.userMenuStyle a{
+    color: black;
+}
+
+.userMenuStyle a:focus{
+    color: black;
+}

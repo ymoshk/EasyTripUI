@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Button, Card, Image, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
-import plus from "../../../../images/icons/add.png"
+import plus from "../../../../images/icons/add-button.png"
 import {useDispatch} from "react-redux";
 import {itineraryActions} from "../../../../store/itinerary-slice";
 import useHttp from "../../../../hooks/UseHttp";
@@ -28,6 +28,7 @@ const FreeTime = (props) => {
             fetchTransportation({
                 url: process.env.REACT_APP_SERVER_URL + "/getTransportation",
                 method: "POST",
+                credentials: 'include',
                 body: data
             }, result => updateSlice(result)).then();
         } else {

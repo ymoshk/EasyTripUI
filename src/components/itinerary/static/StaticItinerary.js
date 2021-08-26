@@ -37,6 +37,7 @@ const StaticItinerary = (props) => {
     useEffect(() => {
         getItinerary({
                 url: url,
+                credentials: 'include',
                 method: "POST",
                 body: {id: props.itineraryId}
             },

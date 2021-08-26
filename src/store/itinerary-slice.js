@@ -554,9 +554,11 @@ const addTransportationUtil = (state, index, data, method) => {
 }
 
 const fixTransportationInLoadedItinerary = (state, itinerary) => {
-    for (let i = 0; i < itinerary.itineraryDays.length; i++) {
-        const day = itinerary.itineraryDays[i];
-        day.activities = fixDailyTransportation(state, day.activities);
+    if (itinerary.itineraryDays !== undefined) {
+        for (let i = 0; i < itinerary.itineraryDays.length; i++) {
+            const day = itinerary.itineraryDays[i];
+            day.activities = fixDailyTransportation(state, day.activities);
+        }
     }
 
     return itinerary;
