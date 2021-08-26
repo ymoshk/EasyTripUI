@@ -18,24 +18,24 @@ import inexpensiveRestaurant from "../../images/stepsCard/tags/Inexpensive Resta
 import foody from "../../images/stepsCard/tags/foody.gif"
 
 export const tripVibesTags = [
-    // {
-    //     id: 0,
-    //     name: "Chill",
-    //     src: chill,
-    //     status: false
-    // },
-    // {
-    //     id: 1,
-    //     name: "Moderate paced",
-    //     src: moderatePaced,
-    //     status: false
-    // },
-    // {
-    //     id: 2,
-    //     name: "Fast paced",
-    //     src: fastPaced,
-    //     status: false
-    // },
+    {
+        id: 0,
+        name: "Chill",
+        src: chill,
+        status: false
+    },
+    {
+        id: 1,
+        name: "Moderate paced",
+        src: moderatePaced,
+        status: false
+    },
+    {
+        id: 2,
+        name: "Fast paced",
+        src: fastPaced,
+        status: false
+    },
     {
         id: 3,
         name: "Street Food",

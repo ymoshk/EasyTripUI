@@ -11,7 +11,7 @@ const TagsList = (props) => {
         const buildCols = () => {
             const result = []
 
-            for (let i = 0; i < NUMBER_PER_ROW && i < props.count; i++) {
+            for (let i = 0; i < NUMBER_PER_ROW && (i + offset) < props.count; i++) {
                 result.push(<Col style={{marginBottom: 20}} key={uuid()} md={3} xs={props.imageTag ? 12 : 6}>
                     <SingleTag stageIndex={props.stageIndex} key={i + offset} id={i + offset}/>
                 </Col>)
@@ -30,7 +30,7 @@ const TagsList = (props) => {
     const renderRows = () => {
         const result = []
 
-        for (let i = 0; i < props.count; i += 4) {
+        for (let i = 0; i < props.count; i += NUMBER_PER_ROW) {
             result.push(renderRow(i));
         }
         return result;
