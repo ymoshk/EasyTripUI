@@ -5,6 +5,7 @@ import nortedame from "../images/nortedame.jpg";
 import Mobility from "../components/itinerary/attraction/special/Mobility";
 import StaticItinerary from "../components/itinerary/static/StaticItinerary";
 import SingleItinerary from "../pages/myItineraries/SingleItinerary";
+import MyItineraries from "../pages/myItineraries/MyItineraries";
 
 //TODO-Delete
 
@@ -229,12 +230,13 @@ const SaharTest = () => {
         // <Checkout/>
         // <StaticItinerary itineraryId="a98936ed-5e18-4e1d-b5fc-fc85d690e6fa"/>
         // <Mobility/>
-        <SingleItinerary
-            itiniraryId={"1234"}
-            index={1}
-            questionsData={questionsData}
-            status={"EDIT"}
-        />
+        <MyItineraries/>
+        // <SingleItinerary
+        //     itiniraryId={"1234"}
+        //     index={1}
+        //     questionsData={questionsData}
+        //     status={"EDIT"}
+        // />
     )
 }
 

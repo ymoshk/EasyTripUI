@@ -26,7 +26,6 @@ const SingleItinerary = (props) => {
     }
 
     const questionnaire = props.questionsData;
-    console.log(questionnaire);
     const country = questionnaire.country;
     const city = questionnaire.city;
     const adultsCount = questionnaire.adultsCount;
@@ -48,7 +47,7 @@ const SingleItinerary = (props) => {
 
     let getAttractionIcon = (type) => {
         // icons from https://react-icons.github.io/react-icons/search?q=zoo
-        type = type.replaceAll(' ', '');
+        const typeWithoutSpace = type.replaceAll(' ', '');
 
         let map = {
             Bar: <IoBeer/>,
@@ -71,7 +70,7 @@ const SingleItinerary = (props) => {
             Spa: <MdSpa/>
         };
 
-        if (map[type] === undefined) {
+        if (map[typeWithoutSpace] === undefined) {
             return undefined;
         } else {
             return (
@@ -82,7 +81,7 @@ const SingleItinerary = (props) => {
                     overlay={(props) => renderTooltip(props, type)}
                 >
                     <span>
-                        {map[type]}
+                        {map[typeWithoutSpace]}
                     </span>
                 </OverlayTrigger>
                 </span>
