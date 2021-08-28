@@ -21,6 +21,9 @@ import {fetchLoggedInUser} from "./store/auth-actions";
 import Login from "./pages/auth/Login";
 import Registration from "./pages/auth/Registration";
 import Logout from "./pages/auth/Logout";
+import Flight from "./components/flight/Flight";
+import Segment from "./components/flight/Segment";
+import FlightList from "./components/flight/FlightList";
 
 
 function App() {
@@ -60,6 +63,10 @@ function App() {
                             <LayoutRoute exact path="/saharTest" component={SaharTest}/>
                             <LayoutRoute exact path="/login" component={Login}/>
                             <LayoutRoute exact path="/registration" component={Registration}/>
+                            <LayoutRoute exact path="/map" component={MapWrapper}/>
+                            <LayoutRoute exact path="/flight" component={Flight}/>
+                            <LayoutRoute exact path="/segment" component={Segment}/>
+                            <LayoutRoute exact path="/flightList" component={FlightList}/>
                             <Route exact path="/404" component={Error404}/>
                             <Route component={Error404}/>
                         </Switch>
