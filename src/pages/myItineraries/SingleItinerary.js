@@ -14,6 +14,7 @@ import {
 } from "react-icons/all";
 import Tooltip from "react-bootstrap/Tooltip";
 import Button from "react-bootstrap/Button";
+import Constants from "../../components/itinerary/Constants";
 
 const SingleItinerary = (props) => {
 
@@ -104,11 +105,13 @@ const SingleItinerary = (props) => {
 
 
     function CheckoutBtnClickEventHandler(e) {
-        alert("Checkout Click INDEX: " + itineraryId)
+        localStorage.setItem(Constants.ITINERARY_ID_STORAGE, itineraryId);
+        window.location(Constants.STATIC_VIEW_URL);
     }
 
     function editBtnClickEventHandler(e) {
-        alert("Checkout Click INDEX: " + itineraryId)
+        localStorage.setItem(Constants.ITINERARY_ID_STORAGE, itineraryId);
+        window.location(Constants.DND_URL);
     }
 
     function getStatus() {
