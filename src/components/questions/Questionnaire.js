@@ -109,7 +109,7 @@ const Questionnaire = () => {
             endDate: endDateObject,
             adultsCount: stages[2].data.adultsCount.toString(),
             childrenCount: stages[2].data.childrenCount.toString(),
-            transportation: stages[3].data !== undefined ? JSON.stringify(stages[3].data
+            transportation: stages[4].data !== undefined ? JSON.stringify(stages[4].data
                 .filter(tag => tag.status === true)
                 .map(tag => (
                     {
@@ -117,7 +117,7 @@ const Questionnaire = () => {
                         name: tag.name !== undefined ? tag.name : "",
                         src: tag.src !== undefined ? tag.src : ""
                     }))) : JSON.stringify([]),
-            favoriteAttraction: stages[4].data !== undefined ? JSON.stringify(stages[4].data
+            favoriteAttraction: stages[5].data !== undefined ? JSON.stringify(stages[5].data
                 .filter(tag => tag.status === true)
                 .map(tag => (
                     {
@@ -125,7 +125,7 @@ const Questionnaire = () => {
                         name: tag.name !== undefined ? tag.name : "",
                         src: tag.src !== undefined ? tag.src : ""
                     }))) : JSON.stringify([]),
-            tripVibes: stages[5].data !== undefined ? JSON.stringify(stages[5].data
+            tripVibes: stages[6].data !== undefined ? JSON.stringify(stages[6].data
                 .filter(tag => tag.status === true)
                 .map(tag => (
                     {

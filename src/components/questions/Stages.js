@@ -6,6 +6,7 @@ import PriceRange from "./componenets/price_range/PriceRange";
 import TagsList from "./tags/TagsList";
 import {favoriteAttractionTags, transportationTags, tripVibesTags} from "./QuestionnaireTags";
 import React from "react";
+import FindFlight from "../flight/FindFlight";
 
 export const questionnaireStages = [
     {
@@ -28,18 +29,24 @@ export const questionnaireStages = [
         data: {adultsCount: 1, childrenCount: 0},
     }, {
         key: 3,
+        header: "Find flights - optional",
+        validatable: false,
+        isValid: true,
+        data: {}
+    }, {
+        key: 4,
         header: "Transportation",
         validatable: false,
         isValid: true,
         data: transportationTags
     }, {
-        key: 4,
+        key: 5,
         header: "Favorite attractions",
         validatable: false,
         isValid: true,
         data: favoriteAttractionTags
     }, {
-        key: 5,
+        key: 6,
         header: "Trip Vibes",
         validatable: false,
         isValid: true,
@@ -48,11 +55,11 @@ export const questionnaireStages = [
 ]
 
 export const questionnaireComponents = [
-    <PlaceSelection stageIndex={0}/>,
-    <DateRangePicker stageIndex={1}/>,
-    <PassengersCount stageIndex={2}/>,
-    // <Col md={{offset: 2, span: 8}}><PriceRange stageIndex={3}/></Col>,
-    <TagsList key={"step3"} count={transportationTags.length} stageIndex={3} imageTag={false} numberPerRow={2}/>,
-    <TagsList key={"step4"} count={favoriteAttractionTags.length} stageIndex={4} imageTag={true} numberPerRow={4}/>,
-    <TagsList key={"step5"} count={tripVibesTags.length} stageIndex={5} imageTag={true} numberPerRow={2}/>
+    <PlaceSelection key={"step0"} stageIndex={0}/>,
+    <DateRangePicker key={"step1"} stageIndex={1}/>,
+    <PassengersCount key={"step3"} stageIndex={2}/>,
+    <FindFlight key={"step4"} stageIndex={3}/>,
+    <TagsList key={"step5"} count={transportationTags.length} stageIndex={4} imageTag={true} numberPerRow={2}/>,
+    <TagsList key={"step6"} count={favoriteAttractionTags.length} stageIndex={5} imageTag={true} numberPerRow={4}/>,
+    <TagsList key={"step7"} count={tripVibesTags.length} stageIndex={6} imageTag={true} numberPerRow={2}/>
 ]

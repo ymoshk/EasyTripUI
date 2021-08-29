@@ -1,27 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Card, Col, Row} from "react-bootstrap";
 import Segment from "./Segment";
 import Button from "react-bootstrap/Button";
 import {AiOutlineArrowRight} from "react-icons/all";
-
-const DUMMY_SEGMENT = {
-    carrierCode: 'Iberia',
-    departureAirport: 'TLV',
-    arrivalAirport: 'MAD',
-    departureTime: '12:10 PM',
-    arrivalTime: '8:35 PM',
-    duration: '9h 25m',
-    stop: 1,
-    stopAirport: 'MXP'
-}
-
-const DUMMY_FLIGHT = {
-    outbound: DUMMY_SEGMENT,
-    return: DUMMY_SEGMENT,
-    price: '113$'
-}
+import {useDispatch} from "react-redux";
+import {questionnaireActions} from "../../store/questionnaire-slice";
 
 const Flight = (props) => {
+    const dispatch = useDispatch();
+    const [flightIsSelected, setFlightIsSelected] = useState(props.selected);
+
+    const onSelectFlightHandler = () => {
+        dispatch(questionnaireActions.setCurrentData({
+            flight: props.flight
+        }))
+        setFlightIsSelected(true);
+        props.setFlight(props.flight);
+    }
+
+    const onCancelFlightHandler = () => {
+        dispatch(questionnaireActions.setCurrentData({
+            flight: ""
+        }))
+        setFlightIsSelected(false);
+        props.removeFlight();
+    }
+
     return <Row>
         <Card>
             <Card.Body>
@@ -34,7 +38,12 @@ const Flight = (props) => {
                         </Col>
                         <Col md={{span: 3}} style={{marginTop: 70}}>
                             <h3>{props.flight.price}</h3>
-                            <Button style={{background: 'green'}}>Select<AiOutlineArrowRight style={{marginLeft: '5'}}/></Button>
+                            {!flightIsSelected && <Button onClick={onSelectFlightHandler} style={{background: 'green'}}>
+                                Select<AiOutlineArrowRight style={{marginLeft: '5'}}/>
+                            </Button>}
+                            {flightIsSelected && <Button onClick={onCancelFlightHandler} style={{background: 'red'}}>
+                                Cancel
+                            </Button>}
                         </Col>
                     </Row>
                 </Card.Text>

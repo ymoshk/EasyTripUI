@@ -17,6 +17,8 @@ import fastPaced from "../../images/stepsCard/tags/chita.gif"
 import streetFood from "../../images/stepsCard/tags/street food.gif"
 import inexpensiveRestaurant from "../../images/stepsCard/tags/Inexpensive Restaurant.gif"
 import foody from "../../images/stepsCard/tags/foody.gif"
+import car from "../../images/stepsCard/tags/car.gif"
+import bus from "../../images/stepsCard/tags/bus.gif"
 
 export const tripVibesTags = [
     {
@@ -61,11 +63,13 @@ export const transportationTags = [
     {
         id: 0,
         name: "Car",
+        src: car,
         status: false
     },
     {
         id: 1,
-        name: "Transit",
+        name: "Public transportation",
+        src: bus,
         status: false
     }
 ]
