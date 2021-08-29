@@ -20,7 +20,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchLoggedInUser} from "./store/auth-actions";
 import Login from "./pages/auth/Login";
 import Registration from "./pages/auth/Registration";
-import Logout from "./pages/auth/Logout";
+import Flight from "./components/flight/Flight";
+import Segment from "./components/flight/Segment";
+import FlightList from "./components/flight/FlightList";
 
 
 function App() {
