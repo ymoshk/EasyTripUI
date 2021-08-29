@@ -14,6 +14,7 @@ import {
 } from "react-icons/all";
 import Tooltip from "react-bootstrap/Tooltip";
 import Button from "react-bootstrap/Button";
+import Constants from "../../components/itinerary/Constants";
 
 const SingleItinerary = (props) => {
 
@@ -26,7 +27,6 @@ const SingleItinerary = (props) => {
     }
 
     const questionnaire = props.questionsData;
-    console.log(questionnaire);
     const country = questionnaire.country;
     const city = questionnaire.city;
     const adultsCount = questionnaire.adultsCount;
@@ -48,7 +48,7 @@ const SingleItinerary = (props) => {
 
     let getAttractionIcon = (type) => {
         // icons from https://react-icons.github.io/react-icons/search?q=zoo
-        type = type.replaceAll(' ', '');
+        const typeWithoutSpace = type.replaceAll(' ', '');
 
         let map = {
             Bar: <IoBeer/>,
@@ -71,7 +71,7 @@ const SingleItinerary = (props) => {
             Spa: <MdSpa/>
         };
 
-        if (map[type] === undefined) {
+        if (map[typeWithoutSpace] === undefined) {
             return undefined;
         } else {
             return (
@@ -82,7 +82,7 @@ const SingleItinerary = (props) => {
                     overlay={(props) => renderTooltip(props, type)}
                 >
                     <span>
-                        {map[type]}
+                        {map[typeWithoutSpace]}
                     </span>
                 </OverlayTrigger>
                 </span>
@@ -105,11 +105,13 @@ const SingleItinerary = (props) => {
 
 
     function CheckoutBtnClickEventHandler(e) {
-        alert("Checkout Click INDEX: " + itineraryId)
+        localStorage.setItem(Constants.ITINERARY_ID_STORAGE, itineraryId);
+        window.location(Constants.STATIC_VIEW_URL);
     }
 
     function editBtnClickEventHandler(e) {
-        alert("Checkout Click INDEX: " + itineraryId)
+        localStorage.setItem(Constants.ITINERARY_ID_STORAGE, itineraryId);
+        window.location(Constants.DND_URL);
     }
 
     function getStatus() {

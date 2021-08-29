@@ -20,6 +20,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchLoggedInUser} from "./store/auth-actions";
 import Login from "./pages/auth/Login";
 import Registration from "./pages/auth/Registration";
+import Logout from "./pages/auth/Logout";
 
 
 function App() {
@@ -58,8 +59,11 @@ function App() {
                             <LayoutRoute user={loggedInUserData} exact path="/saharTest" component={SaharTest}/>
                             <LayoutRoute user={loggedInUserData} exact path="/login" component={Login}/>
                             <LayoutRoute user={loggedInUserData} exact path="/registration" component={Registration}/>
+                            <LayoutRoute user={loggedInUserData} exact path="/map" component={MapWrapper}/>
+                            <LayoutRoute user={loggedInUserData} exact path="/flight" component={Flight}/>
+                            <LayoutRoute user={loggedInUserData} exact path="/segment" component={Segment}/>
+                            <LayoutRoute user={loggedInUserData} exact path="/flightList" component={FlightList}/>
                             <Route exact user={loggedInUserData} path="/404" component={Error404}/>
-                            <Route component={Error404}/>
                         </Switch>
                     </BrowserRouter>
                 </React.StrictMode>

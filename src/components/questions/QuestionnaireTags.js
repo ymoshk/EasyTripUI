@@ -6,6 +6,7 @@ import market from "../../images/stepsCard/tags/markets.jpg";
 import casino from "../../images/stepsCard/tags/casino.png";
 import museum from "../../images/stepsCard/tags/museum.png";
 import nightlife from "../../images/stepsCard/tags/nightlife.png";
+import bar from "../../images/stepsCard/tags/bar.jpg";
 import park from "../../images/stepsCard/tags/park.png";
 import shoppingMall from "../../images/stepsCard/tags/shoppingMall.png";
 import spa from "../../images/stepsCard/tags/spa.png";
@@ -91,7 +92,7 @@ export const favoriteAttractionTags = [
     {
         id: 3,
         name: "Bar",
-        src: nightlife,
+        src: bar,
         status: false
     },
     {

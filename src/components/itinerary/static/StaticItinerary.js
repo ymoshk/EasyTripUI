@@ -8,6 +8,7 @@ import styles from "./StaticItinerary.module.css";
 import MapView from "./map.view/MapView";
 import ErrorSweetAlert from "../../utils/ErrorSweetAlert";
 import Checkout from "./checkout/Checkout";
+import Constants from "../Constants";
 
 const StaticItinerary = (props) => {
 
@@ -39,7 +40,7 @@ const StaticItinerary = (props) => {
                 url: url,
                 credentials: 'include',
                 method: "POST",
-                body: {id: props.itineraryId}
+                body: {id: localStorage.getItem(Constants.ITINERARY_ID_STORAGE)}
             },
             (result) => {
                 setItinerary(result);
