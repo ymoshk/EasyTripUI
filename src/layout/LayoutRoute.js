@@ -4,7 +4,7 @@ import {Route} from "react-router-dom";
 
 const LayoutRoute = (props) => {
     return (
-        <NewWrapper>
+        <NewWrapper user={props.user}>
             <Route exact path={props.path} component={props.component}/>
         </NewWrapper>
     );

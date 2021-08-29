@@ -103,6 +103,8 @@ export const register = (userName, password, name) => {
 
             if (userData === undefined) {
                 updateDispatch(dispatch);
+            } else {
+                window.location = '/';
             }
         } catch (error) {
             updateDispatch(dispatch);
@@ -137,8 +139,6 @@ export const logout = () => {
 
             if (userData === undefined) {
                 updateDispatch(dispatch);
-            } else {
-                window.location = '/';
             }
         } catch (error) {
             updateDispatch(dispatch);

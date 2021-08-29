@@ -5,7 +5,6 @@ import {Link} from "react-router-dom";
 import {House} from 'react-bootstrap-icons';
 
 import NavBarLink from "./NavBarLink";
-import {useSelector} from "react-redux";
 import UserData from "./UserData";
 
 const NewWrapper = (props) => {
@@ -22,9 +21,8 @@ const NewWrapper = (props) => {
                         navbarScroll
                     >
                         <NavBarLink icon={<House size={15}/>} text={"Home"} href="/"/>
-                        <NavBarLink icon={<House size={15}/>} text={"Home"} href="/"/>
                     </Nav>
-                    <UserData/>
+                    <UserData user={props.user}/>
                 </Navbar.Collapse>
             </Navbar>
             <div>

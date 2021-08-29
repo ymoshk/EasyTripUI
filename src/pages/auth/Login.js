@@ -2,13 +2,12 @@ import * as React from "react";
 import {Formik} from "formik";
 import {LoginPage as TablerLoginPage} from "tabler-react";
 import AuthLayout from "./AuthLayout";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {login} from "../../store/auth-actions";
 
 
 const LoginPage = () => {
     const dispatch = useDispatch();
-    const error = useSelector(state => state.authData.error);
 
     return (
         <AuthLayout>

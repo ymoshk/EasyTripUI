@@ -20,7 +20,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchLoggedInUser} from "./store/auth-actions";
 import Login from "./pages/auth/Login";
 import Registration from "./pages/auth/Registration";
-import Logout from "./pages/auth/Logout";
 
 
 function App() {
@@ -51,16 +50,15 @@ function App() {
                 <React.StrictMode>
                     <BrowserRouter>
                         <Switch>
-                            <LayoutRoute exact path="/" component={HomePage}/>
-                            <LayoutRoute exact path="/questionnaire" component={Questionnaire}/>
-                            <LayoutRoute exact path="/itinerary" component={DailyPlanner}/>
-                            <LayoutRoute exact path="/map" component={MapWrapper}/>
-                            <LayoutRoute exact path="/loader" component={LoaderComponent}/>
-                            <LayoutRoute exact path="/sahar" component={DailyCheckout}/>
-                            <LayoutRoute exact path="/saharTest" component={SaharTest}/>
-                            <LayoutRoute exact path="/login" component={Login}/>
-                            <LayoutRoute exact path="/registration" component={Registration}/>
-                            <Route exact path="/404" component={Error404}/>
+                            <LayoutRoute user={loggedInUserData} exact path="/" component={HomePage}/>
+                            <LayoutRoute user={loggedInUserData} exact path="/questionnaire" component={Questionnaire}/>
+                            <LayoutRoute user={loggedInUserData} exact path="/itinerary" component={DailyPlanner}/>
+                            <LayoutRoute user={loggedInUserData} exact path="/map" component={MapWrapper}/>
+                            <LayoutRoute user={loggedInUserData} exact path="/sahar" component={DailyCheckout}/>
+                            <LayoutRoute user={loggedInUserData} exact path="/saharTest" component={SaharTest}/>
+                            <LayoutRoute user={loggedInUserData} exact path="/login" component={Login}/>
+                            <LayoutRoute user={loggedInUserData} exact path="/registration" component={Registration}/>
+                            <Route exact user={loggedInUserData} path="/404" component={Error404}/>
                             <Route component={Error404}/>
                         </Switch>
                     </BrowserRouter>

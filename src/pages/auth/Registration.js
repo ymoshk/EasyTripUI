@@ -42,12 +42,6 @@ const Registration = () => {
                 {setSubmitting, setErrors /* setValues and other goodies */}
             ) => {
                 dispatch(register(values.email, values.password, values.name))
-
-                if (!error) {
-                    window.location = '/';
-                } else {
-                    setErrors("Registration failed!")
-                }
             }}
             render={({
                          values,
