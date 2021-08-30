@@ -82,7 +82,7 @@ const FindFlight = (props) => {
             </ListGroup>
         </div>}
         {selectedFlight && <Flight flight={selectedFlight} setFlight={setFlightHandler} removeFlight={removeFlightHandler} selected={true}/>}
-        {!showFlights && !selectedFlight && <PlaceSelection stageIndex={props.stageIndex}/>}
+        {!showFlights && !selectedFlight && <PlaceSelection stageIndex={props.stageIndex} countryPlaceHolder={props.countryPlaceHolder} cityPlaceHolder={props.cityPlaceHolder}/>}
         {!showFlights && showButton && <Button onClick={onFindFlightsHandler}>Find flights</Button>}
     </Fragment>;
 }

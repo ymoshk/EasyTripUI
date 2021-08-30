@@ -27,16 +27,16 @@ const Flight = (props) => {
     }
 
     return <Row>
-        <Card>
+        <Card border="secondary">
             <Card.Body>
                 <Card.Text>
                     <Row>
-                        <Col md={{span: 9}}>
+                        <Col md={{span: 10}}>
                             <Segment segment={props.flight.Outbound}/>
                             <br/>
                             <Segment segment={props.flight.Return}/>
                         </Col>
-                        <Col md={{span: 3}} style={{marginTop: 70}}>
+                        <Col md={{span: 2}} style={{marginTop: 70}}>
                             <h3>{props.flight.price}</h3>
                             {!flightIsSelected && <Button onClick={onSelectFlightHandler} style={{background: 'green'}}>
                                 Select<AiOutlineArrowRight style={{marginLeft: '5'}}/>

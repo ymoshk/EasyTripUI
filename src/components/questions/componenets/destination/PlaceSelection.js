@@ -29,7 +29,7 @@ const PlaceSelection = (props) => {
         if (data.country !== null && data.country !== undefined) {
             return <div style={{marginTop: 20}}>
                 <SearchDestination url={process.env.REACT_APP_SERVER_URL + '/getCities?country=' + data.country}
-                                   placeHolder={"Which city would you like to visit?"}
+                                   placeHolder={props.cityPlaceHolder}
                                    ariaLabel={"Destination"}
                                    buttonText={"Select"}
                                    errorMessage={"You must select a destination city"}
@@ -91,7 +91,7 @@ const PlaceSelection = (props) => {
     return (
         <div>
             <SearchDestination url={process.env.REACT_APP_SERVER_URL + '/getCountryNames'}
-                               placeHolder={"Which country would you like to visit?"}
+                               placeHolder={props.countryPlaceHolder}
                                ariaLabel={"Destination"}
                                buttonText={"Select"}
                                errorMessage={"You must select a destination country"}

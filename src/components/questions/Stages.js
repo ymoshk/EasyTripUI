@@ -55,10 +55,12 @@ export const questionnaireStages = [
 ]
 
 export const questionnaireComponents = [
-    <PlaceSelection key={"step0"} stageIndex={0}/>,
+    <PlaceSelection key={"step0"} stageIndex={0}
+                    countryPlaceHolder={"Which country would you like to visit?"} cityPlaceHolder={"Which city would you like to visit?"}/>,
     <DateRangePicker key={"step1"} stageIndex={1}/>,
     <PassengersCount key={"step3"} stageIndex={2}/>,
-    <FindFlight key={"step4"} stageIndex={3}/>,
+    <FindFlight key={"step4"} stageIndex={3}
+                countryPlaceHolder={"Country origin"} cityPlaceHolder={"City origin"}/>,
     <TagsList key={"step5"} count={transportationTags.length} stageIndex={4} imageTag={true} numberPerRow={2}/>,
     <TagsList key={"step6"} count={favoriteAttractionTags.length} stageIndex={5} imageTag={true} numberPerRow={4}/>,
     <TagsList key={"step7"} count={tripVibesTags.length} stageIndex={6} imageTag={true} numberPerRow={2}/>
