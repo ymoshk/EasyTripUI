@@ -23,6 +23,7 @@ import Registration from "./pages/auth/Registration";
 import Logout from "./pages/auth/Logout";
 import Flight from "./components/flight/Flight";
 import Segment from "./components/flight/Segment";
+import StaticItinerary from "./components/itinerary/static/StaticItinerary";
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
                             <LayoutRoute exact path="/" component={HomePage}/>
                             <LayoutRoute exact path="/questionnaire" component={Questionnaire}/>
                             <LayoutRoute exact path="/itinerary" component={DailyPlanner}/>
+                            <LayoutRoute exact path="/staticView" component={StaticItinerary}/>
                             <LayoutRoute exact path="/map" component={MapWrapper}/>
                             <LayoutRoute exact path="/loader" component={LoaderComponent}/>
                             <LayoutRoute exact path="/sahar" component={DailyCheckout}/>
