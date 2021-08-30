@@ -8,7 +8,7 @@ import styles from "./StaticItinerary.module.css";
 import MapView from "./map.view/MapView";
 import ErrorSweetAlert from "../../utils/ErrorSweetAlert";
 import Checkout from "./checkout/Checkout";
-import Constants from "../Constants";
+import * as Constants from "../Constants";
 
 const StaticItinerary = (props) => {
 

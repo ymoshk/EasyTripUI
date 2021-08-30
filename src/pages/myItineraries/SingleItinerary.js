@@ -1,20 +1,31 @@
 import React from 'react';
 import {Card, Col, OverlayTrigger, Row} from "react-bootstrap";
-import {Car, RowInsertBottom} from "tabler-icons-react";
 import {
     BiHotel,
     FaChild,
     FaFemale,
-    FaMale, FaMapMarkedAlt, FaRegLaughBeam,
-    FaUmbrellaBeach, FiShoppingCart,
-    GiAquarium, GiBinoculars, GiMartini,
-    GiMeal, GiMonaLisa, GiPokerHand, GiShoppingCart,
+    FaMale,
+    FaMapMarkedAlt,
+    FaUmbrellaBeach,
+    FiShoppingCart,
+    GiAquarium,
+    GiBinoculars,
+    GiMartini,
+    GiMeal,
+    GiMonaLisa,
+    GiPokerHand,
+    GiShoppingCart,
     IoBeer,
-    IoCafeOutline, MdPets, MdSpa, RiGalleryLine, RiMickeyLine, TiTree
+    IoCafeOutline,
+    MdPets,
+    MdSpa,
+    RiGalleryLine,
+    RiMickeyLine,
+    TiTree
 } from "react-icons/all";
 import Tooltip from "react-bootstrap/Tooltip";
 import Button from "react-bootstrap/Button";
-import Constants from "../../components/itinerary/Constants";
+import * as Constants from "../../components/itinerary/Constants";
 
 const SingleItinerary = (props) => {
 
@@ -111,7 +122,7 @@ const SingleItinerary = (props) => {
 
     function editBtnClickEventHandler(e) {
         localStorage.setItem(Constants.ITINERARY_ID_STORAGE, itineraryId);
-        window.location =Constants.DND_URL;
+        window.location = Constants.DND_URL;
     }
 
     function getStatus() {
