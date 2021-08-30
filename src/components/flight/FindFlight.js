@@ -11,6 +11,7 @@ const FindFlight = (props) => {
     const [flights, setFlights] = useState([]);
     const [showFlights, setShowFlights] = useState(false);
     const [selectedFlight, setSelectedFlight] = useState("");
+    const [noAvailableFlights, setNoAvailableFlights] = useState(false);    // let assume the there are available flights
 
     const {isLoading, error, sendRequest: fetchFlights} = useHttp();
     const loader = useContext(LoaderContext);
@@ -55,8 +56,17 @@ const FindFlight = (props) => {
             numberOfPassengers: numOfPassengers.toString()};
 
         const transformFlights = (flightsObj) => {
-            setFlights(flightsObj);
-            setShowFlights(true);
+            console.log(flightsObj);
+
+            if(flightsObj.length === 0){
+                console.log("no flights");
+                setNoAvailableFlights(true);
+            }
+            else{
+                setFlights(flightsObj);
+                setNoAvailableFlights(false);
+                setShowFlights(true);
+            }
         }
 
         fetchFlights({
@@ -84,6 +94,7 @@ const FindFlight = (props) => {
         {selectedFlight && <Flight flight={selectedFlight} setFlight={setFlightHandler} removeFlight={removeFlightHandler} selected={true}/>}
         {!showFlights && !selectedFlight && <PlaceSelection stageIndex={props.stageIndex} countryPlaceHolder={props.countryPlaceHolder} cityPlaceHolder={props.cityPlaceHolder}/>}
         {!showFlights && showButton && <Button onClick={onFindFlightsHandler}>Find flights</Button>}
+        {noAvailableFlights && <p style={{color: 'red'}}>No available flights</p>}
     </Fragment>;
 }
 

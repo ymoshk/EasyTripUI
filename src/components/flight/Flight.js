@@ -38,10 +38,10 @@ const Flight = (props) => {
                         </Col>
                         <Col md={{span: 2}} style={{marginTop: 70}}>
                             <h3>{props.flight.price}</h3>
-                            {!flightIsSelected && <Button onClick={onSelectFlightHandler} style={{background: 'green'}}>
+                            {!flightIsSelected && <Button onClick={onSelectFlightHandler} variant="success">
                                 Select<AiOutlineArrowRight style={{marginLeft: '5'}}/>
                             </Button>}
-                            {flightIsSelected && <Button onClick={onCancelFlightHandler} style={{background: 'red'}}>
+                            {flightIsSelected && <Button onClick={onCancelFlightHandler} variant="danger">
                                 Cancel
                             </Button>}
                         </Col>
