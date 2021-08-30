@@ -87,17 +87,19 @@ export const fetchAttractionData = () => {
 }
 
 export const updateItineraryDay = (id, day, index) => {
-    fetch(urlUpdateItineraryDay,
-        {
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify({
-                id: id.toString(),
-                dayJson: JSON.stringify(day),
-                index: index.toString()
-            })
-        }
-    ).then()
+    if (id !== undefined && id !== "") {
+        fetch(urlUpdateItineraryDay,
+            {
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify({
+                    id: id.toString(),
+                    dayJson: JSON.stringify(day),
+                    index: index.toString()
+                })
+            }
+        ).then()
+    }
 }
 
 export const cleanItinerary = (id) => {
