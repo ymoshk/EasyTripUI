@@ -106,12 +106,12 @@ const SingleItinerary = (props) => {
 
     function CheckoutBtnClickEventHandler(e) {
         localStorage.setItem(Constants.ITINERARY_ID_STORAGE, itineraryId);
-        window.location(Constants.STATIC_VIEW_URL);
+        window.location = Constants.STATIC_VIEW_URL;
     }
 
     function editBtnClickEventHandler(e) {
         localStorage.setItem(Constants.ITINERARY_ID_STORAGE, itineraryId);
-        window.location(Constants.DND_URL);
+        window.location =Constants.DND_URL;
     }
 
     function getStatus() {
