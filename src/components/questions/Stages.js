@@ -63,5 +63,5 @@ export const questionnaireComponents = [
                 countryPlaceHolder={"Country origin"} cityPlaceHolder={"City origin"}/>,
     <TagsList key={"step5"} count={transportationTags.length} stageIndex={4} imageTag={true} numberPerRow={2}/>,
     <TagsList key={"step6"} count={favoriteAttractionTags.length} stageIndex={5} imageTag={true} numberPerRow={4}/>,
-    <TagsList key={"step7"} count={tripVibesTags.length} stageIndex={6} imageTag={true} numberPerRow={2}/>
+    <TagsList key={"step7"} count={tripVibesTags.length} stageIndex={6} imageTag={true} numberPerRow={3}/>
 ]

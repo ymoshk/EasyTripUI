@@ -1,7 +1,6 @@
 import amusementPark from "../../images/stepsCard/tags/amusementPark.png";
 import aquarium from "../../images/stepsCard/tags/aquarium.png";
 import zoo from "../../images/stepsCard/tags/zoo.png";
-import artGallery from "../../images/stepsCard/tags/artGallery.png";
 import market from "../../images/stepsCard/tags/markets.jpg";
 import casino from "../../images/stepsCard/tags/casino.png";
 import museum from "../../images/stepsCard/tags/museum.png";
@@ -19,6 +18,9 @@ import inexpensiveRestaurant from "../../images/stepsCard/tags/Inexpensive Resta
 import foody from "../../images/stepsCard/tags/foody.gif"
 import car from "../../images/stepsCard/tags/car.gif"
 import bus from "../../images/stepsCard/tags/bus.gif"
+import earlyBird from "../../images/stepsCard/tags/early bird.gif"
+import birdAndOwl from "../../images/stepsCard/tags/bird&owl.jpg"
+import nightOwl from "../../images/stepsCard/tags/night owl.gif"
 
 export const tripVibesTags = [
     {
@@ -29,34 +31,53 @@ export const tripVibesTags = [
     },
     {
         id: 1,
+        name: "Moderate paced",
+        src: moderatePaced,
+        status: false
+    },
+    {
+        id: 2,
         name: "Fast paced",
         src: fastPaced,
         status: false
     },
     {
-        id: 2,
+        id: 3,
         name: "Street Food",
         src: streetFood,
         status: false
     },
     {
-        id: 3,
+        id: 4,
+        name: "Inexpensive restaurant",
+        src: inexpensiveRestaurant,
+        status: false
+    },
+    {
+        id: 5,
         name: "Foody",
         src: foody,
         status: false
     },
     {
-        id: 4,
-        name: "Night owl",
-        src: streetFood,
+        id: 6,
+        name: "Early bird",
+        src: earlyBird,
         status: false
     },
     {
-        id: 5,
-        name: "Early bird",
-        src: foody,
+        id: 7,
+        name: "In between",
+        src: birdAndOwl,
+        status: false
+    },
+    {
+        id: 8,
+        name: "Night owl",
+        src: nightOwl,
         status: false
     }
+
 ]
 
 export const transportationTags = [
