@@ -64,9 +64,9 @@ const TimelineView = (props) => {
                 TopSights: <GiBinoculars/>,
                 TouristAttraction: <FaMapMarkedAlt/>,
                 Zoo: <MdPets/>,
-                AmusementPark:<RiMickeyLine/>,
-                Park:<TiTree/>,
-                Spa:<MdSpa/>
+                AmusementPark: <RiMickeyLine/>,
+                Park: <TiTree/>,
+                Spa: <MdSpa/>
             };
 
             return map[type] !== undefined ? map[type] : <FaRegLaughBeam/>;
@@ -76,8 +76,6 @@ const TimelineView = (props) => {
         const mapAttraction = (activity, index) => {
             let innerComponent;
             let icon;
-
-            console.log(activity);
 
             if (activity.type === "ATTRACTION") {
                 innerComponent = <AttractionTimeline attraction={activity.attraction}/>
