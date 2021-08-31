@@ -9,6 +9,7 @@ import MapView from "./map.view/MapView";
 import ErrorSweetAlert from "../../utils/ErrorSweetAlert";
 import Checkout from "./checkout/Checkout";
 import * as Constants from "../Constants";
+import {Container, Row} from "react-bootstrap";
 
 const StaticItinerary = (props) => {
 
@@ -62,24 +63,30 @@ const StaticItinerary = (props) => {
 
     return (
         <>
-            {showErrorAlert && <SweetAlert
-                danger
-                onConfirm={() => {
-                    setShowErrorAlert(false);
-                    window.location = '/'
-                }}
-                onCancel={() => {
-                    setShowErrorAlert(false);
-                    window.location = '/'
-                }}
-                timeout={3000}
-                title={"Error!"}>
-                We couldn't load the requested itinerary.
-            </SweetAlert>}
-            <ViewSelection onChangeViewHandlder={setViewType}/>
-            <div className={styles.grayBackground}>
-                {itinerary && getViewType()}
-            </div>
+            <Container fluid style={{
+                height: "100vh"
+            }}>
+                {showErrorAlert && <SweetAlert
+                    danger
+                    onConfirm={() => {
+                        setShowErrorAlert(false);
+                        window.location = '/'
+                    }}
+                    onCancel={() => {
+                        setShowErrorAlert(false);
+                        window.location = '/'
+                    }}
+                    timeout={3000}
+                    title={"Error!"}>
+                    We couldn't load the requested itinerary.
+                </SweetAlert>}
+                <Row>
+                    <ViewSelection onChangeViewHandlder={setViewType}/>
+                </Row>
+                <div className={styles.grayBackground}>
+                    {itinerary && getViewType()}
+                </div>
+            </Container>
         </>
     );
 }
