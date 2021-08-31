@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Col, NavDropdown, Row} from "react-bootstrap";
 import styles from "./UserData.module.css"
 import {logout} from "../store/auth-actions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import SweetAlert from "react-bootstrap-sweetalert";
+import {authActions} from "../store/auth-slice";
+import LoaderContext from "../components/utils/loader/LoaderContext";
 
 const UserData = (props) => {
-    // const loggedInUserData = useSelector(state => state.authData.auth);
+    const logoutCompleted = useSelector(state => state.authData.logoutCompleted);
+    const loader = useSelector(state => state.authData.loader);
     const dispatch = useDispatch();
+    const loaderContext = useContext(LoaderContext)
 
     const getUserName = () => {
         if (props.user !== undefined && props.user.user !== undefined) {
@@ -17,6 +22,10 @@ const UserData = (props) => {
     const redirect = (path) => {
         window.location = path;
     }
+
+    useEffect(() => {
+        loaderContext.setShow(loader);
+    }, [loader])
 
     const getNameAndAvatar = () => {
         return (
@@ -55,17 +64,31 @@ const UserData = (props) => {
     }
 
     return (
-        <div style={{color: "black", paddingRight: 40}}>
-            <NavDropdown
-                id="nav-dropdown-dark-example"
-                title={getNameAndAvatar()}
-                menuVariant="secondary"
-                variant="secondary"
-                className={styles.userMenuStyle}
-            >
-                {getMenu()}
-            </NavDropdown>
-        </div>
+        <>
+            {logoutCompleted && <SweetAlert
+                success
+                onConfirm={() => {
+                    dispatch(authActions.setLogoutCompleted(false));
+                }}
+                onCancel={() => {
+                    dispatch(authActions.setLogoutCompleted(false));
+                }}
+                timeout={3000}
+                title={"Success!"}>
+                Logout succeed.
+            </SweetAlert>}
+            <div style={{color: "black", paddingRight: 40}}>
+                <NavDropdown
+                    id="nav-dropdown-dark-example"
+                    title={getNameAndAvatar()}
+                    menuVariant="secondary"
+                    variant="secondary"
+                    className={styles.userMenuStyle}
+                >
+                    {getMenu()}
+                </NavDropdown>
+            </div>
+        </>
     )
 };
 

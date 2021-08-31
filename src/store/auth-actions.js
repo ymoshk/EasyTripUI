@@ -56,6 +56,7 @@ export const login = (userName, password) => {
             return await response.json();
         }
         try {
+            dispatch(authActions.setLoader(true));
             const userData = await sendData();
             dispatch(authActions.set(userData));
 
@@ -66,6 +67,8 @@ export const login = (userName, password) => {
             }
         } catch (error) {
             updateDispatch(dispatch);
+        } finally {
+            dispatch(authActions.setLoader(false));
         }
     }
 }
@@ -98,6 +101,7 @@ export const register = (userName, password, name) => {
             return await response.json();
         }
         try {
+            dispatch(authActions.setLoader(true));
             const userData = await sendData();
             dispatch(authActions.set(userData));
 
@@ -108,6 +112,8 @@ export const register = (userName, password, name) => {
             }
         } catch (error) {
             updateDispatch(dispatch);
+        } finally {
+            dispatch(authActions.setLoader(false));
         }
     }
 }
@@ -134,6 +140,8 @@ export const logout = () => {
             return await response.json();
         }
         try {
+            dispatch(authActions.setLoader(true));
+            dispatch(authActions.setLogoutCompleted(false));
             const userData = await sendData();
             dispatch(authActions.set(userData));
 
@@ -142,6 +150,9 @@ export const logout = () => {
             }
         } catch (error) {
             updateDispatch(dispatch);
+        } finally {
+            dispatch(authActions.setLogoutCompleted(true));
+            dispatch(authActions.setLoader(false));
         }
     }
 }

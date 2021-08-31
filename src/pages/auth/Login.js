@@ -1,13 +1,16 @@
 import * as React from "react";
+import {useContext} from "react";
 import {Formik} from "formik";
 import {LoginPage as TablerLoginPage} from "tabler-react";
 import AuthLayout from "./AuthLayout";
 import {useDispatch} from "react-redux";
 import {login} from "../../store/auth-actions";
+import LoaderContext from "../../components/utils/loader/LoaderContext";
 
 
 const LoginPage = () => {
     const dispatch = useDispatch();
+    const loading = useContext(LoaderContext)
 
     return (
         <AuthLayout>

@@ -134,7 +134,7 @@ const SingleItinerary = (props) => {
         } else if (status === "COMPLETED") {
             res = <span style={{fontWeight: 'bold', color: '#49ee02'}}>Completed</span>
         } else if (status === "AUTO_MODE") {
-            res = <span style={{fontWeight: 'bold', color: '#ee021e'}}>In process</span>
+            res = <span style={{fontWeight: 'bold', color: '#ee021e'}}>Processing</span>
         }
 
         return res;

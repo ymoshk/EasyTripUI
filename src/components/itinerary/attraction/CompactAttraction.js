@@ -28,9 +28,8 @@ const CompactAttraction = (props) => {
 
     useEffect(() => {
         if (showDurationModal) {
-            context.isOnButton = true;
-        } else {
-            context.isOnButton = false;
+            props.resetDraggedId(props.index);
+            context.isDurationModalOn = true;
         }
     }, [showDurationModal])
 
@@ -54,10 +53,9 @@ const CompactAttraction = (props) => {
 
     let priceLevel;
     const type = props.attraction.type;
-    if(type === "Restaurant" || type === "Bar" || type === "Cafe"){
+    if (type === "Restaurant" || type === "Bar" || type === "Cafe") {
         priceLevel = '$'.repeat(props.attraction.priceLevel);
-    }
-    else{
+    } else {
         priceLevel = '$'.repeat(props.attraction.priceLevel + 1);
     }
 
@@ -92,6 +90,7 @@ const CompactAttraction = (props) => {
 
     const onChangeDurationHandler = (change) => {
         props.updateDuration(change);
+        context.isDurationModalOn = false;
     }
 
     return (

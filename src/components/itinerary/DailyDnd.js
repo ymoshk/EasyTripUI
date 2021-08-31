@@ -35,6 +35,10 @@ const DailyDnd = () => {
                     minutesCount: change
                 }
             ));
+
+            setDraggedId(null);
+            setDraggedStartPos(null);
+            setMinutesToAdd(null);
         }
     }
 
@@ -78,7 +82,7 @@ const DailyDnd = () => {
 
 
     const onDragEndEventHandler = () => {
-        if (!helpersContext.isOnButton) {
+        if (!helpersContext.isOnButton && !helpersContext.isDurationModalOn) {
             if (draggedId !== undefined && draggedId !== null && minutesToAdd !== undefined) {
                 dispatch(itineraryActions.moveAttraction(
                     {
@@ -86,12 +90,12 @@ const DailyDnd = () => {
                         minutesCount: minutesToAdd
                     }
                 ));
+
+                setDraggedId(null);
+                setDraggedStartPos(null);
+                setMinutesToAdd(null);
             }
         }
-
-        setDraggedId(null);
-        setDraggedStartPos(null);
-        setMinutesToAdd(null);
     }
 
     const updateMousePosition = (e) => {

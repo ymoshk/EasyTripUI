@@ -19,7 +19,7 @@ const TagsList = (props) => {
         }
 
         return (
-            <Row key={uuid()}>
+            <Row className={styles.center} key={uuid()}>
                 {buildCols()}
             </Row>
         )

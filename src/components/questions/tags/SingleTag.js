@@ -1,4 +1,3 @@
-
 import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './SingleTag.module.css'
@@ -31,7 +30,7 @@ const SingleTag = (props) => {
     const getContent = () => {
         let result = "";
         if (myself.src !== undefined && myself.src !== "") {
-            result = <img className={styles.img} src={myself.src} alt={"None"}/>
+            result = <img style={{maxWidth: "270px"}} className={styles.img} src={myself.src} alt={"None"}/>
         } else if (myself.name !== undefined) {
             result = <span>{myself.name}</span>
         }

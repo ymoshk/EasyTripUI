@@ -131,6 +131,7 @@ const DailyPlanner = () => {
             value={{
                 changeHoursFunc: undefined,
                 isOnButton: false,
+                isDurationModalOn: false,
             }}>
             <Card style={{height: "100%"}}>
                 {showErrorMsg && actionFailedAlert()}

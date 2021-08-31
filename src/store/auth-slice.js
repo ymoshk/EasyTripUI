@@ -3,7 +3,9 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
     auth: undefined,
     error: false,
-    errorMessage: ""
+    errorMessage: "",
+    loader: false,
+    logoutCompleted: false,
 };
 
 const authSlice = createSlice({
@@ -27,6 +29,12 @@ const authSlice = createSlice({
         },
         setErrorMessage(state, action) {
             state.errorMessage = action.payload;
+        },
+        setLoader(state, action) {
+            state.loader = action.payload;
+        },
+        setLogoutCompleted(state, action) {
+            state.logoutCompleted = action.payload;
         }
     }
 })
