@@ -27,7 +27,6 @@ import Tooltip from "react-bootstrap/Tooltip";
 import Button from "react-bootstrap/Button";
 import * as Constants from "../../components/itinerary/Constants";
 import {Trash} from "tabler-icons-react";
-import styles from "./singleItinerary.moudule.css"
 
 const SingleItinerary = (props) => {
 

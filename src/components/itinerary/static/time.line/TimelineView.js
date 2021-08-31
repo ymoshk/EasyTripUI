@@ -133,14 +133,13 @@ const TimelineView = (props) => {
                 </VerticalTimeline>}
                 {
                     currentDay.activities.length === 1 &&
-                    <div style={{textAlign: "center"}}>
+                    <div style={{textAlign:"center"}}>
                         <h3>No Activities</h3>
                     </div>
                 }
             </Row>
         </>
     );
-}
-;
+};
 
 export default TimelineView;
