@@ -134,7 +134,7 @@ const TimelineView = (props) => {
                 {
                     currentDay.activities.length === 1 &&
                     <div style={{textAlign:"center"}}>
-                        <h3>No Activities</h3>
+                        <h3>Couldn't find any relevant attractions</h3>
                     </div>
                 }
             </Row>

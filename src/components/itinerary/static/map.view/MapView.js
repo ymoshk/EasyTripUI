@@ -8,48 +8,55 @@ import MapWrapper from "../../../utils/MapWrapper";
 import backGround from "../../../../images/siteBackground/maldivs.jpg";
 
 const MapView = (props) => {
-    const itinerary = props.itinerary;
-    const itineraryDays = props.itinerary.itineraryDays;
-    const [currentDay, setCurrentDay] = useState(itineraryDays[0]);
-    const AttractionsOnlyCurrentDay = currentDay.activities.filter(attractionNode =>
-        "ATTRACTION" === attractionNode.type
-    );
-    console.log(AttractionsOnlyCurrentDay);
+        const itinerary = props.itinerary;
+        const itineraryDays = props.itinerary.itineraryDays;
+        const [currentDay, setCurrentDay] = useState(itineraryDays[0]);
+        const AttractionsOnlyCurrentDay = currentDay.activities.filter(attractionNode =>
+            "ATTRACTION" === attractionNode.type
+        );
+        console.log(AttractionsOnlyCurrentDay);
 
-    const getDates = () => {
-        const formatDate = (date) => {
-            if (date !== undefined) {
-                return date.year + '-' + date.month + '-' + date.day;
+        const getDates = () => {
+            const formatDate = (date) => {
+                if (date !== undefined) {
+                    return date.year + '-' + date.month + '-' + date.day;
+                }
             }
+
+            return itineraryDays.map(day => formatDate(day.date))
         }
 
-        return itineraryDays.map(day => formatDate(day.date))
+        let dayChangedHandler = (index) => {
+            setCurrentDay(itineraryDays[index]);
+        };
+
+        return (
+            <>
+                <Row>
+                    <Col/>
+                    <Col md={10}>
+                        <DayPicker onDayChange={dayChangedHandler} dates={getDates()}/>
+                    </Col>
+                    <Col/>
+                </Row>
+                {AttractionsOnlyCurrentDay.length > 0 && <Row>
+                    <Col md={3}>
+                        <AttractionMapList attractions={AttractionsOnlyCurrentDay}/>
+                    </Col>
+                    <Col>
+                        <MapWrapper attractions={AttractionsOnlyCurrentDay}/>
+                    </Col>
+                </Row>}
+                {AttractionsOnlyCurrentDay.length === 0 && <Row>
+                    <Col>
+                        <div style={{textAlign: "center"}}>
+                            <h3>Couldn't find any relevant attractions</h3>
+                        </div>
+                    </Col>
+                </Row>}
+            </>
+        );
     }
-
-    let dayChangedHandler = (index) => {
-        setCurrentDay(itineraryDays[index]);
-    };
-
-    return (
-        <>
-            <Row>
-                <Col/>
-                <Col md={10}>
-                    <DayPicker onDayChange={dayChangedHandler} dates={getDates()}/>
-                </Col>
-                <Col/>
-            </Row>
-            <Row>
-                <Col md={3}>
-                    {/*<AttractionMap attractionNode={AttractionsOnlyCurrentDay[0]}/>*/}
-                    <AttractionMapList attractions={AttractionsOnlyCurrentDay}/>
-                </Col>
-                <Col>
-                    <MapWrapper attractions={AttractionsOnlyCurrentDay}/>
-                </Col>
-            </Row>
-        </>
-    );
-};
+;
 
 export default MapView;

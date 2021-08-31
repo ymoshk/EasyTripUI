@@ -14,10 +14,7 @@ const AttractionMapList = (props) => {
 
         if (attractions !== undefined && attractions.length !== 0) {
             res = attractions.map((attraction, index) => mapAttraction(attraction, index));
-        } else {
-            res = <div style={{textAlign: "center"}}><h3>Couldn't find any relevant attractions</h3></div>
         }
-
 
         return res;
     }
