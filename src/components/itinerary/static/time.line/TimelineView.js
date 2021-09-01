@@ -88,6 +88,7 @@ const TimelineView = (props) => {
         let innerComponent;
         let icon;
         let isTransport = false;
+        let isFlight = false;
 
         if (activity.type === "ATTRACTION") {
             innerComponent = <AttractionTimeline attraction={activity.attraction}/>
@@ -102,7 +103,7 @@ const TimelineView = (props) => {
             isTransport = true;
             icon = <Walk color={"white"}/>
         } else if (activity.type === "FLIGHT") {
-            isTransport = true;
+            isFlight = true;
             icon = <MdFlight/>
         } else if (activity.type === "FREE_TIME") {
             return;
@@ -111,7 +112,7 @@ const TimelineView = (props) => {
         return (
             <VerticalTimelineElement
                 key={index}
-                className={isTransport ? "" : "vertical-timeline-element--work"}
+                className={isTransport || isFlight ? "" : "vertical-timeline-element--work"}
                 date={isTransport ? getTransportDuration(activity) : activity.startTime + " - " + activity.endTime}
                 iconStyle={{background: '#467fcf', color: '#fff'}}
                 icon={icon}
