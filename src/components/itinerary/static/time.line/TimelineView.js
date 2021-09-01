@@ -16,7 +16,7 @@ import {
     GiShoppingCart,
     IoBeer,
     IoCafeOutline,
-    IoFastFoodOutline,
+    IoFastFoodOutline, MdFlight,
     MdPets, MdSpa,
     RiGalleryLine, RiMickeyLine, TiTree
 } from "react-icons/all";
@@ -101,6 +101,9 @@ const TimelineView = (props) => {
         } else if (activity.type === "WALK") {
             isTransport = true;
             icon = <Walk color={"white"}/>
+        } else if (activity.type === "FLIGHT") {
+            isTransport = true;
+            icon = <MdFlight/>
         } else if (activity.type === "FREE_TIME") {
             return;
         }
@@ -133,7 +136,7 @@ const TimelineView = (props) => {
                 </VerticalTimeline>}
                 {
                     currentDay.activities.length === 1 &&
-                    <div style={{textAlign:"center"}}>
+                    <div style={{textAlign: "center"}}>
                         <h3>Couldn't find any relevant attractions</h3>
                     </div>
                 }

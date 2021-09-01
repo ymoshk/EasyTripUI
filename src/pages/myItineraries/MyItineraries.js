@@ -41,8 +41,8 @@ const MyItineraries = (props) => {
                     <Row>
                         <h3>My Itineraries</h3>
                     </Row>
-                    <Row style={{marginTop: "20px"}}>
-                        {userItineraries && userItineraries.map((itineraryAndStatus, index) =>
+                    {userItineraries && userItineraries.length > 0 && <Row style={{marginTop: "20px"}}>
+                        {userItineraries.map((itineraryAndStatus, index) =>
                             <Col style={{marginTop: "20px"}}>
                                 <SingleItinerary
                                     itiniraryId={itineraryAndStatus.itineraryId}
@@ -52,7 +52,16 @@ const MyItineraries = (props) => {
                                 />
                             </Col>
                         )}
-                    </Row>
+                    </Row>}
+                    {
+                        userItineraries && userItineraries.length === 0 && <Row>
+                            <Col>
+                                <div style={{textAlign: "center"}}>
+                                    <h3>Couldn't find any itineraries</h3>
+                                </div>
+                            </Col>
+                        </Row>
+                    }
                 </Card.Body>
             </Card>
         </Container>
