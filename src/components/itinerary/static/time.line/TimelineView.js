@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import 'react-vertical-timeline-component/style.min.css';
 import {VerticalTimeline, VerticalTimelineElement} from 'react-vertical-timeline-component';
-import {Card, Col, Row} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 
 import {
     BiHotel,
@@ -10,15 +10,20 @@ import {
     FaUmbrellaBeach,
     FiShoppingCart,
     GiAquarium,
-    GiBinoculars, GiCandleLight,
-    GiMartini, GiMeal, GiMonaLisa,
+    GiBinoculars,
+    GiMartini,
+    GiMeal,
+    GiMonaLisa,
     GiPokerHand,
     GiShoppingCart,
     IoBeer,
     IoCafeOutline,
-    IoFastFoodOutline, MdFlight,
-    MdPets, MdSpa,
-    RiGalleryLine, RiMickeyLine, TiTree
+    MdFlight,
+    MdPets,
+    MdSpa,
+    RiGalleryLine,
+    RiMickeyLine,
+    TiTree
 } from "react-icons/all";
 import AttractionTimeline from "../../attraction/timeline/AttractionTimeline";
 import DayPicker from "../../dayPicker/DayPicker";

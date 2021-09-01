@@ -152,7 +152,7 @@ const Questionnaire = () => {
             method: "POST",
             credentials: 'include',
             body: data
-        }, redirectAfterAuto).then();
+        }, setItinerary).then();
     }
 
     return (
