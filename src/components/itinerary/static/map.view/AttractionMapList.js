@@ -4,9 +4,10 @@ import AttractionMap from "./AttractionMap";
 
 const AttractionMapList = (props) => {
     const attractions = props.attractions;
+    const onIconClickCallback = props.onIconClick;
 
     function mapAttraction(attraction, index) {
-        return <AttractionMap key={"attSmall_" + index.toString()} attractionNode={attraction}/>
+        return <AttractionMap key={"attSmall_" + index.toString()} onIconClick={onIconClickCallback} attractionNode={attraction}/>
     }
 
     function renderBody() {

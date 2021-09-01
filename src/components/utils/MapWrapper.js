@@ -11,6 +11,7 @@ import Beach from "../../images/beach.jpg";
 
 const MapWrapper = (props) => {
     const attractionsNodes = props.attractions;
+    let center = props.center;
 
     const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -24,14 +25,16 @@ const MapWrapper = (props) => {
     }
 
     const MapContent = () => {
-        const lat = findAverage(attractionsNodes.map(attractionNode => attractionNode.attraction.lat));
-        const lng = findAverage(attractionsNodes.map(attractionNode => attractionNode.attraction.lng));
-        const coordinates = {lat: lat, lng: lng};
+        if(center === undefined) {
+            const lat = findAverage(attractionsNodes.map(attractionNode => attractionNode.attraction.lat));
+            const lng = findAverage(attractionsNodes.map(attractionNode => attractionNode.attraction.lng));
+            center = {lat: lat, lng: lng};
+        }
 
         return (
             <GoogleMap
                 defaultZoom={15}
-                center={coordinates}
+                center={center}
             >
                 {attractionsNodes.map((attractionNode, index) => (
                     <Marker
@@ -52,7 +55,7 @@ const MapWrapper = (props) => {
     const MapWrapped = withScriptjs(withGoogleMap(MapContent));
 
     return (
-        <div style={{width: "100%", height: "100vh"}}>
+        <div style={{width: "100%", height: "60vh"}}>
             <MapWrapped
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${
                     process.env.REACT_APP_GOOGLE_KEY

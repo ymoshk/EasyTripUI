@@ -1,10 +1,14 @@
 import React from 'react';
 import CheckoutAttraction from "../checkout/CheckoutAttraction";
 import {Card, Col, Row} from "react-bootstrap";
+import {BiMap} from "react-icons/all";
+import Button from "react-bootstrap/Button";
+import {MapPin} from "tabler-icons-react";
 
 const AttractionMap = (props) => {
     const attractionNode = props.attractionNode;
-    console.log(attractionNode)
+    const iconClickCallback = props.onIconClick;
+    console.log(iconClickCallback)
 
     return (
         // <CheckoutAttraction
@@ -27,6 +31,16 @@ const AttractionMap = (props) => {
                         <h4 style={{textAlign: "center"}}>
                             {attractionNode.attraction.name}
                         </h4>
+                    </Col>
+                    <Col>
+                        <span style={{cursor: "pointer"}}
+                              onClick={() => iconClickCallback(attractionNode.attraction.lat, attractionNode.attraction.lng)}>
+                            <MapPin
+                                size={25}
+                                strokeWidth={2}
+                                color={'#cd201f'}
+                            />
+                        </span>
                     </Col>
                 </Row>
             </Card.Body>
