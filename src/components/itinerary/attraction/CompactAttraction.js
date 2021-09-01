@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {itineraryActions} from "../../../store/itinerary-slice";
-import {Button, Card, Col, Image, OverlayTrigger, Row, Tooltip} from 'react-bootstrap';
+import {Button, Card, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap';
 import {useDispatch} from "react-redux";
 import {Clock, InfoSquare, Trash} from "tabler-icons-react";
 import RecommendedIcon from "./RecommendedIcon";
@@ -11,6 +11,7 @@ import useHttp from "../../../hooks/UseHttp";
 import ChangeHourContext from "../ChangeHourContext";
 import ChangeDurationModal from "./modal/ChangeDurationModal";
 import styles from "./CompactAttraction.module.css"
+import Mobility from "./special/Mobility";
 
 const CompactAttraction = (props) => {
     const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const CompactAttraction = (props) => {
     const [imageBase64, setImageBase64] = useState(null);
     const {isLoading, error, sendRequest: getImagePost} = useHttp();
     const context = useContext(ChangeHourContext);
+
 
     // TODO - fix image load
     // useEffect(() => {
@@ -75,7 +77,11 @@ const CompactAttraction = (props) => {
 
     const getName = () => {
         if (props.attraction.website !== undefined && props.attraction.website !== "") {
-            return <a style={{width: "auto", color: "black"}} target={"_blank"} href={props.attraction.website}>
+            return <a onMouseOver={() => {
+                context.isOnButton = true
+            }} onMouseLeave={() => {
+                context.isOnButton = false
+            }} style={{width: "auto", color: "black"}} target={"_blank"} href={props.attraction.website}>
                 <h3>{props.attraction.isRecommended && <RecommendedIcon/>} {props.attraction.name}</h3>
             </a>
         } else {
@@ -114,6 +120,13 @@ const CompactAttraction = (props) => {
                                context.state = "NONE"
                            }}
                 >
+                    <Row>
+                        {props.transportation && <Mobility
+                            initType={props.transportation.type}
+                            transDuration={props.transportation.data}
+                            sourceData={props.transportation.sourceData}
+                            index={props.index}/>}
+                    </Row>
                     <Row>
                         <Col md={11} xs={10}>
                             <Row>
@@ -229,13 +242,13 @@ const CompactAttraction = (props) => {
                             </Col>
                         </Row>
                         <Row>
-                            <Col style={{textAlign: "center"}}>
-                                {showImage && <Image style={{
-                                    width: "auto", height: (ONE_HOUR_HEIGHT).toString() + "vh",
-                                    maxHeight: "50vh"
-                                }}
-                                                     src={`data:image/jpeg;base64,${imageBase64}`}/>}
-                            </Col>
+                            {/*<Col style={{textAlign: "center"}}>*/}
+                            {/*    {showImage && <Image style={{*/}
+                            {/*        width: "auto", height: (ONE_HOUR_HEIGHT).toString() + "vh",*/}
+                            {/*        maxHeight: "50vh"*/}
+                            {/*    }}*/}
+                            {/*                         src={`data:image/jpeg;base64,${imageBase64}`}/>}*/}
+                            {/*</Col>*/}
                         </Row>
                     </Row>
                 </Card.Body>

@@ -46,6 +46,10 @@ const FreeTime = (props) => {
             const data = {
                 index: props.myIndex,
                 locationData: locationDataReceived,
+                srcData: {
+                    srcLat: props.srcLocation.lat,
+                    srcLng: props.srcLocation.lng
+                }
             }
 
             dispatch(itineraryActions.addTransportation(data))

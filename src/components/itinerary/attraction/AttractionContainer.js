@@ -4,7 +4,6 @@ import ONE_HOUR_HEIGHT from "../Constants";
 import formatDateToHours from "../../utils/helpers/DateFormatter";
 import CompactAttraction from "./CompactAttraction";
 import FreeTime from "./special/FreeTime";
-import Mobility from "./special/Mobility";
 
 const AttractionContainer = (props) => {
     const helpersContext = useContext(ChangeHoursContext);
@@ -81,10 +80,9 @@ const AttractionContainer = (props) => {
     }
 
     const getComponent = () => {
-
         if (props.attractionNode.type === "FREE_TIME") {
             return <FreeTime
-                transportation={props.attractionNode.transportation}
+                transportation={props.attractionNode.showTransportationIcon}
                 myIndex={props.attractionNode.myIndex}
                 calcHeight={true}
                 srcLocation={props.attractionNode.srcLocation}
@@ -94,6 +92,7 @@ const AttractionContainer = (props) => {
                 height={getHeight()}/>
         } else if (props.attractionNode.type === "ATTRACTION") {
             return <CompactAttraction
+                transportation={props.attractionNode.transportation}
                 redBackground={redBackground}
                 resetDraggedId={props.resetDraggedId}
                 index={props.index}
@@ -104,19 +103,6 @@ const AttractionContainer = (props) => {
                 attraction={props.attractionNode.attraction}
                 height={getHeight()}
                 updateDuration={onUpdateDuration}/>
-        } else {
-            return <Mobility
-                calculatedStartTime={calculatedStartTime}
-                calculatedEndTime={calculatedEndTime}
-                height={getHeight()}
-                duration={extractTime()}
-                calcHeight={true}
-                index={props.index}
-                initType={props.attractionNode.type}
-                redBackground={redBackground}
-                resetDraggedId={props.resetDraggedId}
-                transDuration={props.attractionNode.transDuration}
-            />
         }
     }
 

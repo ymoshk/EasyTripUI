@@ -112,7 +112,7 @@ const DailyDnd = () => {
     }
 
     useEffect(() => {
-        if (!helpersContext.isOnButton) {
+        if (!helpersContext.isOnButton && !helpersContext.isDurationModalOn) {
             if (draggedId !== null) {
                 let diff = parseInt((mousePosition - draggedStatPos) / pixelPerMinute);
                 setMinutesToAdd(diff);

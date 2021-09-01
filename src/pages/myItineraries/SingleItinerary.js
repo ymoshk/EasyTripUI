@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Card, Col, OverlayTrigger, Row} from "react-bootstrap";
 import {
     BiHotel,
@@ -16,9 +16,11 @@ import {
     GiPokerHand,
     GiShoppingCart,
     IoBeer,
-    IoCafeOutline, MdFlightLand, MdFlightTakeoff,
+    IoCafeOutline,
+    MdFlightLand,
     MdPets,
-    MdSpa, RiFlightTakeoffLine,
+    MdSpa,
+    RiFlightTakeoffLine,
     RiGalleryLine,
     RiMickeyLine,
     TiTree
@@ -27,9 +29,20 @@ import Tooltip from "react-bootstrap/Tooltip";
 import Button from "react-bootstrap/Button";
 import * as Constants from "../../components/itinerary/Constants";
 import {Trash} from "tabler-icons-react";
+import useHttp from "../../hooks/UseHttp";
+import LoaderContext from "../../components/utils/loader/LoaderContext";
 
 const SingleItinerary = (props) => {
+        const {isLoading, error, sendRequest: removeItinerary} = useHttp();
+        const loader = useContext(LoaderContext)
 
+        useEffect(() => {
+            if (isLoading) {
+                loader.setShow(true)
+            } else {
+                loader.setShow(false);
+            }
+        }, [isLoading])
 
         let fromDateToString = (date) => {
             let mm = date.month + 1;
@@ -143,8 +156,16 @@ const SingleItinerary = (props) => {
         }
 
         function onRemoveHandler() {
-            alert("remove : " + itineraryId)
+            removeItinerary({
+                url: process.env.REACT_APP_SERVER_URL + "/deleteItinerary",
+                method: "POST",
+                credentials: 'include',
+                body: {
+                    id: itineraryId
+                }
+            }, props.removeLocal(itineraryId)).then();
         }
+
 
         return (
             <Card style={{width: '25rem', marginRight: "0", marginBottom: "0"}}>

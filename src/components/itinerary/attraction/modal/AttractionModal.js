@@ -1,13 +1,22 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Button, Modal} from "react-bootstrap";
 import Attraction from "./Attraction";
 import "./AttractionModal.css"
+import HelpersContext from "../../ChangeHourContext";
 
 const AttractionModal = (props) => {
+    const context = useContext(HelpersContext);
 
     return (
         <Modal id={"attractionModal"} size={"lg"} style={{margin: 0}} show={props.show} onHide={props.onClose}>
-            <Modal.Dialog size={"lg"} fullscreen={true}>
+            <Modal.Dialog
+                onMouseOver={() => {
+                    context.isOnButton = true
+                }}
+                onMouseLeave={() => {
+                    context.isOnButton = false;
+                }}
+                style={{width: "90%"}} size={"lg"}>
                 <Modal.Header closeButton/>
                 <Modal.Body>
                     <Attraction

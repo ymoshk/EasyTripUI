@@ -8,19 +8,16 @@ import StarRating from "../StarRating";
 const Attraction = (props) => {
     let priceLevel;
     const type = props.attraction.type;
-    if(type === "Restaurant" || type === "Bar" || type === "Cafe"){
+    if (type === "Restaurant" || type === "Bar" || type === "Cafe") {
         priceLevel = '$'.repeat(props.attraction.priceLevel);
-    }
-    else{
+    } else {
         priceLevel = '$'.repeat(props.attraction.priceLevel + 1);
     }
 
     return (
         <Row style={{width: "100%"}}>
-            {/*<Card className={styles.bd}>*/}
-            {/*<Card.Body>*/}
             <Row>
-                <Col md={{span: 6, offset: 0}} xs={{span: 9, offset: 0}}>
+                <Col md={{span: 5, offset: 1}} xs={{span: 9, offset: 0}}>
                     <Card.Title>
                         <Row>
                             <Col md={{span: 12, offset: 0}} xs={{span: 12, offset: 0}}>
@@ -34,12 +31,14 @@ const Attraction = (props) => {
                         <Row>
                             <Col md={{span: 12, offset: 0}} xs={{span: 12, offset: 0}}>
                                 <Row><StarRating value={props.attraction.rating}/></Row>
-                                <Row><h4>Raters No. </h4></Row>
-                                {priceLevel && <Row><span
-                                    style={{color: 'grey'}}><h5>{props.attraction.userTotalRating}</h5></span>
-                                </Row>}
-                                <Row><h4>Price Range </h4></Row>
-                                <Row><h5 style={{color: 'green'}}>{priceLevel}</h5></Row>
+                                <Row>
+                                    <h4>Raters No. <span
+                                        style={{fontSize: 15, color: 'grey'}}>{props.attraction.userTotalRating}
+                                    </span></h4>
+                                </Row>
+                                <Row>
+                                    <h4>Price Range <span style={{color: 'green'}}>{priceLevel}</span></h4>
+                                </Row>
                                 <Row>
                                     <Col style={{marginTop: 10, textAlign: "center"}}>
                                         {props.imageBase64 && <Image
@@ -86,8 +85,6 @@ const Attraction = (props) => {
                     </Row>
                 </Col>
             </Row>
-            {/*</Card.Body>*/}
-            {/*// </Card>*/}
         </Row>
     )
 }

@@ -33,6 +33,19 @@ const MyItineraries = (props) => {
             consumeItineraries);
     }, [getUserItineraries])
 
+    const removeItinerary = (id) => {
+        const newList = []
+
+        userItineraries.forEach(itinerary => {
+            console.log(itinerary);
+            if(itinerary.itineraryId !== id){
+                newList.push(itinerary);
+            }
+        })
+
+        setUserItineraries(newList);
+    }
+
 
     return (
         <Container fluid style={{width: "100%", padding: "0"}}>
@@ -45,6 +58,7 @@ const MyItineraries = (props) => {
                         {userItineraries.map((itineraryAndStatus, index) =>
                             <Col style={{marginTop: "20px"}}>
                                 <SingleItinerary
+                                    removeLocal={removeItinerary}
                                     itiniraryId={itineraryAndStatus.itineraryId}
                                     index={index}
                                     questionsData={itineraryAndStatus.questionsData}
