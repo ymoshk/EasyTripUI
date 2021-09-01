@@ -2,10 +2,11 @@ import React from 'react';
 import {Card, Image, Nav, Navbar} from "react-bootstrap";
 import logo from "../images/logo/logo-outline-horizontal.png"
 import {Link} from "react-router-dom";
-import {House} from 'react-bootstrap-icons';
+
 
 import NavBarLink from "./NavBarLink";
 import UserData from "./UserData";
+import {BiPlanet, GiMagnifyingGlass, RiPagesLine} from "react-icons/all";
 
 const NewWrapper = (props) => {
 
@@ -20,7 +21,9 @@ const NewWrapper = (props) => {
                         style={{maxHeight: '100px'}}
                         navbarScroll
                     >
-                        <NavBarLink icon={<House size={15}/>} text={"Home"} href="/"/>
+                        {window.location.pathname === "/" && <NavBarLink icon={<BiPlanet size={15}/>} text={"Popular destinations"} href="/"/>}
+                        {window.location.pathname === "/" && <NavBarLink icon={<GiMagnifyingGlass size={15}/>} text={"How it works"} href="/"/>}
+                        <NavBarLink icon={<RiPagesLine size={15}/>} text={"My itineraries"} href="/myItineraries"/>
                     </Nav>
                     <UserData user={props.user}/>
                 </Navbar.Collapse>
