@@ -31,13 +31,13 @@ export const tripVibesTags = [
     },
     {
         id: 1,
-        name: "Moderate paced",
+        name: "Moderate Paced",
         src: moderatePaced,
         status: false
     },
     {
         id: 2,
-        name: "Fast paced",
+        name: "Fast Paced",
         src: fastPaced,
         status: false
     },
@@ -49,7 +49,7 @@ export const tripVibesTags = [
     },
     {
         id: 4,
-        name: "Inexpensive restaurant",
+        name: "Inexpensive Restaurant",
         src: inexpensiveRestaurant,
         status: false
     },
@@ -61,19 +61,19 @@ export const tripVibesTags = [
     },
     {
         id: 6,
-        name: "Early bird",
+        name: "Early Bird",
         src: earlyBird,
         status: false
     },
     {
         id: 7,
-        name: "In between",
+        name: "In Between",
         src: birdAndOwl,
         status: false
     },
     {
         id: 8,
-        name: "Night owl",
+        name: "Night Owl",
         src: nightOwl,
         status: false
     }
@@ -140,7 +140,7 @@ export const favoriteAttractionTags = [
     },
     {
         id: 7,
-        name: "Night club",
+        name: "Night Club",
         src: nightlife,
         status: false
     },
@@ -164,7 +164,7 @@ export const favoriteAttractionTags = [
     },
     {
         id: 11,
-        name: "beach",
+        name: "Beach",
         src: beach,
         status: false
     }
