@@ -1,19 +1,23 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
 }
 
 
 .vertical-timeline-element--work .vertical-timeline-element-content {
-  border-top: 3px solid #467fcf;
-  /*border-top: 3px solid #2196f3;*/
+    border-top: 3px solid #467fcf;
+    /*border-top: 3px solid #2196f3;*/
 }
 
 /*body > #root > div {*/
 /*  height: 100vh;*/
 /*}*/
 
-.navbar{
-  box-shadow: 0 8px 8px -5px rgba(0,0,0,.3);
+.navbar {
+    box-shadow: 0 8px 8px -5px rgba(0, 0, 0, .3);
+}
+
+#root > div.App_regular__23YHw > div > div:nth-child(2) > div > div > div.styles_background__3_M3z > div > div > div > div > div > div > form > div > div:nth-child(5) {
+    display: none;
 }

@@ -31,7 +31,7 @@ const HomePage = () => {
                         <Card style={{marginTop: "200px", backgroundColor: "rgb(255,255,255,.7)"}}>
                             <Card.Body>
                                 <Row>
-                                    <Col></Col>
+                                    <Col/>
                                     <Col md={8} xs={12}>
                                         <div style={{textAlign: "center"}}>
                                             <h2>Planning A Trip Has Never Been Easier</h2>
@@ -39,19 +39,19 @@ const HomePage = () => {
                                                 Started</Button>
                                         </div>
                                     </Col>
-                                    <Col></Col>
+                                    <Col/>
                                 </Row>
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col></Col>
+                    <Col/>
                 </Row>
             </Container>
             <Container fluid style={{width: "100%", padding: "0"}}>
                 <Card style={{marginBottom: "0", width: "100%"}}>
                     <Card.Body>
                         <Row>
-                            <h3>Author Recommendations</h3>
+                            <h3 id={"popularDestinationsSection"}>Author Recommendations</h3>
                         </Row>
                         <Row style={{marginTop: "20px"}}>
                             <Col/>
@@ -89,7 +89,7 @@ const HomePage = () => {
                     </Card.Body>
                 </Card>
             </Container>
-            <Container fluid style={{
+            <Container id={"howItWorksSection"} fluid style={{
                 backgroundImage: 'url("' + planner + '")',
                 height: "100vh",
                 backgroundPosition: "center",

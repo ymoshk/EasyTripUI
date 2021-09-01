@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 
 import NavBarLink from "./NavBarLink";
 import UserData from "./UserData";
-import {BiPlanet, GiMagnifyingGlass, RiPagesLine} from "react-icons/all";
+import {BiPlanet, GiCommercialAirplane, GiMagnifyingGlass, RiPagesLine} from "react-icons/all";
 
 const NewWrapper = (props) => {
 
@@ -21,9 +21,14 @@ const NewWrapper = (props) => {
                         style={{maxHeight: '100px'}}
                         navbarScroll
                     >
-                        {window.location.pathname === "/" && <NavBarLink icon={<BiPlanet size={15}/>} text={"Popular destinations"} href="/"/>}
-                        {window.location.pathname === "/" && <NavBarLink icon={<GiMagnifyingGlass size={15}/>} text={"How it works"} href="/"/>}
                         <NavBarLink icon={<RiPagesLine size={15}/>} text={"My itineraries"} href="/myItineraries"/>
+                        <NavBarLink icon={<GiCommercialAirplane size={15}/>} text={"Quick Start"} href="/questionnaire"/>
+                        {window.location.pathname === "/" && <NavBarLink icon={<BiPlanet size={15}/>}
+                                                                         text={"Popular destinations"}
+                                                                         href="#popularDestinationsSection"/>}
+                        {window.location.pathname === "/" &&
+                        <NavBarLink icon={<GiMagnifyingGlass size={15}/>} text={"How it works"}
+                                    href="#howItWorksSection"/>}
                     </Nav>
                     <UserData user={props.user}/>
                 </Navbar.Collapse>

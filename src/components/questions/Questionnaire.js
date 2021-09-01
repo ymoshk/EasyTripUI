@@ -93,6 +93,11 @@ const Questionnaire = () => {
         window.location = '/itinerary';
     }
 
+    const redirectAfterAuto = () => {
+        localStorage.setItem(ITINERARY_ID_STORAGE, "")
+        window.location = '/myItineraries';
+    }
+
     const prepareData = () => {
         let startDateObject = new Date(stages[1].data.startDate);
         let endDateObject = new Date(stages[1].data.endDate);
@@ -147,7 +152,7 @@ const Questionnaire = () => {
             method: "POST",
             credentials: 'include',
             body: data
-        }, setItinerary).then();
+        }, redirectAfterAuto).then();
     }
 
     return (
