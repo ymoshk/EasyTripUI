@@ -5,8 +5,6 @@ import {
     GoogleMap,
     Marker
 } from "react-google-maps";
-import EiffelTour from "../../images/EiffelTour.jpg";
-import Beach from "../../images/beach.jpg";
 
 
 const MapWrapper = (props) => {
@@ -33,7 +31,7 @@ const MapWrapper = (props) => {
 
         return (
             <GoogleMap
-                defaultZoom={15}
+                defaultZoom={props.defaultZoom}
                 center={center}
             >
                 {attractionsNodes.map((attractionNode, index) => (

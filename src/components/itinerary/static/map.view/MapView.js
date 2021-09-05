@@ -12,6 +12,7 @@ const MapView = (props) => {
         const itineraryDays = props.itinerary.itineraryDays;
         const [currentDay, setCurrentDay] = useState(itineraryDays[0]);
         const [center, setCenter] = useState(undefined);
+        const [zoom, setZoom] = useState(14);
         const AttractionsOnlyCurrentDay = currentDay.activities.filter(attractionNode =>
             "ATTRACTION" === attractionNode.type
         );
@@ -28,10 +29,13 @@ const MapView = (props) => {
 
         let dayChangedHandler = (index) => {
             setCurrentDay(itineraryDays[index]);
+            setCenter(undefined);
+            setZoom(14);
         };
 
     let onIconClickEventHandler = (lat,lng) => {
         setCenter({lat: lat, lng: lng});
+        setZoom(17);
     };
 
     return (
@@ -48,7 +52,7 @@ const MapView = (props) => {
                         <AttractionMapList onIconClick={onIconClickEventHandler} attractions={AttractionsOnlyCurrentDay}/>
                     </Col>
                     <Col>
-                        <MapWrapper center={center} attractions={AttractionsOnlyCurrentDay}/>
+                        <MapWrapper center={center} defaultZoom={zoom} attractions={AttractionsOnlyCurrentDay}/>
                     </Col>
                 </Row>}
                 {AttractionsOnlyCurrentDay.length === 0 && <Row>
@@ -60,7 +64,6 @@ const MapView = (props) => {
                 </Row>}
             </>
         );
-    }
-;
+    };
 
 export default MapView;
