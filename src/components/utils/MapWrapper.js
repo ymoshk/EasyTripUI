@@ -38,7 +38,7 @@ const MapWrapper = (props) => {
                     <Marker
                         key={attractionNode.attraction.id}
                         label={labels[index % labels.length]}
-                        title={attractionNode.attraction.name + "\n" + attractionNode.attraction.startTime + "-" + attractionNode.attraction.endTime}
+                        title={attractionNode.attraction.name + "\n" + attractionNode.startTime + "-" + attractionNode.endTime}
                         position={{
                             lat: attractionNode.attraction.lat,
                             lng: attractionNode.attraction.lng
