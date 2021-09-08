@@ -90,42 +90,46 @@ const TimelineView = (props) => {
     }
 
     const mapAttraction = (activity, index) => {
-        let innerComponent;
-        let icon;
-        let isTransport = false;
-        let isFlight = false;
+            let innerComponent;
+            let icon;
+            let isTransport = false;
+            let isFlight = false;
 
-        if (activity.type === "ATTRACTION") {
-            innerComponent = <AttractionTimeline attraction={activity.attraction}/>
-            icon = getAttractionIcon(activity.attraction.type)
-        } else if (activity.type === "TRANSIT") {
-            isTransport = true;
-            icon = <Bus color={"white"}/>
-        } else if (activity.type === "CAR") {
-            isTransport = true;
-            icon = <Car color={"white"}/>
-        } else if (activity.type === "WALK") {
-            isTransport = true;
-            icon = <Walk color={"white"}/>
-        } else if (activity.type === "FLIGHT") {
-            isFlight = true;
-            icon = <MdFlight/>
-        } else if (activity.type === "FREE_TIME") {
-            return;
+            if (activity.type === "ATTRACTION") {
+                innerComponent = <AttractionTimeline attraction={activity.attraction}/>
+                icon = getAttractionIcon(activity.attraction.type)
+            } else if (activity.type === "TRANSIT") {
+                isTransport = true;
+                icon = <Bus color={"white"}/>
+            } else if (activity.type === "CAR") {
+                isTransport = true;
+                icon = <Car color={"white"}/>
+            } else if (activity.type === "WALK") {
+                isTransport = true;
+                icon = <Walk color={"white"}/>
+            } else if (activity.type === "FLIGHT") {
+                isFlight = true;
+                icon = <MdFlight/>
+            } else if (activity.type === "FREE_TIME") {
+                return;
+            }
+
+            return (
+                <>
+                    <VerticalTimelineElement
+                        key={index}
+                        className={isTransport || isFlight ? "" : "vertical-timeline-element--work"}
+                        date={isTransport ? getTransportDuration(activity) : activity.startTime + " - " + activity.endTime}
+                        iconStyle={{background: '#467fcf', color: '#fff'}}
+                        icon={icon}
+                    >
+                        {innerComponent}
+                    </VerticalTimelineElement>
+                    {isTransport && <VerticalTimelineElement style={{display: "none"}}/>}
+                </>
+            )
         }
-
-        return (
-            <VerticalTimelineElement
-                key={index}
-                className={isTransport || isFlight ? "" : "vertical-timeline-element--work"}
-                date={isTransport ? getTransportDuration(activity) : activity.startTime + " - " + activity.endTime}
-                iconStyle={{background: '#467fcf', color: '#fff'}}
-                icon={icon}
-            >
-                {innerComponent}
-            </VerticalTimelineElement>
-        )
-    };
+    ;
 
     return (
         <>

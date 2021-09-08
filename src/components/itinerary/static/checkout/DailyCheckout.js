@@ -75,7 +75,7 @@ const DailyCheckout = (props) => {
                 top: 11
             }}>
                 <Col xs={{span: 11, offset: 1}}>
-                    <div style={{marginLeft: 11, height: "100%", width: "100%"}}>
+                    <div style={{marginLeft: "10%", height: "100%", width: "100%"}}>
                         <Row style={{height: "100%"}}>
                             <Col>
                                 {dayAttractionsAsComponents}

@@ -5,11 +5,9 @@ import {Bike, Car, Walk} from "tabler-icons-react";
 const CheckoutAttraction = (props) => {
 
     return (
-        <Card style={{height: props.height, padding: 0, margin: 0}}>
-            <Card.Body className={"text-center"} >
-                <h4 style={{textAlign: "center"}}>
-                    {props.name}
-                </h4>
+        <Card style={{height: props.height, padding: 0, margin: 0, backgroundColor: "rgb(237, 237, 239,0.8)"}}>
+            <Card.Body as={"h4"} className={"text-center"}>
+                {props.name}
             </Card.Body>
         </Card>
     )

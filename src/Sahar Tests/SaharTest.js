@@ -6,6 +6,8 @@ import Mobility from "../components/itinerary/attraction/special/Mobility";
 import StaticItinerary from "../components/itinerary/static/StaticItinerary";
 import SingleItinerary from "../pages/myItineraries/SingleItinerary";
 import MyItineraries from "../pages/myItineraries/MyItineraries";
+import MapView from "../components/itinerary/static/map.view/MapView";
+import MapWrapper from "../components/utils/MapWrapper";
 
 //TODO-Delete
 
@@ -230,7 +232,9 @@ const SaharTest = () => {
         // <Checkout/>
         // <StaticItinerary itineraryId="a98936ed-5e18-4e1d-b5fc-fc85d690e6fa"/>
         // <Mobility/>
-        <MyItineraries/>
+        // <MyItineraries/>
+        // <MapView/>
+        <MapWrapper/>
         // <SingleItinerary
         //     itiniraryId={"1234"}
         //     index={1}
