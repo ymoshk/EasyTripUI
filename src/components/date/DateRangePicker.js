@@ -5,6 +5,7 @@ import 'bootstrap-daterangepicker/daterangepicker.css'
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {questionnaireActions} from "../../store/questionnaire-slice";
+import planTrip from "../../images/planTrip.jpg";
 
 const DateRangeInput = () => {
     const dispatch = useDispatch();
@@ -38,12 +39,17 @@ const DateRangeInput = () => {
 
     return (
         <>
-            <label style={{marginBottom: 20}}>Select dates for your trip</label>
             <DateRangePicker
                 onCallback={(start, end) => onCallbackEventHandler(start, end)}
                 initialSettings={{startDate: getDateAfter(1), endDate: getDateAfter(2)}}>
                 <input style={{fontFamily: "sans-serif"}} type="text" className="form-control"/>
             </DateRangePicker>
+            <br/>
+            <img src={planTrip} style={{
+                width: '100%',
+                height: undefined,
+                aspectRatio: 1,
+            }}/>
         </>
     );
 };

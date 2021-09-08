@@ -101,6 +101,11 @@ const PlaceSelection = (props) => {
                                showButton={false}
                                value={initCountry}/>
             {data.country !== '' && getCitySearchBar()}
+            <img src={props.image} style={{
+                width: '100%',
+                height: undefined,
+                aspectRatio: 1,
+            }}/>
         </div>
     );
 };

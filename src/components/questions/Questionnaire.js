@@ -9,7 +9,7 @@ import SweetAlert from "react-bootstrap-sweetalert";
 import useHttp from "../../hooks/UseHttp";
 import {questionnaireComponents} from "./Stages";
 import {ITINERARY_ID_STORAGE, QUESTIONNAIRE_STORAGE} from "../itinerary/Constants";
-
+import {Text} from "tabler-react";
 
 const Questionnaire = () => {
     const MANUAL_TOOL_TIP = "Move to the manual trip builder to complete planning your trip.";
@@ -170,9 +170,11 @@ const Questionnaire = () => {
             </SweetAlert>
             }
             <Card.Header>
-                <Card.Title>{stages[step].header}</Card.Title>
+                <Text style={{fontSize: '150%'}}>{stages[step].header}</Text>
             </Card.Header>
             <Card.Body>
+                <Text style={{fontSize: '125%'}}>{stages[step].text}</Text>
+                <br/>
                 <Alert style={{display: error ? "block" : "none"}} variant={'danger'}>
                     {errorMsg === undefined ? "You must fill in all the required fields." : errorMsg}
                 </Alert>

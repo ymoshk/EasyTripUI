@@ -2,6 +2,7 @@ import React from "react";
 import StepsCounter from "../../utils/StepsCounter";
 import {useDispatch, useSelector} from "react-redux";
 import {questionnaireActions} from "../../../store/questionnaire-slice";
+import nature from "../../../images/nature.jpg";
 
 
 function PassengersCount(props) {
@@ -24,7 +25,8 @@ function PassengersCount(props) {
     }
 
     return (
-        <div>
+        <>
+            <div>
             <StepsCounter
                 setValue={onUpdateAdults}
                 initValue={data.adultsCount}
@@ -38,7 +40,13 @@ function PassengersCount(props) {
                 maxVal={10}
                 minVal={0}
                 title="Children"/>
-        </div>);
+        </div>
+        <img src={nature} style={{
+            width: '100%',
+            height: undefined,
+            aspectRatio: 1,
+        }}/>
+            </>);
 }
 
 export default PassengersCount;
