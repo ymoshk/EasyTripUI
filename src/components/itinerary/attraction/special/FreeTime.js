@@ -57,7 +57,9 @@ const FreeTime = (props) => {
     }
 
     useEffect(() => {
-        loader.setShow(isLoading)
+        if(isLoading !== undefined){
+            loader.setShow(isLoading);
+        }
     }, [isLoading])
 
     useEffect(() => {

@@ -39,11 +39,15 @@ const SingleItinerary = (props) => {
         const loader = useContext(LoaderContext)
 
         useEffect(() => {
-            loader.setShow(isLoading)
+            if(isLoading !== undefined){
+                loader.setShow(isLoading);
+            }
         }, [isLoading])
 
         useEffect(() => {
-            loader.setShow(isLoadingUpdateStatus)
+            if(isLoadingUpdateStatus !== undefined){
+                loader.setShow(isLoadingUpdateStatus);
+            }
         }, [isLoadingUpdateStatus])
 
         let fromDateToString = (date) => {
@@ -150,7 +154,7 @@ const SingleItinerary = (props) => {
                     id: itineraryId,
                     status: "EDIT"
                 }
-            }).then((res) => editBtnClickEventHandler());
+            }, res => editBtnClickEventHandler());
         }
 
         function getStatus() {
@@ -325,7 +329,7 @@ const SingleItinerary = (props) => {
                         </Col>
                         <Col>
                             <div className="d-grid gap-2">
-                                <Button onClick={updateToEditMode}>
+                                <Button onClick={() => updateToEditMode()}>
                                     Edit
                                 </Button>
                             </div>

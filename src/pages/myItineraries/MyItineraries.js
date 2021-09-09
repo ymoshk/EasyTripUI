@@ -5,8 +5,6 @@ import {useSelector} from "react-redux";
 import useHttp from "../../hooks/UseHttp";
 import LoaderContext from "../../components/utils/loader/LoaderContext";
 import uuid from "uuid-random";
-import SingleTag from "../../components/questions/tags/SingleTag";
-import styles from "../../components/questions/tags/TagsList.module.css";
 
 const MyItineraries = () => {
     const loggedInUserData = useSelector(state => state.authData.auth);
@@ -17,10 +15,8 @@ const MyItineraries = () => {
     const loader = useContext(LoaderContext);
 
     useEffect(() => {
-        if (isLoading) {
-            loader.setShow(true)
-        } else {
-            loader.setShow(false);
+        if(isLoading !== undefined){
+            loader.setShow(isLoading);
         }
     }, [isLoading])
 
