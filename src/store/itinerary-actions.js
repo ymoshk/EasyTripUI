@@ -59,33 +59,6 @@ export const fetchItineraryData = (id) => {
     }
 }
 
-export const fetchAttractionData = () => {
-    return async (dispatch) => {
-        const fetchAttractions = async () => {
-            const response = await fetch(urlAttractions,
-                {
-                    method: 'POST',
-                    credentials: 'include',
-                    body: JSON.stringify({cityName: 'Tel Aviv'})
-                }
-            );
-
-            if (!response.ok) {
-                throw new Error('Could not fetch attractions data!');
-            }
-
-            return await response.json();
-        }
-
-        try {
-            const attractionsData = await fetchAttractions();
-            dispatch(itineraryActions.replace(attractionsData.Attraction));
-        } catch (error) {
-            console.log(error);
-        }
-    }
-}
-
 export const updateItineraryDay = (id, day, index) => {
     if (id !== undefined && id !== "") {
         fetch(urlUpdateItineraryDay,

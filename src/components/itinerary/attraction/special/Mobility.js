@@ -1,13 +1,20 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Col, Row, ToggleButton} from "react-bootstrap";
 import {Bus, Car, Trash, Walk} from "tabler-icons-react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {itineraryActions} from "../../../../store/itinerary-slice";
 import Button from "react-bootstrap/Button";
 import ChangeHourContext from "../../ChangeHourContext";
+import uuid from "uuid-random";
+import useHttp from "../../../../hooks/UseHttp";
+import LoaderContext from "../../../utils/loader/LoaderContext";
 
 const Mobility = (props) => {
     const context = useContext(ChangeHourContext)
+    const loader = useContext(LoaderContext);
+    const dayIndex = useSelector(state => state.itineraryData.itinerary.currentDayIndex);
+    const itinerary = useSelector(state => state.itineraryData.itinerary);
+    const {isLoading, error, sendRequest: fetchTransportation} = useHttp();
     const initType = props.initType;
     const [checkedStatus, setCheckedStatus] = useState(
         [initType === "CAR", initType === "TRANSIT", initType === "WALK"]);
@@ -16,21 +23,60 @@ const Mobility = (props) => {
     const isCheckedIconColor = '#FFFFFF';
     const grey = '#656D77';
 
-    const onCheckedEventHandler = (e, index) => {
+    const onCheckedEventHandler = (index) => {
         let newCheckedStatus = [false, false, false];
-        newCheckedStatus[index] = e.currentTarget.checked;
+        newCheckedStatus[index] = true;
         setCheckedStatus(newCheckedStatus);
 
-        if (index === 0) {
-            setType("CAR");
-            dispatch(itineraryActions.changeTransportationMethod(createMethodObject("CAR")));
-        } else if (index === 1) {
-            setType("TRANSIT");
-            dispatch(itineraryActions.changeTransportationMethod(createMethodObject("TRANSIT")));
+        if (props.transDuration.WALK === undefined || props.transDuration.TRANSIT === undefined || props.transDuration.CAR === undefined) {
+            getAndUpdateMissingDurations();
         } else {
-            setType("WALK")
-            dispatch(itineraryActions.changeTransportationMethod(createMethodObject("WALK")));
+            if (index === 0) {
+                setType("CAR");
+                dispatch(itineraryActions.changeTransportationMethod(createMethodObject("CAR")));
+            } else if (index === 1) {
+                setType("TRANSIT");
+                dispatch(itineraryActions.changeTransportationMethod(createMethodObject("TRANSIT")));
+            } else {
+                setType("WALK")
+                dispatch(itineraryActions.changeTransportationMethod(createMethodObject("WALK")));
+            }
         }
+    }
+
+    useEffect(() => {
+        loader.setShow(isLoading)
+    }, [isLoading])
+
+    const getAndUpdateMissingDurations = () => {
+        const dayAttractions = itinerary.itineraryDays[dayIndex].activities
+        const previous = dayAttractions[props.index - 2];
+        const thisNode = dayAttractions[props.index];
+
+        const data = {
+            srcLat: previous.attraction.lat.toString(),
+            srcLng: previous.attraction.lng.toString(),
+            destLat: thisNode.attraction.lat.toString(),
+            destLng: thisNode.attraction.lng.toString()
+        }
+
+        fetchTransportation({
+            url: process.env.REACT_APP_SERVER_URL + "/getTransportation",
+            method: "POST",
+            credentials: 'include',
+            body: data
+        }, result => updateMissingDurations(result)).then();
+    }
+
+    const updateMissingDurations = (durations) => {
+        // props.transDuration = data;
+        const data = {
+            data: durations,
+            index: props.index
+        }
+
+        dispatch(itineraryActions.updateMobilityDurations(data));
+        // thisNode.transportation = data;
     }
 
     const createMethodObject = (method) => {
@@ -65,13 +111,13 @@ const Mobility = (props) => {
                     <Row>
                         <Col>
                             <ToggleButton
-                                id="toggle-check"
+                                id={uuid()}
                                 size={"sm"}
                                 type="checkbox"
                                 variant="secondary"
                                 checked={checkedStatus[0]}
                                 value="1"
-                                onChange={(e) => onCheckedEventHandler(e, 0)}
+                                onChange={(e) => onCheckedEventHandler(0)}
                             >
                                 {<Car
                                     size={25}
@@ -82,13 +128,13 @@ const Mobility = (props) => {
                         </Col>
                         <Col>
                             <ToggleButton
-                                id="toggle-check2"
+                                id={uuid()}
                                 size={"sm"}
                                 type="checkbox"
                                 variant="secondary"
                                 checked={checkedStatus[1]}
                                 value="2"
-                                onChange={(e) => onCheckedEventHandler(e, 1)}
+                                onChange={(e) => onCheckedEventHandler(1)}
                             >
                                 {<Bus
                                     size={25}
@@ -99,13 +145,13 @@ const Mobility = (props) => {
                         </Col>
                         <Col>
                             <ToggleButton
-                                id="toggle-check3"
+                                id={uuid()}
                                 size={"sm"}
                                 type="checkbox"
                                 variant="secondary"
                                 checked={checkedStatus[2]}
                                 value="3"
-                                onChange={(e) => onCheckedEventHandler(e, 2)}
+                                onChange={(e) => onCheckedEventHandler(2)}
                             >
                                 {<Walk
                                     size={25}

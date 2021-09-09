@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import ChangeHoursContext from "./ChangeHourContext";
 import {itineraryActions} from "../../store/itinerary-slice";
 import {useDispatch, useSelector} from "react-redux";
@@ -11,6 +11,8 @@ import Button from "react-bootstrap/Button";
 import HoursBar from "./hoursBar/HoursBar";
 import DailyDnd from "./DailyDnd";
 import styles from "./DailyPlanner.module.css"
+import useHttp from "../../hooks/UseHttp";
+import LoaderContext from "../utils/loader/LoaderContext";
 
 //TODO handle empty itinerary scenario
 
@@ -19,12 +21,18 @@ const DailyPlanner = () => {
     const myItinerary = useSelector(state => state.itineraryData.itinerary);
     const error = useSelector(state => state.itineraryData.error);
     const [showErrorMsg, setShowErrorMsg] = useState(false);
+    const {isLoading, postError, sendRequest: setFinishStatus} = useHttp();
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+    const loader = useContext(LoaderContext);
 
     useEffect(() => {
         dispatch(fetchItineraryData());
         dispatch(fetchAttractionsDurations());
     }, [dispatch])
 
+    useEffect(() => {
+        loader.setShow(isLoading);
+    }, [isLoading])
 
     const dayChangedHandler = (index) => {
         dispatch(itineraryActions.updateDay(index));
@@ -94,14 +102,23 @@ const DailyPlanner = () => {
         </SweetAlert>
     }
 
-    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+    const postFinish = () => {
+        setFinishStatus({
+            url: process.env.REACT_APP_SERVER_URL + "/updateItineraryStatus",
+            method: 'POST',
+            body: {
+                id: myItinerary.itineraryId,
+                status: "COMPLETED"
+            }
+        }).then((res) => setShowSuccessAlert(true));
+    }
 
     const finishItineraryAlert = () => {
         const moveToItineraryPage = () => {
-            // TODO
             setShowSuccessAlert(false);
-            alert('moving to itinerary page');
+            window.location = "/myItineraries"
         }
+
         return <SweetAlert
             success
             title="Saved!"
@@ -111,6 +128,7 @@ const DailyPlanner = () => {
             Your trip is now saved!
         </SweetAlert>
     }
+
 
     const actionFailedAlert = () => {
         return <SweetAlert
@@ -163,7 +181,7 @@ const DailyPlanner = () => {
                                     </Col>
                                     <Col md={{span: 4}}>
                                         <div className="d-grid gap-2">
-                                            <Button onClick={() => setShowSuccessAlert(true)}
+                                            <Button onClick={() => postFinish()}
                                                     style={{marginBottom: 20}}
                                                     variant={"outline-success"}
                                                     size="lg">Save Your Trip</Button>

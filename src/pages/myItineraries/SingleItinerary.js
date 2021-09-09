@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Card, Col, OverlayTrigger, Row} from "react-bootstrap";
 import {
     BiHotel,
@@ -31,18 +31,20 @@ import * as Constants from "../../components/itinerary/Constants";
 import {Trash} from "tabler-icons-react";
 import useHttp from "../../hooks/UseHttp";
 import LoaderContext from "../../components/utils/loader/LoaderContext";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 const SingleItinerary = (props) => {
         const {isLoading, error, sendRequest: removeItinerary} = useHttp();
+        const {isLoadingUpdateStatus, updateError, sendRequest: setOnEditStatus} = useHttp();
         const loader = useContext(LoaderContext)
 
         useEffect(() => {
-            if (isLoading) {
-                loader.setShow(true)
-            } else {
-                loader.setShow(false);
-            }
+            loader.setShow(isLoading)
         }, [isLoading])
+
+        useEffect(() => {
+            loader.setShow(isLoadingUpdateStatus)
+        }, [isLoadingUpdateStatus])
 
         let fromDateToString = (date) => {
             let mm = date.month + 1;
@@ -130,14 +132,25 @@ const SingleItinerary = (props) => {
         }
 
 
-        function CheckoutBtnClickEventHandler(e) {
+        function CheckoutBtnClickEventHandler() {
             localStorage.setItem(Constants.ITINERARY_ID_STORAGE, itineraryId);
             window.location = Constants.STATIC_VIEW_URL;
         }
 
-        function editBtnClickEventHandler(e) {
+        function editBtnClickEventHandler() {
             localStorage.setItem(Constants.ITINERARY_ID_STORAGE, itineraryId);
             window.location = Constants.DND_URL;
+        }
+
+        const updateToEditMode = () => {
+            setOnEditStatus({
+                url: process.env.REACT_APP_SERVER_URL + "/updateItineraryStatus",
+                method: 'POST',
+                body: {
+                    id: itineraryId,
+                    status: "EDIT"
+                }
+            }).then((res) => editBtnClickEventHandler());
         }
 
         function getStatus() {
@@ -147,7 +160,7 @@ const SingleItinerary = (props) => {
                 res = <span style={{fontWeight: 'bold', color: '#EED202'}}>Not Completed</span>
 
             } else if (status === "COMPLETED") {
-                res = <span style={{fontWeight: 'bold', color: '#49ee02'}}>Completed</span>
+                res = <span style={{fontWeight: 'bold', color: '#34b001'}}>Completed</span>
             } else if (status === "AUTO_MODE") {
                 res = <span style={{fontWeight: 'bold', color: '#ee021e'}}>Processing</span>
             }
@@ -166,9 +179,30 @@ const SingleItinerary = (props) => {
             }, props.removeLocal(itineraryId)).then();
         }
 
+        const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+
+        const deleteAlert = () => {
+            return <SweetAlert
+                warning
+                showCancel
+                confirmBtnText="Yes, delete itinerary"
+                confirmBtnBsStyle="danger"
+                title="Are you sure?"
+                focusCancelBtn
+                onConfirm={() => {
+                    onRemoveHandler()
+                    setShowDeleteAlert(false);
+                }}
+                onCancel={() => setShowDeleteAlert(false)}
+            >
+                Attention! you won't be able to recover the deleted itinerary.
+            </SweetAlert>
+        }
+
 
         return (
             <Card style={{width: '25rem', marginRight: "0", marginBottom: "0"}}>
+                {showDeleteAlert && deleteAlert()}
                 <Card.Header style={{display: "inline"}}>
                     <Row>
                         <Col md={10}>
@@ -176,7 +210,7 @@ const SingleItinerary = (props) => {
                         </Col>
                         <Col md={2}>
                             <Button
-                                onClick={onRemoveHandler}
+                                onClick={() => setShowDeleteAlert(true)}
                                 style={{backgroundColor: "transparent", border: "none"}}
                                 size={"sm"}>
                                 <Trash color={"black"} strokeWidth={2}/>
@@ -291,7 +325,7 @@ const SingleItinerary = (props) => {
                         </Col>
                         <Col>
                             <div className="d-grid gap-2">
-                                <Button onClick={editBtnClickEventHandler}>
+                                <Button onClick={updateToEditMode}>
                                     Edit
                                 </Button>
                             </div>
