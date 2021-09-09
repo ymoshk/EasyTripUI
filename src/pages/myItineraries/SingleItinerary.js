@@ -154,7 +154,7 @@ const SingleItinerary = (props) => {
                     id: itineraryId,
                     status: "EDIT"
                 }
-            }, res => editBtnClickEventHandler());
+            }).then(() => editBtnClickEventHandler())
         }
 
         function getStatus() {
@@ -329,7 +329,7 @@ const SingleItinerary = (props) => {
                         </Col>
                         <Col>
                             <div className="d-grid gap-2">
-                                <Button onClick={() => updateToEditMode()}>
+                                <Button onClick={updateToEditMode}>
                                     Edit
                                 </Button>
                             </div>
