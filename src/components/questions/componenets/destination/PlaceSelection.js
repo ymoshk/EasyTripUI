@@ -97,7 +97,7 @@ const PlaceSelection = (props) => {
                 aspectRatio: 1,
                 marginBottom: 10
             }}/>
-            <Text style={{fontSize: '125%'}}>{props.text}</Text>
+            <Text style={{fontSize: '175%'}}>{props.text}</Text>
             <br/>
             <SearchDestination url={process.env.REACT_APP_SERVER_URL + '/getCountryNames'}
                                placeHolder={props.countryPlaceHolder}

@@ -170,7 +170,7 @@ const Questionnaire = () => {
             </SweetAlert>
             }
             <Card.Header>
-                <Text style={{fontSize: '150%'}}>{stages[step].header}</Text>
+                <Text style={{fontSize: '175%'}}>{stages[step].header}</Text>
             </Card.Header>
             <Card.Body>
                 <Alert style={{display: error ? "block" : "none"}} variant={'danger'}>

@@ -36,7 +36,7 @@ const TagsList = (props) => {
     }
 
     return (<>
-        <Text style={{fontSize: '125%'}}>{props.text}</Text>
+        <Text style={{fontSize: '175%'}}>{props.text}</Text>
         <br/>
         <div className={styles.center}>
             {renderRows()}
