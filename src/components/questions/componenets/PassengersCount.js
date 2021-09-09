@@ -33,7 +33,7 @@ function PassengersCount(props) {
                 aspectRatio: 1,
                 marginBottom: 10
             }}/>
-            <Text style={{fontSize: '125%'}}>{props.text}</Text>
+            <Text style={{fontSize: '175%'}}>{props.text}</Text>
             <br/>
             <div>
                 <StepsCounter

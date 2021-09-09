@@ -201,7 +201,7 @@ const SingleItinerary = (props) => {
 
 
         return (
-            <Card style={{width: '25rem', marginRight: "0", marginBottom: "0"}}>
+            <Card style={{height:"100%" ,width: '25rem', marginRight: "0", marginBottom: "0"}}>
                 {showDeleteAlert && deleteAlert()}
                 <Card.Header style={{display: "inline"}}>
                     <Row>
