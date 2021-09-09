@@ -4,6 +4,7 @@ import ONE_HOUR_HEIGHT from "../Constants";
 import formatDateToHours from "../../utils/helpers/DateFormatter";
 import CompactAttraction from "./CompactAttraction";
 import FreeTime from "./special/FreeTime";
+import uuid from "uuid-random";
 
 const AttractionContainer = (props) => {
     const helpersContext = useContext(ChangeHoursContext);

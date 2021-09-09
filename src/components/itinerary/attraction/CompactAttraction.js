@@ -12,6 +12,7 @@ import ChangeHourContext from "../ChangeHourContext";
 import ChangeDurationModal from "./modal/ChangeDurationModal";
 import styles from "./CompactAttraction.module.css"
 import Mobility from "./special/Mobility";
+import uuid from "uuid-random";
 
 const CompactAttraction = (props) => {
     const dispatch = useDispatch();
@@ -122,6 +123,7 @@ const CompactAttraction = (props) => {
                 >
                     <Row>
                         {props.transportation && <Mobility
+                            uniqueKey={uuid()}
                             initType={props.transportation.type}
                             transDuration={props.transportation.data}
                             sourceData={props.transportation.sourceData}
