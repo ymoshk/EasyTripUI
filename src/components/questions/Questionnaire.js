@@ -173,8 +173,6 @@ const Questionnaire = () => {
                 <Text style={{fontSize: '150%'}}>{stages[step].header}</Text>
             </Card.Header>
             <Card.Body>
-                <Text style={{fontSize: '125%'}}>{stages[step].text}</Text>
-                <br/>
                 <Alert style={{display: error ? "block" : "none"}} variant={'danger'}>
                     {errorMsg === undefined ? "You must fill in all the required fields." : errorMsg}
                 </Alert>

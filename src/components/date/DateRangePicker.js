@@ -6,8 +6,9 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {questionnaireActions} from "../../store/questionnaire-slice";
 import planTrip from "../../images/planTrip.jpg";
+import {Text} from "tabler-react";
 
-const DateRangeInput = () => {
+const DateRangeInput = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -39,17 +40,20 @@ const DateRangeInput = () => {
 
     return (
         <>
+            <img src={planTrip} style={{
+                width: '100%',
+                height: undefined,
+                aspectRatio: 1,
+                marginBottom: 10
+            }}/>
+            <Text style={{fontSize: '125%'}}>{props.text}</Text>
+            <br/>
             <DateRangePicker
                 onCallback={(start, end) => onCallbackEventHandler(start, end)}
                 initialSettings={{startDate: getDateAfter(1), endDate: getDateAfter(2)}}>
                 <input style={{fontFamily: "sans-serif"}} type="text" className="form-control"/>
             </DateRangePicker>
             <br/>
-            <img src={planTrip} style={{
-                width: '100%',
-                height: undefined,
-                aspectRatio: 1,
-            }}/>
         </>
     );
 };

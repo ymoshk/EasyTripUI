@@ -3,6 +3,7 @@ import SingleTag from "./SingleTag";
 import styles from "./TagsList.module.css"
 import {Col, Row} from "react-bootstrap";
 import uuid from "uuid-random";
+import {Text} from "tabler-react";
 
 const TagsList = (props) => {
     const renderRow = (offset) => {
@@ -34,10 +35,13 @@ const TagsList = (props) => {
         return result;
     }
 
-    return (
+    return (<>
+        <Text style={{fontSize: '125%'}}>{props.text}</Text>
+        <br/>
         <div className={styles.center}>
             {renderRows()}
         </div>
+    </>
     );
 };
 

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import SearchDestination from "./SearchDestination";
 import {useDispatch, useSelector} from "react-redux";
 import {questionnaireActions} from "../../../../store/questionnaire-slice";
+import {Text} from "tabler-react";
 
 // TODO: handle arabic letter support
 
@@ -90,6 +91,14 @@ const PlaceSelection = (props) => {
 
     return (
         <div>
+            <img src={props.image} style={{
+                width: '100%',
+                height: undefined,
+                aspectRatio: 1,
+                marginBottom: 10
+            }}/>
+            <Text style={{fontSize: '125%'}}>{props.text}</Text>
+            <br/>
             <SearchDestination url={process.env.REACT_APP_SERVER_URL + '/getCountryNames'}
                                placeHolder={props.countryPlaceHolder}
                                ariaLabel={"Destination"}
@@ -101,11 +110,6 @@ const PlaceSelection = (props) => {
                                showButton={false}
                                value={initCountry}/>
             {data.country !== '' && getCitySearchBar()}
-            <img src={props.image} style={{
-                width: '100%',
-                height: undefined,
-                aspectRatio: 1,
-            }}/>
         </div>
     );
 };

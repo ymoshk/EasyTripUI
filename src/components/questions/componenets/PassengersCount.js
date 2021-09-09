@@ -3,6 +3,7 @@ import StepsCounter from "../../utils/StepsCounter";
 import {useDispatch, useSelector} from "react-redux";
 import {questionnaireActions} from "../../../store/questionnaire-slice";
 import nature from "../../../images/nature.jpg";
+import {Text} from "tabler-react";
 
 
 function PassengersCount(props) {
@@ -26,26 +27,29 @@ function PassengersCount(props) {
 
     return (
         <>
+            <img src={nature} style={{
+                width: '100%',
+                height: undefined,
+                aspectRatio: 1,
+                marginBottom: 10
+            }}/>
+            <Text style={{fontSize: '125%'}}>{props.text}</Text>
+            <br/>
             <div>
-            <StepsCounter
+                <StepsCounter
                 setValue={onUpdateAdults}
                 initValue={data.adultsCount}
                 maxVal={10}
                 minVal={1}
                 title="Adults"/>
 
-            <StepsCounter
+                <StepsCounter
                 setValue={onUpdateChildren}
                 initValue={data.childrenCount}
                 maxVal={10}
                 minVal={0}
                 title="Children"/>
-        </div>
-        <img src={nature} style={{
-            width: '100%',
-            height: undefined,
-            aspectRatio: 1,
-        }}/>
+            </div>
             </>);
 }
 
