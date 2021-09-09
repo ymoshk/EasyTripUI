@@ -80,56 +80,86 @@ const TimelineView = (props) => {
     }
 
 
-    function getTransportDuration(activity) {
+    const getActivityStartTime = (activity) => {
+        let startTimeAsDate = Date.parse('December 17, 1995 ' + activity.startTime + ":00");
+        console.log(activity.transportation.data[activity.transportation.type]);
+        let activityRealTime = new Date(startTimeAsDate + activity.transportation.data[activity.transportation.type] * 60 * 1000);
         let res = "";
-        const startTime = Date.parse('December 17, 1995 ' + activity.startTime + ":00");
-        const endTime = Date.parse('December 17, 1995 ' + activity.endTime + ":00");
-        const duration = endTime - startTime;
 
-        return new Date(duration).getMinutes() + " minutes";
+        res += (activityRealTime.getHours() + 1) < 10 ? "0" + activityRealTime.getHours() : activityRealTime.getHours();
+        res += ":";
+        res += (activityRealTime.getMinutes() + 1) < 10 ? "0" + activityRealTime.getMinutes() : activityRealTime.getMinutes();
+
+        return res;
     }
 
     const mapAttraction = (activity, index) => {
-            let innerComponent;
-            let icon;
-            let isTransport = false;
-            let isFlight = false;
+        let res = [];
+        let innerComponent;
+        let icon, transportIcon;
+        let isTransport = false;
+        let isFlight = false;
 
-            if (activity.type === "ATTRACTION") {
-                innerComponent = <AttractionTimeline attraction={activity.attraction}/>
-                icon = getAttractionIcon(activity.attraction.type)
-            } else if (activity.type === "TRANSIT") {
-                isTransport = true;
-                icon = <Bus color={"white"}/>
-            } else if (activity.type === "CAR") {
-                isTransport = true;
-                icon = <Car color={"white"}/>
-            } else if (activity.type === "WALK") {
-                isTransport = true;
-                icon = <Walk color={"white"}/>
-            } else if (activity.type === "FLIGHT") {
-                isFlight = true;
-                icon = <MdFlight/>
-            } else if (activity.type === "FREE_TIME") {
-                return;
+        if (activity.type === "ATTRACTION") {
+            innerComponent = <AttractionTimeline attraction={activity.attraction}/>
+            icon = getAttractionIcon(activity.attraction.type);
+
+            if (activity.transportation !== undefined) {
+                if (activity.transportation.type === "TRANSIT") {
+                    isTransport = true;
+                    transportIcon = <Bus color={"white"}/>
+                } else if (activity.transportation.type === "CAR") {
+                    isTransport = true;
+                    transportIcon = <Car color={"white"}/>
+                } else if (activity.transportation.type === "WALK") {
+                    isTransport = true;
+                    transportIcon = <Walk color={"white"}/>
+                }
             }
+        } else if (activity.type === "FLIGHT") {
+            isFlight = true;
+            icon = <MdFlight/>
+        } else if (activity.type === "FREE_TIME") {
+            return;
+        }
 
+        if (isTransport) {
             return (
                 <>
                     <VerticalTimelineElement
                         key={index}
-                        className={isTransport || isFlight ? "" : "vertical-timeline-element--work"}
-                        date={isTransport ? getTransportDuration(activity) : activity.startTime + " - " + activity.endTime}
+                        className={""}
+                        date={activity.transportation.data[activity.transportation.type] + " minutes"}
+                        iconStyle={{background: '#467fcf', color: '#fff'}}
+                        icon={transportIcon}
+                    >
+                    </VerticalTimelineElement>
+                    <VerticalTimelineElement style={{display: "none"}}/>
+                    <VerticalTimelineElement
+                        key={index}
+                        className={"vertical-timeline-element--work"}
+                        date={getActivityStartTime(activity) + " - " + activity.endTime}
                         iconStyle={{background: '#467fcf', color: '#fff'}}
                         icon={icon}
                     >
                         {innerComponent}
                     </VerticalTimelineElement>
-                    {isTransport && <VerticalTimelineElement style={{display: "none"}}/>}
                 </>
             )
+        } else {
+            return (
+                <VerticalTimelineElement
+                    key={index}
+                    className={isFlight ? "" : "vertical-timeline-element--work"}
+                    date={activity.startTime + " - " + activity.endTime}
+                    iconStyle={{background: '#467fcf', color: '#fff'}}
+                    icon={icon}
+                >
+                    {innerComponent}
+                </VerticalTimelineElement>
+            )
         }
-    ;
+    };
 
     return (
         <>
