@@ -13,6 +13,7 @@ import ChangeDurationModal from "./modal/ChangeDurationModal";
 import styles from "./CompactAttraction.module.css"
 import Mobility from "./special/Mobility";
 import uuid from "uuid-random";
+import formatDateToHours from "../../utils/helpers/DateFormatter";
 
 const CompactAttraction = (props) => {
     const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const CompactAttraction = (props) => {
     const [showImage, setShowImage] = useState(false);
     const [imageBase64, setImageBase64] = useState(null);
     const {isLoading, error, sendRequest: getImagePost} = useHttp();
+    const [mobilityDuration, setMobilityDuration] = useState(0);
     const context = useContext(ChangeHourContext);
 
 
@@ -76,6 +78,13 @@ const CompactAttraction = (props) => {
         dispatch(itineraryActions.removeAttraction(props.index));
     }
 
+    const addMinutesToHour = (hour, minutesCount) => {
+        const newTime = new Date("01-01-2030 " + hour + ":00");
+        newTime.setTime(newTime.getTime() + minutesCount * 1000 * 60);
+
+        return formatDateToHours(newTime);
+    }
+
     const getName = () => {
         if (props.attraction.website !== undefined && props.attraction.website !== "") {
             return <a onMouseOver={() => {
@@ -124,6 +133,7 @@ const CompactAttraction = (props) => {
                     <Row>
                         {props.transportation && <Mobility
                             uniqueKey={uuid()}
+                            changeDuration={setMobilityDuration}
                             initType={props.transportation.type}
                             transDuration={props.transportation.data}
                             sourceData={props.transportation.sourceData}
@@ -134,7 +144,7 @@ const CompactAttraction = (props) => {
                             <Row>
                                 <Col md={2}>
                                     <Row>
-                                        <h6>{props.calculatedStartTime}</h6>
+                                        <h6>{addMinutesToHour(props.calculatedStartTime, mobilityDuration)}</h6>
                                     </Row>
                                     <Row>
                                         <h6>{props.calculatedEndTime}</h6>
