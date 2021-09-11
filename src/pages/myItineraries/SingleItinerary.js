@@ -38,12 +38,20 @@ const SingleItinerary = (props) => {
         const {isLoadingUpdateStatus, updateError, sendRequest: setOnEditStatus} = useHttp();
         const loader = useContext(LoaderContext)
 
-        useEffect(() => {
-            loader.setShow(isLoading)
-        }, [isLoading])
+    useEffect(() => {
+        if(isLoading === true){
+            loader.setShow(true);
+        } else if(!isLoadingUpdateStatus){
+            loader.setShow(false);
+        }
+    }, [loader])
 
         useEffect(() => {
-            loader.setShow(isLoadingUpdateStatus)
+            if(isLoadingUpdateStatus === true){
+                loader.setShow(true);
+            } else if(!isLoading){
+                loader.setShow(false);
+            }
         }, [isLoadingUpdateStatus])
 
         let fromDateToString = (date) => {
@@ -143,14 +151,18 @@ const SingleItinerary = (props) => {
         }
 
         const updateToEditMode = () => {
-            setOnEditStatus({
-                url: process.env.REACT_APP_SERVER_URL + "/updateItineraryStatus",
-                method: 'POST',
-                body: {
-                    id: itineraryId,
-                    status: "EDIT"
-                }
-            }).then((res) => editBtnClickEventHandler());
+            if(status !== "EDIT") {
+                setOnEditStatus({
+                    url: process.env.REACT_APP_SERVER_URL + "/updateItineraryStatus",
+                    method: 'POST',
+                    body: {
+                        id: itineraryId,
+                        status: "EDIT"
+                    }
+                }, editBtnClickEventHandler).then(() => editBtnClickEventHandler())
+            } else {
+                editBtnClickEventHandler();
+            }
         }
 
         function getStatus() {

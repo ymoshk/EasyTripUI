@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 import Button from "react-bootstrap/Button";
 import {ListGroup} from "react-bootstrap";
 import LoaderContext from "../utils/loader/LoaderContext";
+import {Text} from "tabler-react";
 
 const FindFlight = (props) => {
     const [flights, setFlights] = useState([]);
@@ -86,13 +87,22 @@ const FindFlight = (props) => {
     }
 
     return <Fragment>
+        {!showFlights && <img src={props.image} style={{
+            width: '100%',
+            height: undefined,
+            aspectRatio: 1,
+            marginBottom: 10
+        }}/>}
+        {!showFlights && !selectedFlight && <Text style={{fontSize: '175%'}}>{props.text}</Text>}
         {!selectedFlight && showFlights && <div style={{height: "80vh", overflowY: "scroll"}} className="selection-area">
             <ListGroup>
-                {flights.map((flight, index) => <Flight flight={flight} key={index} setFlight={setFlightHandler} removeFlight={removeFlightHandler} selected={false}/>)}
+                {flights.map((flight, index) =>
+                    <Flight flight={flight} key={index} setFlight={setFlightHandler} removeFlight={removeFlightHandler} selected={false}/>)}
             </ListGroup>
         </div>}
         {selectedFlight && <Flight flight={selectedFlight} setFlight={setFlightHandler} removeFlight={removeFlightHandler} selected={true}/>}
-        {!showFlights && !selectedFlight && <PlaceSelection stageIndex={props.stageIndex} countryPlaceHolder={props.countryPlaceHolder} cityPlaceHolder={props.cityPlaceHolder}/>}
+        {!showFlights && !selectedFlight &&
+        <PlaceSelection stageIndex={props.stageIndex} countryPlaceHolder={props.countryPlaceHolder} cityPlaceHolder={props.cityPlaceHolder}/>}
         {!showFlights && showButton && <Button onClick={onFindFlightsHandler}>Find flights</Button>}
         {noAvailableFlights && <p style={{color: 'red'}}>No available flights</p>}
     </Fragment>;

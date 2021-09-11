@@ -614,6 +614,27 @@ function changeTransportationUtil(state, currentDay, index, method, data) {
         uniqueKey: uuid(),
         endTime: newEndTime,
     }
+
+    if (newDuration > currentDuration) {
+        const paddingDuration = calcAttractionDuration(currentDay[index + 1])
+        const toAdd = newDuration - currentDuration - paddingDuration
+
+        for (let i = index + 1; i < currentDay.length; i++) {
+            currentDay[i] = {
+                ...currentDay[i],
+                uniqueKey: uuid(),
+                endTime: addMinutesToHour(currentDay[i].endTime, toAdd),
+                startTime: addMinutesToHour(currentDay[i].startTime, toAdd),
+            }
+        }
+    }
+
+    currentDay[index + 1] = {
+        ...currentDay[index + 1],
+        uniqueKey: uuid(),
+        endTime: currentDay.length === index + 2 ? currentDay[index].endTime : currentDay[index + 2].startTime,
+        startTime: currentDay[index].endTime,
+    }
 }
 
 const itinerarySlice = createSlice({

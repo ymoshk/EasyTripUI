@@ -2,7 +2,7 @@ import React from "react";
 import StepsCounter from "../../utils/StepsCounter";
 import {useDispatch, useSelector} from "react-redux";
 import {questionnaireActions} from "../../../store/questionnaire-slice";
-import nature from "../../../images/nature.jpg";
+import london from "../../../images/london.jpg";
 import {Text} from "tabler-react";
 
 
@@ -27,7 +27,7 @@ function PassengersCount(props) {
 
     return (
         <>
-            <img src={nature} style={{
+            <img src={london} style={{
                 width: '100%',
                 height: undefined,
                 aspectRatio: 1,

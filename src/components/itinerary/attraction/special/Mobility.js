@@ -18,10 +18,39 @@ const Mobility = (props) => {
     const initType = props.initType;
     const [checkedStatus, setCheckedStatus] = useState(
         [initType === "CAR", initType === "TRANSIT", initType === "WALK"]);
+    const [showWalk, setShowWalk] = useState(true);
+    const [showDrive, setShowDrive] = useState(true);
+    const [showTransport, setShowTransport] = useState(true);
+    const [showTrash, setShowTrash] = useState(true);
     const dispatch = useDispatch();
     const [type, setType] = useState(props.initType);
     const isCheckedIconColor = '#FFFFFF';
     const grey = '#656D77';
+
+    useEffect(() => {
+        props.changeDuration(props.transDuration[initType])
+    },[])
+
+    useEffect(() => {
+        let showTrash = true;
+
+        if (props.transDuration.WALK === undefined) {
+            setShowWalk(false);
+            showTrash = false;
+        }
+
+        if (props.transDuration.CAR === undefined) {
+            setShowDrive(false);
+            showTrash = false;
+        }
+
+        if (props.transDuration.TRANSIT === undefined) {
+            setShowTransport(false);
+            showTrash = false;
+        }
+
+        setShowTrash(showTrash);
+    }, [])
 
     const onCheckedEventHandler = (index) => {
         let newCheckedStatus = [false, false, false];
@@ -33,19 +62,24 @@ const Mobility = (props) => {
         } else {
             if (index === 0) {
                 setType("CAR");
+                props.changeDuration(props.transDuration.CAR);
                 dispatch(itineraryActions.changeTransportationMethod(createMethodObject("CAR")));
             } else if (index === 1) {
+                props.changeDuration(props.transDuration.TRANSIT);
                 setType("TRANSIT");
                 dispatch(itineraryActions.changeTransportationMethod(createMethodObject("TRANSIT")));
             } else {
                 setType("WALK")
+                props.changeDuration(props.transDuration.WALK);
                 dispatch(itineraryActions.changeTransportationMethod(createMethodObject("WALK")));
             }
         }
     }
 
     useEffect(() => {
-        loader.setShow(isLoading)
+        if (isLoading !== undefined) {
+            loader.setShow(isLoading);
+        }
     }, [isLoading])
 
     const getAndUpdateMissingDurations = () => {
@@ -110,70 +144,70 @@ const Mobility = (props) => {
                 <Col md={{span: 6, offset: 0}} xs={{span: 9, offset: 0}}>
                     <Row>
                         <Col>
-                            <ToggleButton
+                            {showDrive && <ToggleButton
                                 id={uuid()}
                                 size={"sm"}
                                 type="checkbox"
                                 variant="secondary"
                                 checked={checkedStatus[0]}
                                 value="1"
-                                onChange={(e) => onCheckedEventHandler(0)}
+                                onChange={showTrash ? () => onCheckedEventHandler(0) : undefined}
                             >
                                 {<Car
                                     size={25}
                                     strokeWidth={2}
                                     color={checkedStatus[0] ? isCheckedIconColor : grey}
                                 />}
-                            </ToggleButton>
+                            </ToggleButton>}
                         </Col>
                         <Col>
-                            <ToggleButton
+                            {showTransport && <ToggleButton
                                 id={uuid()}
                                 size={"sm"}
                                 type="checkbox"
                                 variant="secondary"
                                 checked={checkedStatus[1]}
                                 value="2"
-                                onChange={(e) => onCheckedEventHandler(1)}
+                                onChange={showTrash ? () => onCheckedEventHandler(1) : undefined}
                             >
                                 {<Bus
                                     size={25}
                                     strokeWidth={2}
                                     color={checkedStatus[1] ? isCheckedIconColor : grey}
                                 />}
-                            </ToggleButton>
+                            </ToggleButton>}
                         </Col>
                         <Col>
-                            <ToggleButton
+                            {showWalk && <ToggleButton
                                 id={uuid()}
                                 size={"sm"}
                                 type="checkbox"
                                 variant="secondary"
                                 checked={checkedStatus[2]}
                                 value="3"
-                                onChange={(e) => onCheckedEventHandler(2)}
+                                onChange={showTrash ? () => onCheckedEventHandler(2) : undefined}
                             >
                                 {<Walk
                                     size={25}
                                     strokeWidth={2}
                                     color={checkedStatus[2] ? isCheckedIconColor : grey}
                                 />}
-                            </ToggleButton>
+                            </ToggleButton>}
                         </Col>
                         <Col>
-                            <Button
+                            {showTrash && <Button
                                 size={"sm"}
                                 type="checkbox"
                                 value="3"
                                 variant={"secondary"}
-                                onClick={() => onRemoveHandler()}
+                                onClick={showTrash ? () => onRemoveHandler() : undefined}
                             >
                                 {<Trash
                                     size={25}
                                     strokeWidth={2}
                                     color={"black"}
                                 />}
-                            </Button>
+                            </Button>}
                         </Col>
                     </Row>
                 </Col>
