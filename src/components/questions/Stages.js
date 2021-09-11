@@ -7,8 +7,8 @@ import TagsList from "./tags/TagsList";
 import {favoriteAttractionTags, transportationTags, tripVibesTags} from "./QuestionnaireTags";
 import React from "react";
 import FindFlight from "../flight/FindFlight";
-import vacationMap from "../../images/vacationMap.jpg"
-import cityMadrid from "../../images/cityMadrid.jpg"
+import hamborg from "../../images/hamborg.jpg"
+import paris from "../../images/paris.jpg"
 
 export const questionnaireStages = [
     {
@@ -31,7 +31,7 @@ export const questionnaireStages = [
         data: {adultsCount: 1, childrenCount: 0},
     }, {
         key: 3,
-        header: "Find flights - optional",
+        header: "Find flights - Optional",
         validatable: false,
         isValid: true,
         data: {}
@@ -57,16 +57,16 @@ export const questionnaireStages = [
 ]
 
 export const questionnaireComponents = [
-    <PlaceSelection key={"step0"} stageIndex={0} image={vacationMap} text={"Where would you like to go?"}
+    <PlaceSelection key={"step0"} stageIndex={0} image={hamborg} text={"Where would you like to go?"}
                     countryPlaceHolder={"Enter destination (country)"} cityPlaceHolder={"Enter destination (city)"}/>,
     <DateRangePicker key={"step1"} stageIndex={1} text={"When would you like to travel?"}/>,
     <PassengersCount key={"step3"} stageIndex={2} text={"How many people are going on the trip?"}/>,
-    <FindFlight key={"step4"} stageIndex={3} image={cityMadrid} text={"Enter your origin (country and then city) to find flights"}
+    <FindFlight key={"step4"} stageIndex={3} image={paris} text={"Enter your origin (country and then city) to find flights"}
                 countryPlaceHolder={"Country origin"} cityPlaceHolder={"City origin"}/>,
     <TagsList key={"step5"} count={transportationTags.length} stageIndex={4} text={"What is your mode of transportation at your destination?"}
               imageTag={true} numberPerRow={2}/>,
     <TagsList key={"step6"} count={favoriteAttractionTags.length} stageIndex={5} imageTag={true} numberPerRow={4}
-              text={"What do you want to do there?"}/>,
+              text={"What do you want to do there? (choose your favorite attraction types)"}/>,
     <TagsList key={"step7"} count={tripVibesTags.length} stageIndex={6} imageTag={true} numberPerRow={3}
               text={"What’s your travel vibe? (choose one option from each line)"}/>
 ]

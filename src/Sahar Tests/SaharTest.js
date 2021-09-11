@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
-import EiffelTour from "../images/EiffelTour.jpg";
-import louvre from "../images/louvre.jpg";
-import nortedame from "../images/nortedame.jpg";
+import paris from "../images/paris.jpg";
 import Mobility from "../components/itinerary/attraction/special/Mobility";
 import StaticItinerary from "../components/itinerary/static/StaticItinerary";
 import SingleItinerary from "../pages/myItineraries/SingleItinerary";
@@ -74,7 +72,7 @@ const SaharTest = () => {
                 type: "Must See",
                 rating: 4.5,
                 userTotalRating: 358,
-                image: {url: EiffelTour, height: 1025, width: 616},
+                image: {url: paris, height: 1025, width: 616},
                 closedTemporarily: false,
                 priceRange: 3,
                 startTime: '08:00',
@@ -98,7 +96,7 @@ const SaharTest = () => {
                     type: "Art",
                     rating: 3.5,
                     userTotalRating: 123,
-                    image: {url: louvre, height: 780, width: 1280},
+                    image: {url: paris, height: 780, width: 1280},
                     closedTemporarily: true,
                     priceRange: 1,
                     startTime: '12:00',
@@ -122,7 +120,7 @@ const SaharTest = () => {
                     type: "Art",
                     rating: 3.5,
                     userTotalRating: 123,
-                    image: {url: nortedame, height: 868, width: 636},
+                    image: {url: paris, height: 868, width: 636},
                     closedTemporarily: false,
                     priceRange: 1,
                     startTime: '12:00',

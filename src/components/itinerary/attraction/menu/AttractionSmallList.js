@@ -1,7 +1,5 @@
 import React from 'react';
-import EiffelTour from "../../../../images/EiffelTour.jpg";
-// import louvre from "../../images/louvre.jpg";
-// import nortedame from "../../images/nortedame.jpg";
+import paris from "../../../../images/paris.jpg";
 import AttractionSmall from "./AttractionSmall";
 
 const DUMMY_ATTRACTIONS = [{
@@ -10,7 +8,7 @@ const DUMMY_ATTRACTIONS = [{
     type: "Must See",
     rating: 4.5,
     userTotalRating: 358,
-    image: {url: EiffelTour, height: 1025, width: 616},
+    image: {url: paris, height: 1025, width: 616},
     closedTemporarily: false,
     priceRange: 3,
     startTime: '10:30',

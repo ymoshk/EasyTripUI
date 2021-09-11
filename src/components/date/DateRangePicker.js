@@ -5,7 +5,7 @@ import 'bootstrap-daterangepicker/daterangepicker.css'
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {questionnaireActions} from "../../store/questionnaire-slice";
-import planTrip from "../../images/planTrip.jpg";
+import florence from "../../images/florence.jpg";
 import {Text} from "tabler-react";
 
 const DateRangeInput = (props) => {
@@ -40,7 +40,7 @@ const DateRangeInput = (props) => {
 
     return (
         <>
-            <img src={planTrip} style={{
+            <img src={florence} style={{
                 width: '100%',
                 height: undefined,
                 aspectRatio: 1,
