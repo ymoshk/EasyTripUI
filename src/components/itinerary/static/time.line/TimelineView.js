@@ -82,7 +82,6 @@ const TimelineView = (props) => {
 
     const getActivityStartTime = (activity) => {
         let startTimeAsDate = Date.parse('December 17, 1995 ' + activity.startTime + ":00");
-        console.log(activity.transportation.data[activity.transportation.type]);
         let activityRealTime = new Date(startTimeAsDate + activity.transportation.data[activity.transportation.type] * 60 * 1000);
         let res = "";
 
