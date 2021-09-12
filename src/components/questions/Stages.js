@@ -68,5 +68,5 @@ export const questionnaireComponents = [
     <TagsList key={"step6"} count={favoriteAttractionTags.length} stageIndex={5} imageTag={true} numberPerRow={4}
               text={"What do you want to do there? (choose your favorite attraction types)"}/>,
     <TagsList key={"step7"} count={tripVibesTags.length} stageIndex={6} imageTag={true} numberPerRow={3}
-              text={"What’s your travel vibe? (choose one option from each line)"}/>
+              text={"What’s your travel vibe? (choose one option from each row)"}/>
 ]
