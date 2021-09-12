@@ -32,7 +32,7 @@ const SingleTag = (props) => {
         if (myself.src !== undefined && myself.src !== "") {
             result = <Fragment>
                 <Row>
-                    <span><b>{myself.name}</b></span>
+                    <h5>{myself.name}</h5>
                 </Row>
                 <Row>
                     <img className={styles.img} src={myself.src} alt={"None"}/>

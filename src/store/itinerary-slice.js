@@ -700,7 +700,7 @@ const itinerarySlice = createSlice({
             const currentDay = state.itinerary.itineraryDays[dayIndex];
             const type = currentDay.activities[action.payload.index].type
 
-            if (type !== "FREE_TIME") {
+            if (type !== "FREE_TIME" && type !== "FLIGHT") {
                 const res = moveAttractionHelper(state, action.payload.index, action.payload.minutesCount);
 
                 if (res !== null) {

@@ -4,7 +4,7 @@ import ONE_HOUR_HEIGHT from "../Constants";
 import formatDateToHours from "../../utils/helpers/DateFormatter";
 import CompactAttraction from "./CompactAttraction";
 import FreeTime from "./special/FreeTime";
-import uuid from "uuid-random";
+import Flight from "./special/Flight";
 
 const AttractionContainer = (props) => {
     const helpersContext = useContext(ChangeHoursContext);
@@ -104,6 +104,14 @@ const AttractionContainer = (props) => {
                 attraction={props.attractionNode.attraction}
                 height={getHeight()}
                 updateDuration={onUpdateDuration}/>
+        } else if (props.attractionNode.type === "FLIGHT") {
+            return <Flight
+                index={props.index}
+                calcHeight={true}
+                duration={extractTime()}
+                startTime={calculatedStartTime}
+                endTime={calculatedStartTime}
+                height={getHeight()}/>
         }
     }
 
