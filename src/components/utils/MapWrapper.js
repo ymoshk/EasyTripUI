@@ -23,7 +23,7 @@ const MapWrapper = (props) => {
     }
 
     const MapContent = () => {
-        if(center === undefined) {
+        if (center === undefined) {
             const lat = findAverage(attractionsNodes.map(attractionNode => attractionNode.attraction.lat));
             const lng = findAverage(attractionsNodes.map(attractionNode => attractionNode.attraction.lng));
             center = {lat: lat, lng: lng};
@@ -38,7 +38,7 @@ const MapWrapper = (props) => {
                     <Marker
                         key={attractionNode.attraction.id}
                         label={labels[index % labels.length]}
-                        title={attractionNode.attraction.name + "\n" + attractionNode.startTime + "-" + attractionNode.endTime}
+                        title={attractionNode.attraction.name}
                         position={{
                             lat: attractionNode.attraction.lat,
                             lng: attractionNode.attraction.lng
