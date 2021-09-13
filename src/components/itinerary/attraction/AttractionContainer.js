@@ -80,6 +80,7 @@ const AttractionContainer = (props) => {
         props.onChangeDuration(newDuration);
     }
 
+
     const getComponent = () => {
         if (props.attractionNode.type === "FREE_TIME") {
             return <FreeTime
@@ -107,6 +108,7 @@ const AttractionContainer = (props) => {
         } else if (props.attractionNode.type === "FLIGHT") {
             return <Flight
                 index={props.index}
+                outbound={props.index === 1 && !props.lastDay}
                 calcHeight={true}
                 duration={extractTime()}
                 startTime={calculatedStartTime}

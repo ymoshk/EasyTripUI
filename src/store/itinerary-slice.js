@@ -546,6 +546,7 @@ const addAttractionHelper = (state, attraction, type, duration) => {
     }
 
     const newEndTime = formatDateToHours(calculateEndTime(prevEndTime, duration));
+
     currentDay.activities.push({
         attraction: attraction,
         type: type,
@@ -637,6 +638,53 @@ function changeTransportationUtil(state, currentDay, index, method, data) {
     }
 }
 
+const cleanDayUtil = (dayAttraction) => {
+    const newDay = []
+
+    if (dayAttraction.length > 1 && dayAttraction[1].type === "FLIGHT") {
+        let padding = dayAttraction[0];
+        let flight = dayAttraction[1];
+        newDay.push(padding);
+        newDay.push(flight);
+    } else if (dayAttraction.length > 2 &&
+        dayAttraction[dayAttraction.length - 2].type === "FLIGHT") {
+        let padding = dayAttraction[dayAttraction.length - 1];
+        let flight = dayAttraction[dayAttraction.length - 2];
+        newDay.push(initialFreeTime);
+        newDay.push(padding);
+        newDay.push(flight);
+    } else {
+        newDay.push(initialFreeTime);
+    }
+
+    return newDay;
+}
+
+const flightFixesUtil = (state) => {
+    if (state.itinerary.itineraryDays !== undefined) {
+        state.itinerary.itineraryDays.forEach(day => {
+            const activities = day.activities;
+
+            if (activities.length > 1) {
+                activities[0] = {
+                    ...activities[0],
+                    uniqueKey: uuid(),
+                    endTime: activities[1].startTime
+                }
+            }
+
+            if (activities[activities.length - 1].type === "FLIGHT") {
+                activities.push({
+                    ...initialFreeTime,
+                    uniqueKey: uuid(),
+                    startTime: activities[activities.length - 1].endTime,
+                    endTime: activities[activities.length - 1].endTime
+                })
+            }
+        })
+    }
+}
+
 const itinerarySlice = createSlice({
     name: 'itinerary',
     initialState: initialState,
@@ -644,6 +692,7 @@ const itinerarySlice = createSlice({
         set(state, action) {
             updateMemory(state);
             state.itinerary = fixTransportationInLoadedItinerary(state, action.payload);
+            flightFixesUtil(state);
         },
         updateDay(state, action) {
             updateMemory(state);
@@ -669,14 +718,14 @@ const itinerarySlice = createSlice({
             updateMemory(state);
             const dayIndex = state.itinerary.currentDayIndex;
             const currentDay = state.itinerary.itineraryDays[dayIndex];
-            currentDay.activities = fixDailyTransportation(state, [initialFreeTime]);
+            currentDay.activities = fixDailyTransportation(state, cleanDayUtil(currentDay.activities));
             state.error = false;
         },
         startOver(state, action) {
             updateMemory(state, []);
             const id = state.itinerary.itineraryId;
             state.itinerary.itineraryDays.forEach(day => {
-                day.activities = fixDailyTransportation(state, [initialFreeTime])
+                day.activities = fixDailyTransportation(state, cleanDayUtil(day.activities))
             })
             state.error = false;
             cleanItinerary(id);

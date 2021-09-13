@@ -32,15 +32,15 @@ import {Trash} from "tabler-icons-react";
 import useHttp from "../../hooks/UseHttp";
 import LoaderContext from "../../components/utils/loader/LoaderContext";
 import SweetAlert from "react-bootstrap-sweetalert";
-import AlertContext from "../../components/utils/AlertContext";
+import {useDispatch} from "react-redux";
+import ReactInterval from "react-interval";
 
 const SingleItinerary = (props) => {
     const {isLoading, error, sendRequest: removeItinerary} = useHttp();
     const {isLoadingUpdateStatus, updateError, sendRequest: setOnEditStatus} = useHttp();
     const {isLoadingStatus, statusError, sendRequest: getItineraryStatus} = useHttp();
-    const [intervalId, setIntervalId] = useState();
     const loader = useContext(LoaderContext)
-    const alertContext = useContext(AlertContext);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (isLoading === true) {
@@ -73,35 +73,26 @@ const SingleItinerary = (props) => {
     const childrenCount = questionnaire.childrenCount;
     const startDate = fromDateToString(questionnaire.startDate.date);
     const endDate = fromDateToString(questionnaire.endDate.date);
-    const tripVibes = questionnaire.tripVibes; //TODO -> What i should do with this information ?
-    const myIndex = props.index;
-    const favoriteAttractions = questionnaire.favoriteAttractions.map(attraction => attraction.tagName.replaceAll(" ", "") + " ");
     const [status, setStatus] = useState(props.status);
     const itineraryId = props.itiniraryId;
+    const favoriteAttractions = questionnaire.favoriteAttractions
+        .map(attraction => attraction.tagName.replaceAll(" ", "") + " ");
 
     const updateStatus = () => {
-        getItineraryStatus({
-            url: process.env.REACT_APP_SERVER_URL + "/getItineraryStatus",
-            method: 'POST',
-            body: {
-                id: itineraryId,
-            }
-        },setStatus);
-    }
-
-    useEffect(() => {
         if (status === "AUTO_MODE") {
-            alertContext.fetch(itineraryId);
-            setIntervalId(setInterval(() => {
-                updateStatus();
-            }, 10000));
-        } else {
-            if (intervalId !== undefined) {
-                clearInterval(itineraryId);
-                setIntervalId(undefined);
-            }
+            getItineraryStatus({
+                url: process.env.REACT_APP_SERVER_URL + "/getItineraryStatus",
+                method: 'POST',
+                body: {
+                    id: itineraryId,
+                }
+            }, (result) => {
+                if (result === "COMPLETED") {
+                    setStatus("COMPLETED")
+                }
+            });
         }
-    }, [status])
+    }
 
     const renderTooltip = (props, text) => (
         <Tooltip id="tooltip" {...props}>
@@ -238,141 +229,144 @@ const SingleItinerary = (props) => {
         </SweetAlert>
     }
 
-
     return (
-        <Card style={{height: "100%", width: '25rem', marginRight: "0", marginBottom: "0"}}>
-            {showDeleteAlert && deleteAlert()}
-            <Card.Header style={{display: "inline"}}>
-                <Row>
-                    <Col md={10}>
-                        {startDate} - {endDate}
-                    </Col>
-                    <Col md={2}>
-                        <Button
-                            disabled={status === "AUTO_MODE"}
-                            onClick={() => setShowDeleteAlert(true)}
-                            style={{backgroundColor: "transparent", border: "none"}}
-                            size={"sm"}>
-                            <Trash color={"black"} strokeWidth={2}/>
-                        </Button>
-                    </Col>
-                </Row>
-            </Card.Header>
-            <Card.Body>
-                <Card.Title>{city}, {country}</Card.Title>
-                <Card.Text>
+        <>
+            <ReactInterval timeout={5000} enabled={true}
+                           callback={() => updateStatus()}/>
+            <Card style={{height: "100%", width: '25rem', marginRight: "0", marginBottom: "0"}}>
+                {showDeleteAlert && deleteAlert()}
+                <Card.Header style={{display: "inline"}}>
                     <Row>
-                        <Col>
-                            <Row>
-                                <Col>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        delay={{show: 250, hide: 400}}
-                                        overlay={(props) => renderTooltip(props, "Adults")}
-                                    >
+                        <Col md={10}>
+                            {startDate} - {endDate}
+                        </Col>
+                        <Col md={2}>
+                            <Button
+                                disabled={status === "AUTO_MODE"}
+                                onClick={() => setShowDeleteAlert(true)}
+                                style={{backgroundColor: "transparent", border: "none"}}
+                                size={"sm"}>
+                                <Trash color={"black"} strokeWidth={2}/>
+                            </Button>
+                        </Col>
+                    </Row>
+                </Card.Header>
+                <Card.Body>
+                    <Card.Title>{city}, {country}</Card.Title>
+                    <Card.Text>
+                        <Row>
+                            <Col>
+                                <Row>
+                                    <Col>
+                                        <OverlayTrigger
+                                            placement="top"
+                                            delay={{show: 250, hide: 400}}
+                                            overlay={(props) => renderTooltip(props, "Adults")}
+                                        >
                                         <span>
                                         <FaMale/>
                                         <FaFemale/>
                                         </span>
-                                    </OverlayTrigger>
-                                </Col>
-                                <Col>
-                                    <div style={{marginTop: "3px"}}> {adultsCount}</div>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <Row>
-                                <Col>
-                                    <OverlayTrigger
-                                        placement="bottom"
-                                        delay={{show: 250, hide: 400}}
-                                        overlay={(props) => renderTooltip(props, "Children")}
-                                    >
+                                        </OverlayTrigger>
+                                    </Col>
+                                    <Col>
+                                        <div style={{marginTop: "3px"}}> {adultsCount}</div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Row>
+                                    <Col>
+                                        <OverlayTrigger
+                                            placement="bottom"
+                                            delay={{show: 250, hide: 400}}
+                                            overlay={(props) => renderTooltip(props, "Children")}
+                                        >
                                         <span>
                                             <FaChild/>
                                         </span>
-                                    </OverlayTrigger>
-                                </Col>
-                                <Col>
-                                    <div style={{marginTop: "3px"}}> {childrenCount}</div>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            Status: {getStatus()}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            {/*<Card.Text className={"text-muted"}>*/}
-                            <Card.Text>
-                                Favorites Attractions: {getAttractionsIcons()}
-                                {/*{favoriteAttractions}*/}
-                            </Card.Text>
-                        </Col>
-                    </Row>
-                    {flight && <Row>
-                        <Col md={2}>
-                            <OverlayTrigger
-                                placement="bottom"
-                                delay={{show: 250, hide: 400}}
-                                overlay={(props) => renderTooltip(props, "Outbound")}
-                            >
+                                        </OverlayTrigger>
+                                    </Col>
+                                    <Col>
+                                        <div style={{marginTop: "3px"}}> {childrenCount}</div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                Status: {getStatus()}
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                {/*<Card.Text className={"text-muted"}>*/}
+                                <Card.Text>
+                                    Favorites Attractions: {getAttractionsIcons()}
+                                    {/*{favoriteAttractions}*/}
+                                </Card.Text>
+                            </Col>
+                        </Row>
+                        {flight && <Row>
+                            <Col md={2}>
+                                <OverlayTrigger
+                                    placement="bottom"
+                                    delay={{show: 250, hide: 400}}
+                                    overlay={(props) => renderTooltip(props, "Outbound")}
+                                >
                                         <span>
                                             <RiFlightTakeoffLine/>
                                         </span>
-                            </OverlayTrigger>
-                        </Col>
-                        <Col>
-                            <div
-                                style={{marginTop: "3px"}}> {"From: " + flight.Outbound.departureAirport + ", Arrival Time: " + flight.Outbound.arrivalTime}
-                            </div>
-                        </Col>
-                    </Row>}
-                    {flight && <Row>
-                        <Col md={2}>
-                            <OverlayTrigger
-                                placement="bottom"
-                                delay={{show: 250, hide: 400}}
-                                overlay={(props) => renderTooltip(props, "Return")}
-                            >
+                                </OverlayTrigger>
+                            </Col>
+                            <Col>
+                                <div
+                                    style={{marginTop: "3px"}}> {"From: " + flight.Outbound.departureAirport + ", Arrival Time: " + flight.Outbound.arrivalTime}
+                                </div>
+                            </Col>
+                        </Row>}
+                        {flight && <Row>
+                            <Col md={2}>
+                                <OverlayTrigger
+                                    placement="bottom"
+                                    delay={{show: 250, hide: 400}}
+                                    overlay={(props) => renderTooltip(props, "Return")}
+                                >
                                         <span>
                                             <MdFlightLand/>
                                         </span>
-                            </OverlayTrigger>
-                        </Col>
+                                </OverlayTrigger>
+                            </Col>
+                            <Col>
+                                <div
+                                    style={{marginTop: "3px"}}> {"From: " + flight.Return.departureAirport + ", Arrival Time: " + flight.Return.arrivalTime}
+                                </div>
+                            </Col>
+                        </Row>}
+                    </Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                    <Row>
                         <Col>
-                            <div
-                                style={{marginTop: "3px"}}> {"From: " + flight.Return.departureAirport + ", Arrival Time: " + flight.Return.arrivalTime}
+                            <div className="d-grid gap-2">
+                                <Button onClick={CheckoutBtnClickEventHandler} disabled={status === "AUTO_MODE"}>
+                                    View
+                                </Button>
                             </div>
                         </Col>
-                    </Row>}
-                </Card.Text>
-            </Card.Body>
-            <Card.Footer>
-                <Row>
-                    <Col>
-                        <div className="d-grid gap-2">
-                            <Button onClick={CheckoutBtnClickEventHandler} disabled={status === "AUTO_MODE"}>
-                                View
-                            </Button>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="d-grid gap-2">
-                            <Button onClick={updateToEditMode} disabled={status === "AUTO_MODE"}>
-                                Edit
-                            </Button>
-                        </div>
-                    </Col>
-                </Row>
-            </Card.Footer>
-        </Card>
+                        <Col>
+                            <div className="d-grid gap-2">
+                                <Button onClick={updateToEditMode} disabled={status === "AUTO_MODE"}>
+                                    Edit
+                                </Button>
+                            </div>
+                        </Col>
+                    </Row>
+                </Card.Footer>
+            </Card>
+        </>
     );
 };
 

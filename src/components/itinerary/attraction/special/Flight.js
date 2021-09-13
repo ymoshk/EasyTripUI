@@ -36,7 +36,7 @@ const Flight = (props) => {
                         </Col>
                         <Col>
                             <h4>Arrival Airport: {theFlight.arrivalAirport}</h4>
-                            <h4>Arrival time: {theFlight.arrivalAirport}</h4>
+                            <h4>Arrival time: {theFlight.arrivalTime}</h4>
                             <h4>Number of stops: {theFlight.stop}</h4>
                         </Col>
                     </Row>

@@ -35,7 +35,6 @@ const MyItineraries = () => {
         const newList = []
 
         userItineraries.forEach(itinerary => {
-            console.log(itinerary);
             if (itinerary.itineraryId !== id) {
                 newList.push(itinerary);
             }
@@ -47,8 +46,6 @@ const MyItineraries = () => {
     const renderRow = (offset) => {
         const buildCols = () => {
             const result = []
-
-            console.log(offset)
 
             for (let i = 0; i < 2 && (i + offset) < userItineraries.length; i++) {
                 result.push(<Col style={{marginBottom: 20}} key={uuid()}>

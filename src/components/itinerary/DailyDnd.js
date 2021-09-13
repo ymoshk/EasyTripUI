@@ -73,6 +73,7 @@ const DailyDnd = () => {
                             index={index}
                             calcHeight={true}
                             attractionNode={attractionNode}
+                            lastDay={dayIndex >= itinerary.itineraryDays.length - 1}
                             onChangeDuration={onChangeDurationEventHandler}/>
                     </div>
                 )}
@@ -110,6 +111,7 @@ const DailyDnd = () => {
             setDraggedStartPos(e.pageY)
         }
     }
+
 
     useEffect(() => {
         if (!helpersContext.isOnButton && !helpersContext.isDurationModalOn) {

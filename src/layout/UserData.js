@@ -55,8 +55,6 @@ const UserData = (props) => {
         } else {
             return (
                 <>
-                    <NavDropdown.Item href="profile">Profile</NavDropdown.Item>
-                    <NavDropdown.Divider/>
                     <span onClick={() => dispatch(logout())}><NavDropdown.Item>Log out</NavDropdown.Item></span>
                 </>
             )

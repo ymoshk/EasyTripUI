@@ -19,12 +19,39 @@ import Login from "./pages/auth/Login";
 import Registration from "./pages/auth/Registration";
 import StaticItinerary from "./components/itinerary/static/StaticItinerary";
 import MyItineraries from "./pages/myItineraries/MyItineraries";
+import useHttp from "./hooks/UseHttp";
+import {toast, ToastContainer} from "react-toastify";
+import ReactInterval from 'react-interval';
+import * as Constants from "./components/itinerary/Constants";
 
 
 function App() {
     const [showLoader, setShowLoader] = useState(false);
     const dispatch = useDispatch();
     const loggedInUserData = useSelector(state => state.authData.auth)
+    const {isLoadingStatus, statusError, sendRequest: getItineraryStatus} = useHttp();
+
+    const checkItineraries = () => {
+        const itineraries = localStorage.getItem(Constants.PROCESSING_ITINERARIES);
+        if (itineraries !== "") {
+            getItineraryStatusForAlert(itineraries);
+        }
+    }
+
+    const getItineraryStatusForAlert = (itinerary) => {
+        getItineraryStatus({
+            url: process.env.REACT_APP_SERVER_URL + "/getItineraryStatus",
+            method: 'POST',
+            body: {
+                id: itinerary,
+            }
+        }, (result) => {
+            if (result === "COMPLETED") {
+                toast.success("Your itinerary is ready!");
+                localStorage.setItem(Constants.PROCESSING_ITINERARIES, "");
+            }
+        })
+    }
 
     useEffect(() => {
         if (loggedInUserData === undefined) {
@@ -42,7 +69,20 @@ function App() {
                     }
                 }
             }>
+            <ReactInterval timeout={10000} enabled={true}
+                           callback={checkItineraries}/>
             <LoaderComponent/>
+            <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable={false}
+                pauseOnHover
+            />
             <div style={{height: "100%", backgroundColor: "white"}}
                  className={showLoader ? styles.fade : styles.regular}>
                 <Favicon url={icon}/>
